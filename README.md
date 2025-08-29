@@ -1,8 +1,8 @@
 ![Playpen Logo](./playpen-logo.png)
 
-[Pre-Print](https://arxiv.org/abs/2504.08590)
-
 All you need to get started with the LM Playpen Environment for Learning in Interaction.
+
+The training code for our [EMNLP paper](https://arxiv.org/abs/2504.08590) can be found [here](https://github.com/lm-playpen/playpen-paper-2025).
 
 ## Set up the playpen workspace
 
