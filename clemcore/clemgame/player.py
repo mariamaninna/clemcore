@@ -37,6 +37,8 @@ class Player(GameEventSource):
         super().__init__()
         self._model: backends.Model = model
         self._name: str = name  # set by master
+        self._extra_prompt = None  
+        self._extra_prompt_used = False
         self._game_role = game_role or self.__class__.__name__
         self._forget_extras: List[str] = forget_extras or []  # set by game developer
         self._messages: List[Dict] = []  # internal state
@@ -186,7 +188,24 @@ class Player(GameEventSource):
         Returns:
             The textual response produced by the player.
         """
+
+        if self._extra_prompt is not None and not self._extra_prompt_used:
+            self._extra_prompt_used = True
+
+            extra_context = {"role": "user", "content": self._extra_prompt}
+            extra_perspective = self.perceive_context(extra_context, log_event=True, memorize=True)
+
+            if isinstance(self.model, backends.CustomResponseModel):
+                extra_response = self._custom_response(extra_context)
+            elif isinstance(self.model, backends.HumanModel):
+                extra_response = self._terminal_response(extra_context)
+            else:
+                _, _, extra_response = self.model.generate_response(extra_perspective)
+
+            self.perceive_response(extra_response, log_event=True, memorize=True)
+
         perspective = self.perceive_context(context, memorize=memorize)
+        
         if isinstance(self.model, backends.CustomResponseModel):
             response_text = self._custom_response(context)
             response_object = dict(clem_player={"response": response_text, "model_name": self.model.name})

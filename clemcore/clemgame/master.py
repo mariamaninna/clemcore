@@ -157,6 +157,14 @@ class DialogueGameMaster(GameMaster):
                             to directly react to the initial prompt. Alternatively, overwrite on_before_game() and
                             use set_context_for(player) to set the player context.
         """
+        if extra_prompt is None:
+            import os
+            extra_prompt = os.environ.get('EXTRA_PROMPT')
+
+        if extra_prompt is not None:
+            player._extra_prompt = extra_prompt
+            player._extra_prompt_used = False
+
         player.register_many(self._loggers)  # player should record to the same interaction log
         player.name = f"Player {len(self.players_by_names) + 1}"
         if player.name in self.players_by_names:
