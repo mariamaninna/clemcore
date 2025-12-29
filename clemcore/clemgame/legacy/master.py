@@ -7,6 +7,9 @@ from clemcore import backends
 from clemcore.clemgame.master import GameMaster
 from clemcore.clemgame.registry import GameSpec
 from clemcore.clemgame.player import Player
+from clemcore.clemgame.errors import ParseError, GameError, RuleViolationError
+from clemcore.clemgame.agency.config import load_config
+from clemcore.clemgame.agency.reflect import ErrorReflectComponent
 
 
 class DialogueGameMaster(GameMaster):
@@ -82,6 +85,15 @@ class DialogueGameMaster(GameMaster):
                              f"but there is already a player registered with name '{player.name}'.")
         self.players_by_names[player.name] = player
         self.log_player(player.name, player.game_role, player.model.name)
+
+        game_config = load_config()
+        if game_config.get("reflection", {}).get("enabled", False):
+            use_player_model = game_config.get("reflection", {}).get("use_player_model", True)
+            reflection_model = player.model if use_player_model else None
+            reflect_comp = ErrorReflectComponent(reflection_model)
+            player.set_reflect_component(reflect_comp)
+
+
         if initial_prompt is not None:
             assert isinstance(initial_prompt, (str, dict)), \
                 f"The initial prompt must be a str or dict, but is {type(initial_prompt)}"
@@ -203,9 +215,43 @@ class DialogueGameMaster(GameMaster):
         # todo: it seems we should change the order here: Parse should come first, and then validate.
         # While parse might throw a parsing (format error) validate would check solely for satisfied game rules.
         # Note: this would allow to cut off too long responses (during parse) and to only validate on the cut off piece.
-        if self._validate_player_response(self.current_player, response):
+        try:
+            if not self._validate_player_response(self.current_player, response):
+                print(f"DEBUG: Validation failed for response: {response[:50]}...")
+                raise GameError("Validation failed")
+
             parsed_response = self._parse_response(self.current_player, response)
+
             self._on_valid_player_response(self.current_player, parsed_response)
+
+        except ParseError as error:
+
+            self.current_player.set_error_for_reflection(
+                error_type="ParseError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
+
+
+        except RuleViolationError as error:
+            print(f"DEBUG: RuleViolationError caught! Error: {error}, Reason: {error.reason if hasattr(error, 'reason') else 'N/A'}")
+            self.current_player.set_error_for_reflection(
+                error_type="RuleViolationError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
+            print(f"DEBUG: set_error_for_reflection called with response: {response[:50]}...")
+
+        except GameError as error:
+            print(f"DEBUG: GameError caught! Error: {error}")
+            self.current_player.set_error_for_reflection(
+                error_type="GameError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
+            print(f"DEBUG: set_error_for_reflection called for GameError")
+
+
 
         # determine if the current player should pass the turn to the next player or get another turn:
         if self._should_pass_turn():  # True = move on to next player

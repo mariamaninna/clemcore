@@ -23,7 +23,8 @@ class Player(GameEventSource):
                  *,
                  name: str = None,
                  game_role: str = None,
-                 forget_extras: List[str] = None
+                 forget_extras: List[str] = None,
+                 reflect_component = None
                  ):
         """
         Args:
@@ -33,16 +34,19 @@ class Player(GameEventSource):
             forget_extras: A list of context entries (keys) to forget after response generation.
                            This is useful to not keep image extras in the player's message history,
                            but still to prompt the model with an image given in the context.
+            reflect_component: an optional reflection component for error correction and learning.
         """
         super().__init__()
         self._model: backends.Model = model
         self._name: str = name  # set by master
-        self._extra_prompt = None  
+        self._extra_prompt = None
         self._extra_prompt_used = False
         self._game_role = game_role or self.__class__.__name__
         self._forget_extras: List[str] = forget_extras or []  # set by game developer
         self._messages: List[Dict] = []  # internal state
         self._last_context = None  # internal state
+        self._reflect_component = reflect_component  # reflection component
+        self._pending_error: Optional[Dict] = None  # error to reflect on
 
     def reset(self):
         """Reset the player to its initial state.
@@ -107,6 +111,28 @@ class Player(GameEventSource):
             A list of message dictionaries representing the conversation history.
         """
         return self._messages
+
+    def set_reflect_component(self, reflect_component):
+        """Set the reflection component for this player.
+
+        Args:
+            reflect_component: A ReflectComponent instance.
+        """
+        self._reflect_component = reflect_component
+
+    def set_error_for_reflection(self, error_type: str, error_reason: str, error_response: str):
+        """Set error information for reflection on next turn.
+
+        Args:
+            error_type: Type of error (e.g., "ParseError", "GameError").
+            error_reason: Description of the error.
+            error_response: The response that caused the error.
+        """
+        self._pending_error = {
+            "type": error_type,
+            "reason": error_reason,
+            "response": error_response
+        }
 
     def perceive_context(self, context: Dict, *, log_event=True, memorize=True) -> List[Dict]:
         """Processes a new context message and returns the player's updated perspective.
@@ -189,6 +215,8 @@ class Player(GameEventSource):
             The textual response produced by the player.
         """
 
+        ################################ new
+
         if self._extra_prompt is not None and not self._extra_prompt_used:
             self._extra_prompt_used = True
 
@@ -204,8 +232,52 @@ class Player(GameEventSource):
 
             self.perceive_response(extra_response, log_event=True, memorize=True)
 
+        ################################
         perspective = self.perceive_context(context, memorize=memorize)
-        
+
+        if self._reflect_component is not None and self._pending_error is not None:
+            print(f"DEBUG: Player has pending error: {self._pending_error.get('type')}, generating reflection...")
+            error_response = self._pending_error.get("response", "")
+            reflection = self._reflect_component.generate_reflection(self._pending_error,error_response,self._messages)
+            if reflection is not None:
+                print(f"DEBUG: Reflection generated: {reflection[:100]}...")
+                self._messages.append({"role": "user", "content": reflection})
+                perspective.append({"role": "user", "content": reflection})
+                print(f"DEBUG: Reflection added to messages and perspective. Total messages: {len(self._messages)}")
+
+                if not hasattr(self, '_reflection_count'):
+                    self._reflection_count = 0
+                self._reflection_count += 1
+                self.log_key(f"reflection_{self._reflection_count}", reflection)
+
+                action = {
+                    'type': 'reflection',
+                    'content': reflection,
+                    'error_type': self._pending_error.get('type'),
+                    'error_reason': self._pending_error.get('reason')
+                    }
+                self.log_event(from_=self.name, to=self.name, action=action)
+                print(f"DEBUG: Reflection logged to transcript")
+
+                self._pending_error = None
+                print(f"DEBUG: Pending error cleared")
+            else:
+                print(f"DEBUG: Reflection generation returned None")
+
+        print(f"DEBUG: Generating response with perspective of {len(perspective)} messages")
+        print(f"PRINTING THE PERSPECTIVE: {perspective}")
+        print(f"DEBUG: Last 3 message roles in perspective: {[msg.get('role') for msg in perspective[-3:]]}")
+
+
+        system_msgs = [(i, msg) for i, msg in enumerate(perspective) if msg.get('role') == 'system']
+        if system_msgs:
+            print(f"DEBUG: Found {len(system_msgs)} system message(s) (reflections) in perspective:")
+            for idx, msg in system_msgs:
+                content_preview = msg['content'][:80].replace('\n', ' ')
+                print(f"  [Position {idx}] {content_preview}...")
+        else:
+            print(f"DEBUG: No system messages (reflections) in perspective")
+
         if isinstance(self.model, backends.CustomResponseModel):
             response_text = self._custom_response(context)
             response_object = dict(clem_player={"response": response_text, "model_name": self.model.name})

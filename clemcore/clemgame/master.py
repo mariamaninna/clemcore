@@ -6,11 +6,13 @@ from pathlib import Path
 from typing import List, Dict, Tuple, Any, Union, final
 
 from clemcore import backends
-from clemcore.clemgame.errors import ParseError, GameError
+from clemcore.clemgame.errors import ParseError, GameError, RuleViolationError
 from clemcore.clemgame.events import GameEventSource
 from clemcore.clemgame.player import Player
 from clemcore.clemgame.registry import GameSpec
 from clemcore.clemgame.resources import GameResourceLocator
+from clemcore.clemgame.agency.config import load_config
+from clemcore.clemgame.agency.reflect import ErrorReflectComponent
 
 module_logger = logging.getLogger(__name__)
 
@@ -165,6 +167,13 @@ class DialogueGameMaster(GameMaster):
             player._extra_prompt = extra_prompt
             player._extra_prompt_used = False
 
+        game_config = load_config()
+        if game_config.get("reflection", {}).get("enabled", False):
+            use_player_model = game_config.get("reflection", {}).get("use_player_model", True)
+            reflection_model = player.model if use_player_model else None
+            reflect_comp = ErrorReflectComponent(reflection_model)
+            player.set_reflect_component(reflect_comp)
+
         player.register_many(self._loggers)  # player should record to the same interaction log
         player.name = f"Player {len(self.players_by_names) + 1}"
         if player.name in self.players_by_names:
@@ -299,8 +308,28 @@ class DialogueGameMaster(GameMaster):
         except ParseError as error:
             self.count_request_violation()
             self._on_parse_error(error)
+            # Signal error to player for reflection
+            self.current_player.set_error_for_reflection(
+                error_type="ParseError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
+
+        except RuleViolationError as error:
+            self.current_player.set_error_for_reflection(
+                error_type="RuleViolationError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
+
         except GameError as error:
             self._on_game_error(error)
+            # Signal error to player for reflection
+            self.current_player.set_error_for_reflection(
+                error_type="GameError",
+                error_reason=str(error.reason) if hasattr(error, 'reason') else str(error),
+                error_response=response
+            )
 
         self.info["turn_score"] = self.compute_turn_score()
         self.info["turn_feedback"] = self.get_turn_feedback()
