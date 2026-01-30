@@ -3,7 +3,7 @@ import collections
 import logging
 from copy import deepcopy
 from pathlib import Path
-from typing import List, Dict, Tuple, Any, Union, final
+from typing import Any, final
 
 from clemcore import backends
 from clemcore.clemgame.errors import ParseError, GameError
@@ -15,24 +15,10 @@ from clemcore.clemgame.resources import GameResourceLocator
 module_logger = logging.getLogger(__name__)
 
 
-class EnvLike(abc.ABC):
-    """
-    An interface that allows to intervene between observing the state of a game (observe) and making progress (step).
-    """
-
-    @abc.abstractmethod
-    def observe(self) -> Tuple[Player, Dict]:
-        pass
-
-    @abc.abstractmethod
-    def step(self, response: str) -> Tuple[bool, Dict]:
-        pass
-
-
-class GameMaster(EnvLike, GameEventSource):
+class GameMaster(GameEventSource):
     """Base class to contain game-specific functionality."""
 
-    def __init__(self, game_spec: GameSpec, experiment: Dict, player_models: List[backends.Model]):
+    def __init__(self, game_spec: GameSpec, experiment: dict, player_models: list[backends.Model]):
         """
         Args:
             game_spec: the game specifications for this game as given in the clemgame.json file
@@ -41,22 +27,43 @@ class GameMaster(EnvLike, GameEventSource):
         """
         super().__init__()
         self.game_spec = game_spec
-        self.experiment: Dict = experiment
+        self.experiment = experiment
         # Automatic player expansion: When only a single model is given, then use this model given for each game role.
         if len(player_models) == 1 and game_spec.players > 1:
             player_models = [player_models[0]] * game_spec.players  # keeps original list untouched
         if len(player_models) != game_spec.players:
             raise ValueError(f"{game_spec.game_name} requires {game_spec.players} players, "
                              f"but {len(player_models)} were given: {[m.name for m in player_models]}")
-        self.player_models: List[backends.Model] = player_models
+        self.player_models: list[backends.Model] = player_models
         # Note: Using GameResourceLocator could be obsolete, when all necessary info is in the instances file.
         self.game_resources = GameResourceLocator(game_spec.game_name, game_spec.game_path)
+        self._current_player: Player | None = None
 
-    def load_json(self, file_path: Union[str, Path]):
+    @property
+    def current_player(self) -> Player:
+        """Get the current player whose turn it is.
+        Returns:
+            The Player instance whose turn it is to respond.
+        """
+        return self._current_player
+
+    def load_json(self, file_path: str | Path):
         return self.game_resources.load_json(file_path)
 
-    def load_template(self, file_path: Union[str, Path]):
+    def load_template(self, file_path: str | Path):
         return self.game_resources.load_template(file_path)
+
+    def log_gm_to_player(self, context, player):
+        # Log the context that was sent to the player (GM -> Player)
+        action = {'type': 'send message', 'content': context["content"], 'label': "context"}
+        if "image" in context:
+            action["image"] = context["image"]
+        self.log_event(from_='GM', to=player.name, action=action)
+
+    def log_player_to_gm(self, response, player):
+        # Log the response from the player (Player -> GM)
+        self.log_event(from_=player.name, to="GM",
+                       action={'type': 'get message', 'content': response, 'label': "response"})
 
     def log_to_self(self, type_: str, value: Any):
         """Logs an action of the passed type from GM to GM.
@@ -70,27 +77,58 @@ class GameMaster(EnvLike, GameEventSource):
     @abc.abstractmethod
     def setup(self, **kwargs):
         """Load resources and prepare everything to play the game.
-        Needs to log the player infos via self.log_player().
-        Called by the game's GameBenchmark run method for each game instance.
+
         Args:
             kwargs: Keyword arguments used to set up the GameMaster instance.
         """
         pass
 
     @abc.abstractmethod
-    def is_done(self) -> bool:
+    def before_game(self):
         pass
 
     @abc.abstractmethod
-    def has_started(self) -> bool:
+    def step(self, response: str) -> tuple[bool, dict]:
+        """Apply the player's response, advance the game state, and return (done, info).
+
+        Args:
+            response: The textual response (action) from the current player.
+
+        Returns:
+            Tuple of (done, info) where done indicates if the game has ended,
+            and info contains step metadata (e.g., turn_score, episode_score).
+        """
         pass
+
+    @abc.abstractmethod
+    def get_players(self) -> list[Player]:
+        """Get a list of the players.
+        Returns:
+            List of Player instances in the order they are added.
+        """
+        pass
+
+    @abc.abstractmethod
+    def get_context_for(self, player: Player) -> dict | None:
+        """Get the context for the specified player.
+
+        The context is what the player should respond to. Returns None if no context
+        has been set for the player yet (e.g., game aborted before their turn).
+
+        Args:
+            player: The player to get the context for.
+        Returns:
+            A dict with at least 'role' and 'content' keys, or None if no context available.
+        """
+        pass
+
 
 class DialogueGameMaster(GameMaster):
     """Extended GameMaster, implementing turns as described in the clembench paper.
     Has most logging and gameplay procedures implemented, including convenient logging methods.
     """
 
-    def __init__(self, game_spec: GameSpec, experiment: dict, player_models: List[backends.Model]):
+    def __init__(self, game_spec: GameSpec, experiment: dict, player_models: list[backends.Model]):
         """
         Args:
             name: The name of the game (as specified in game_registry).
@@ -100,30 +138,22 @@ class DialogueGameMaster(GameMaster):
         """
         super().__init__(game_spec, experiment, player_models)
         # the logging works with an internal mapping of "Player N" -> Player
-        self.players_by_names: Dict[str, Player] = collections.OrderedDict()
-        self.context_for_player: Dict[str, Dict] = dict()  # context entries look like {"role":"user", "content": ...}
-        self.initial_prompt_for_player: Dict[str, Dict] = dict()
-        self.started = False
-        self.current_round: int = 0
-        self._current_player: Player = None
+        self.players_by_names: dict[str, Player] = collections.OrderedDict()
+        self.context_for_player: dict[str, dict] = dict()  # context entries look like {"role":"user", "content": ...}
+        self.initial_prompt_for_player: dict[str, dict] = dict()
+        self.current_round: int = -1
         self._current_player_idx: int = 0
         self.info = {}
 
     def __setstate__(self, state):
         self.__dict__.update(state)
-        for player in self.players_by_names.values():  # sync game recorders (not copied in Player)
-            player.register_many(self._loggers)
 
     @property
     def game_state(self):
         return None
 
-    @property
-    def current_player(self) -> Player:
-        return self._current_player
-
     @final
-    def get_players(self) -> List[Player]:
+    def get_players(self) -> list[Player]:
         """Get a list of the players.
         Returns:
             List of Player instances in the order they are added.
@@ -134,8 +164,8 @@ class DialogueGameMaster(GameMaster):
     def add_player(self,
                    player: Player,
                    *,
-                   initial_prompt: Union[str, Dict] = None,
-                   initial_context: Union[str, Dict] = None):
+                   initial_prompt: str | dict = None,
+                   initial_context: str | dict = None):
         """Add a player to the game. The same player cannot be added twice.
         The player identity is determined by the player's name.
 
@@ -157,21 +187,11 @@ class DialogueGameMaster(GameMaster):
                             to directly react to the initial prompt. Alternatively, overwrite on_before_game() and
                             use set_context_for(player) to set the player context.
         """
-        if extra_prompt is None:
-            import os
-            extra_prompt = os.environ.get('EXTRA_PROMPT')
-
-        if extra_prompt is not None:
-            player._extra_prompt = extra_prompt
-            player._extra_prompt_used = False
-
-        player.register_many(self._loggers)  # player should record to the same interaction log
         player.name = f"Player {len(self.players_by_names) + 1}"
         if player.name in self.players_by_names:
             raise ValueError(f"Player names must be unique, "
                              f"but there is already a player registered with name '{player.name}'.")
         self.players_by_names[player.name] = player
-        self.log_player(player.name, player.game_role, player.model.name)
         if initial_prompt is not None:
             assert isinstance(initial_prompt, (str, dict)), \
                 f"The initial prompt must be a str or dict, but is {type(initial_prompt)}"
@@ -194,19 +214,18 @@ class DialogueGameMaster(GameMaster):
 
     @final
     def setup(self, **kwargs):
-        """Load resources and prepare everything to play the game.
-        Needs to log the players dictionary via self.log_players(players_dict).
-        Intended to be left as-is by inheriting classes. Implement game-specific setup functionality in the _on_setup
-        method.
-        Called by the game's GameBenchmark run method for each game instance.
+        """Load resources and prepare everything to play the game instance specified in kwargs.
         Args:
             kwargs: Keyword arguments used to set up the GameMaster instance. This is usually a game instance object
                 read from the game's instances.json.
         """
         self._on_setup(**kwargs)
         self._current_player = self.get_players()[self._current_player_idx]
+
+    @final
+    def before_game(self):
         self._on_before_game()
-        self.started = True
+        self.current_round += 1
         self._on_before_round()
 
     @abc.abstractmethod
@@ -231,7 +250,7 @@ class DialogueGameMaster(GameMaster):
             content: The text content to be added to the initial prompt.
             extras: Additional content to be merged into the context e.g. information about images
         """
-        if self.has_started():
+        if self.current_round >= 0:
             raise RuntimeError("The initial_prompt cannot be set when the game is already running."
                                "This feature only usable during game setup.")
         if player is None:
@@ -258,14 +277,25 @@ class DialogueGameMaster(GameMaster):
         self.context_for_player[player.name] = context
 
     @final
-    def get_context_for(self, player) -> Dict:
-        assert player is not None, "Cannot get player context for 'None'"
-        assert player.name in self.context_for_player, f"No context set for {player.name}"
+    def get_context_for(self, player: Player) -> dict | None:
+        """
+        Get the context for the specified player. This is a pure function with no side effects.
+
+        The initial_prompt (if set) is always merged with the context.
+
+        Returns:
+            The context dict with 'role' and 'content' keys, or None if no context has been set.
+        """
+        if player is None or player.name not in self.context_for_player:
+            return None
         context = self.context_for_player[player.name]
-        assert "role" in context, f"Player context must have a 'role' entry"
-        assert context["role"] == "user", f"Role of player context must be 'user'"
-        assert "content" in context, f"Player context must have a 'content' entry"
-        initial_prompt = self.initial_prompt_for_player.pop(player.name, None)
+        if "role" not in context:
+            raise ValueError("Player context must have a 'role' entry")
+        if context["role"] != "user":
+            raise ValueError("Role of player context must be 'user'")
+        if "content" not in context:
+            raise ValueError("Player context must have a 'content' entry")
+        initial_prompt = self.initial_prompt_for_player.get(player.name)
         if initial_prompt is not None:
             content = context["content"]
             initial_prompt_content = initial_prompt["content"]
@@ -273,18 +303,7 @@ class DialogueGameMaster(GameMaster):
         return context
 
     @final
-    def observe(self) -> Tuple[Player, Dict]:
-        """
-        Observe the current player context.
-        Returns:
-            Current Player object, current player context
-        """
-        player = self.current_player
-        context = self.get_context_for(player)
-        return player, context
-
-    @final
-    def step(self, response: str) -> Tuple[bool, Dict]:
+    def step(self, response: str) -> tuple[bool, dict]:
         """
         Verifies the response and transitions the game by applying the current player's response for the turn.
 
@@ -293,6 +312,15 @@ class DialogueGameMaster(GameMaster):
         Returns:
             Bool determining if game is done, info about the processed game step
         """
+        # Log the context that was sent to the player (GM -> Player)
+        context = self.get_context_for(self.current_player)
+
+        # Log message exchange (assuming the step response is from the current player and context)
+        self.log_gm_to_player(context, self.current_player)
+        self.log_player_to_gm(response, self.current_player)
+
+        # Consume the initial_prompt (if set) now that we've committed to this turn
+        self.initial_prompt_for_player.pop(self.current_player.name, None)
         try:
             parsed_response = self._parse_response(self.current_player, response)  # throws ParseError
             self._advance_game(self.current_player, parsed_response)  # throws GameError
@@ -318,8 +346,6 @@ class DialogueGameMaster(GameMaster):
             self._on_after_game()
             self.log_game_end()
             self.info["episode_score"] = self.compute_episode_score()
-            for player in self.get_players():
-                player.reset()
         elif self._start_next_round():  # prepare next round only when game has not ended yet
             self.__prepare_next_round()
 
@@ -363,7 +389,7 @@ class DialogueGameMaster(GameMaster):
         self.log_next_round()  # add record entry for player turns
         self._on_before_round()
 
-    def get_turn_feedback(self):
+    def get_turn_feedback(self) -> str | None:
         """Optional textual feedback to be fed back to model (for playpen RL).
         Returns:
             A verbal feedback about the player's response given the context
@@ -371,7 +397,7 @@ class DialogueGameMaster(GameMaster):
         return None
 
     @abc.abstractmethod
-    def compute_turn_score(self):
+    def compute_turn_score(self) -> float:
         """Score response based on last context (for playpen RL)
         Returns:
             The performance score for a player's response given its last context
@@ -379,7 +405,7 @@ class DialogueGameMaster(GameMaster):
         pass
 
     @abc.abstractmethod
-    def compute_episode_score(self):
+    def compute_episode_score(self) -> float:
         """
         Returns:
             The performance of the agent over the whole episode
@@ -434,12 +460,6 @@ class DialogueGameMaster(GameMaster):
             A bool, True if game continues, False if game should stop.
         """
         pass
-
-    def is_done(self) -> bool:
-        return not self._does_game_proceed()
-
-    def has_started(self) -> bool:
-        return self.started
 
     def _on_game_error(self, error: GameError):
         """

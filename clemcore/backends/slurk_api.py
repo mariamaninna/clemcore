@@ -4,7 +4,6 @@ from typing import List, Dict, Tuple, Any
 
 import requests
 import socketio
-from retry import retry
 
 from clemcore import backends
 from clemcore.backends import ModelSpec, Model
@@ -81,8 +80,14 @@ class SlurkClient:
 class Slurk(backends.RemoteBackend):
 
     def _make_api_client(self):
-        creds = backends.load_credentials(NAME)
-        return SlurkClient(creds[NAME]["slurk_host"], creds[NAME]["api_key"])  # slurk admin token
+        # Deprecatioin warning: use base_url instead of slurk_host in key.json
+        url = self.key.get("slurk_host", None) or self.key.get("base_url", None)
+        if url is None:
+            raise ValueError(
+                f"Missing connection URL for {self.__class__.__name__}. "
+                "Please define 'slurk_host' or 'base_url' in your key registry."
+            )
+        return SlurkClient(url, self.key["api_key"])  # slurk admin token
 
     def get_model_for(self, model_spec: ModelSpec) -> Model:
         # Note: If you want to customize the room layout for a specific game, then create a new model registry entry
@@ -119,17 +124,20 @@ class SlurkModel(backends.Model):  # todo: make this HumanModel when HumanModel 
 
     def __init__(self, user_id: int, user_token: str, room_id: int, model_spec: ModelSpec):
         super().__init__(model_spec)
+        self.join_timeout = self.model_spec.get("join_timeout")
+        if self.join_timeout is None:
+            self.join_timeout = 300
+            stdout_logger.warning(f"Missing join_timeout in ModelSpec. Using default value of {self.join_timeout}.")
+        self.response_timeout = self.model_spec.get("response_timeout")
+        if self.response_timeout is None:
+            self.response_timeout = 300
+            stdout_logger.warning(f"Missing response_timeout in ModelSpec. Using default value of {self.response_timeout}.")
         self.user_id = user_id
         self.user_token = user_token
         self.sio = socketio.Client(logger=logger)
         self.sync_event = self.sio.eio.create_event()  # the vehicle to wait until user responds
 
-        """
-            TODO: For now we can only allow a single room and player.
-            What would it mean to start the benchmark once, but let multiple users accomplish it?
-            For this we would need a separate approach that starts an individual benchmark run
-            when a user connects.
-        """
+        # Note: Each player gets its own room because all communication must go through the game master
         self.room_id = room_id
         self.user_messages = list()  # we need an object to carry over the response between threads
 
@@ -157,7 +165,7 @@ class SlurkModel(backends.Model):  # todo: make this HumanModel when HumanModel 
         if messages:
             latest_response = messages[-1]["content"]
         self.sio.emit("text", {"message": latest_response, "room": self.room_id})
-        if not self.sync_event.wait(timeout=self.model_spec.response_timout):
+        if not self.sync_event.wait(timeout=self.response_timeout):
             pass  # no user response
         self.sync_event.clear()
         user_response = self.user_messages[0]
@@ -166,7 +174,7 @@ class SlurkModel(backends.Model):  # todo: make this HumanModel when HumanModel 
 
     def wait_for_participant(self):
         # this works because: self.sio.on("status", check_and_unblock)
-        if not self.sync_event.wait(timeout=self.model_spec.join_timout):
+        if not self.sync_event.wait(timeout=self.join_timeout):
             raise RuntimeError("no user joined the slurk room")
         self.sync_event.clear()
 

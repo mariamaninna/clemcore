@@ -12,7 +12,8 @@ from transformers import AutoTokenizer, AutoConfig
 
 from jinja2 import TemplateError
 import clemcore.backends as backends
-from clemcore.backends.utils import ensure_alternating_roles
+from clemcore.backends.key_registry import KeyRegistry
+from clemcore.backends.utils import ensure_alternating_roles, ContextExceededError
 
 logger = logging.getLogger(__name__)
 
@@ -34,8 +35,8 @@ def load_config_and_tokenizer(model_spec: backends.ModelSpec) -> Union[AutoToken
     if 'requires_api_key' in model_spec['model_config']:
         if model_spec['model_config']['requires_api_key']:
             # load HF API key:
-            creds = backends.load_credentials("huggingface")
-            api_key = creds["huggingface"]["api_key"]
+            key = KeyRegistry.from_json().get_key_for("huggingface")
+            api_key = key["api_key"]
             use_api_key = True
         else:
             requires_api_key_info = (f"{model_spec['model_name']} registry setting has requires_api_key, "
@@ -209,9 +210,9 @@ class VLLMLocalModel(backends.Model):
             logger.info(f"Context token limit for {self.model_spec.model_name} exceeded: "
                         f"{context_check[1]}/{context_check[3]}")
             # fail gracefully:
-            raise backends.ContextExceededError(f"Context token limit for {self.model_spec.model_name} exceeded",
-                                                tokens_used=context_check[1], tokens_left=context_check[2],
-                                                context_size=context_check[3])
+            raise ContextExceededError(f"Context token limit for {self.model_spec.model_name} exceeded",
+                                       tokens_used=context_check[1], tokens_left=context_check[2],
+                                       context_size=context_check[3])
 
         # vLLM sampling parameters:
         sampling_params = vllm.SamplingParams(

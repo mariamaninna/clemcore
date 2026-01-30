@@ -27,20 +27,12 @@ class DialogueGameMaster(GameMaster):
         self.players_by_names: Dict[str, Player] = collections.OrderedDict()
         self.context_for_player: Dict[str, Dict] = dict()  # context entries look like {"role":"user", "content": ...}
         self.initial_prompt_for_player: Dict[str, Dict] = dict()
-        self.started = False
-        self.current_round: int = 0
-        self._current_player: Player = None
+        self.current_round: int = -1
         self._current_player_idx: int = 0
         self.info = {}
 
     def __setstate__(self, state):
         self.__dict__.update(state)
-        for player in self.players_by_names.values():  # sync game recorders (not copied in Player)
-            player.register_many(self._loggers)
-
-    @property
-    def current_player(self) -> Player:
-        return self._current_player
 
     def get_players(self) -> List[Player]:
         """Get a list of the players.
@@ -75,13 +67,11 @@ class DialogueGameMaster(GameMaster):
                             to directly react to the initial prompt. Alternatively, overwrite on_before_game() and
                             use set_context_for(player) to set the player context.
         """
-        player.register_many(self._loggers)  # player should record to the same interaction log
         player.name = f"Player {len(self.players_by_names) + 1}"
         if player.name in self.players_by_names:
             raise ValueError(f"Player names must be unique, "
                              f"but there is already a player registered with name '{player.name}'.")
         self.players_by_names[player.name] = player
-        self.log_player(player.name, player.game_role, player.model.name)
         if initial_prompt is not None:
             assert isinstance(initial_prompt, (str, dict)), \
                 f"The initial prompt must be a str or dict, but is {type(initial_prompt)}"
@@ -103,19 +93,16 @@ class DialogueGameMaster(GameMaster):
                 self.set_context_for(player, initial_context)
 
     def setup(self, **kwargs):
-        """Load resources and prepare everything to play the game.
-        Needs to log the players dictionary via self.log_players(players_dict).
-        Intended to be left as-is by inheriting classes. Implement game-specific setup functionality in the _on_setup
-        method.
-        Called by the game's GameBenchmark run method for each game instance.
+        """Load resources and prepare everything to play the game instance specified in kwargs.
         Args:
-            kwargs: Keyword arguments used to set up the GameMaster instance. This is usually a game instance object
-                read from the game's instances.json.
+            kwargs: Keyword arguments used to set up the GameMaster instance.  This is usually a game instance object read from the game's instances.json.
         """
         self._on_setup(**kwargs)
         self._current_player = self.get_players()[self._current_player_idx]
+
+    def before_game(self):
         self._on_before_game()
-        self.started = True
+        self.current_round += 1
         self._on_before_round()
 
     @abc.abstractmethod
@@ -142,7 +129,7 @@ class DialogueGameMaster(GameMaster):
             content: The text content to be added to the initial prompt.
             extras: Additional content to be merged into the context e.g. information about images
         """
-        if self.has_started():
+        if self.current_round >= 0:
             raise RuntimeError("The initial_prompt cannot be set when the game is already running."
                                "This feature only usable during game setup.")
         if player is None:
@@ -168,34 +155,50 @@ class DialogueGameMaster(GameMaster):
         self.context_for_player[player.name] = context
 
     def get_context_for(self, player) -> Dict:
-        assert player is not None, "Cannot get player context for 'None'"
-        assert player.name in self.context_for_player, f"No context set for {player.name}"
+        """
+        Get the context for the specified player. This is a pure function with no side effects.
+
+        The initial_prompt (if set) is always merged with the context.
+
+        Returns:
+            The context dict with 'role' and 'content' keys, or None if no context has been set.
+        """
+        if player is None or player.name not in self.context_for_player:
+            return None
         context = self.context_for_player[player.name]
-        assert "role" in context, f"Player context must have a 'role' entry"
-        assert context["role"] == "user", f"Role of player context must be 'user'"
-        assert "content" in context, f"Player context must have a 'content' entry"
-        initial_prompt = self.initial_prompt_for_player.pop(player.name, None)
+        if "role" not in context:
+            raise ValueError("Player context must have a 'role' entry")
+        if context["role"] != "user":
+            raise ValueError("Role of player context must be 'user'")
+        if "content" not in context:
+            raise ValueError("Player context must have a 'content' entry")
+        initial_prompt = self.initial_prompt_for_player.get(player.name)
         if initial_prompt is not None:
             content = context["content"]
             initial_prompt_content = initial_prompt["content"]
             context = {**initial_prompt, **context, "content": "\n\n".join([initial_prompt_content, content])}
         return context
 
-    def observe(self) -> Tuple[Player, Dict]:
-        player = self.current_player
-        context = self.get_context_for(player)
-        return player, context
-
     def step(self, response: str) -> Tuple[bool, Dict]:
         """
         Transitions the game state by applying the current player's response.
 
-        :param response: The response (verbal action) of the current player.
-        :return: done, info
+        Args:
+            response: The response (verbal action) of the current player.
+        Returns:
+            Bool determining if game is done, info about the processed game step
         """
+        context = self.get_context_for(self.current_player)
+
+        # Log message exchange (assuming the step response is from the current player and context)
+        self.log_gm_to_player(context, self.current_player)
+        self.log_player_to_gm(response, self.current_player)
+
+        # Consume the initial_prompt (if set) now that we've committed to this turn
+        self.initial_prompt_for_player.pop(self.current_player.name, None)
+
         # compute scores first, so that we are sure that the player's context
         # can still be retrieved (state has not changed yet)
-        context = self.get_context_for(self.current_player)
         self.info["response_score"] = self.compute_response_score(response, context)
         self.info["response_feedback"] = self.get_response_feedback(response, context)
         self.info["episode_score"] = 0
@@ -220,8 +223,6 @@ class DialogueGameMaster(GameMaster):
             self._on_after_game()
             self.log_game_end(auto_count_logging=False)
             self.info["episode_score"] = self.compute_episode_score()
-            for player in self.get_players():
-                player.reset()
         elif self._start_next_round():  # prepare next round only when game has not ended yet
             self.__prepare_next_round()
 
@@ -244,7 +245,8 @@ class DialogueGameMaster(GameMaster):
         Default: The gamer master passes the turn to the next player in the player list (order as added).
         Starting again with the first player, when all players have had their turn(s).
 
-        :return: the next (current) player
+        Returns:
+            The next (current) player
         """
         self._current_player_idx = (self._current_player_idx + 1) % len(self.players_by_names)
         return self.get_players()[self._current_player_idx]
@@ -255,7 +257,8 @@ class DialogueGameMaster(GameMaster):
 
         Default: Start next round when we cycled through the whole list i.e. it is again the first player's turn.
 
-        :return: True, when to start a new round
+        Returns:
+            True, when to start a new round
         """
         return self._current_player_idx == 0
 
@@ -347,12 +350,6 @@ class DialogueGameMaster(GameMaster):
             A bool, True if game continues, False if game should stop.
         """
         pass
-
-    def is_done(self) -> bool:
-        return not self._does_game_proceed()
-
-    def has_started(self) -> bool:
-        return self.started
 
     def _on_before_round(self):
         """Executed in the play loop before a new round of gameplay starts.

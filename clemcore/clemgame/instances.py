@@ -14,6 +14,23 @@ from clemcore.clemgame.resources import GameResourceLocator, load_json
 stdout_logger = logging.getLogger("clemcore.run")
 
 
+def to_instance_filter(dataset) -> Callable[[str, str], List[int]]:
+    """
+    Converts the given dataset into a game instance filter function.
+
+    Args:
+        dataset: a list of dict-like rows with game, experiment, task_id values
+
+    Returns:
+        A callable mapping of (game_name, experiment_name) tuples to lists of task ids (game instance ids)
+    """
+    tasks_by_group = collections.defaultdict(list)
+    for row in dataset:
+        key = (row['game'], row['experiment'])
+        tasks_by_group[key].append(int(row['task_id']))
+    return lambda game, experiment: tasks_by_group[(game, experiment)]
+
+
 class GameInstanceIterator:
     """
     The instances.json must follow the structure:
@@ -61,7 +78,9 @@ class GameInstanceIterator:
 
     def __deepcopy__(self) -> "GameInstanceIterator":
         _copy = type(self).__new__(self.__class__)
-        _copy._instance = self._instances
+        _copy._game_name = self._game_name
+        _copy._instances = self._instances
+        _copy._sub_selector = self._sub_selector
         _copy._queue = copy(self._queue)  # no need to copy the underlying instances
         return _copy
 

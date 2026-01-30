@@ -2,15 +2,18 @@
 Uses HF tokenizers instruct/chat templates for proper input format per model.
 """
 import logging
-from typing import List, Dict, Tuple, Any, Union
+from typing import List, Dict, Tuple, Any
 import torch
 import re
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, PreTrainedTokenizerBase
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, PreTrainedTokenizerBase, PreTrainedModel
+from transformers.generation.utils import GenerateOutput
 from peft import PeftModel
 from jinja2 import TemplateError
 
 import clemcore.backends as backends
-from clemcore.backends.utils import ensure_alternating_roles, ensure_messages_format, augment_response_object
+from clemcore.backends.key_registry import KeyRegistry
+from clemcore.backends.utils import ensure_alternating_roles, ensure_messages_format, augment_response_object, \
+    ContextExceededError
 
 logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("clemcore.cli")
@@ -34,8 +37,8 @@ def load_config_and_tokenizer(model_spec: backends.ModelSpec) -> Tuple[PreTraine
     if 'requires_api_key' in model_spec.model_config:
         if model_spec['model_config']['requires_api_key']:
             # load HF API key:
-            creds = backends.load_credentials("huggingface")
-            api_key = creds["huggingface"]["api_key"]
+            key = KeyRegistry.from_json().get_key_for("huggingface")
+            api_key = key["api_key"]
             use_api_key = True
         else:
             requires_api_key_info = (f"{model_spec['model_name']} registry setting has requires_api_key, "
@@ -127,7 +130,7 @@ def load_config_and_tokenizer(model_spec: backends.ModelSpec) -> Tuple[PreTraine
     return tokenizer, auto_config, context_size
 
 
-def load_model(model_spec: backends.ModelSpec) -> Any:
+def load_model(model_spec: backends.ModelSpec) -> PreTrainedModel | PeftModel:
     """Load Huggingface model weights, into VRAM if available.
     Weights are distributed over all available GPUs for maximum speed - make sure to limit the available GPUs using
     environment variables if only a subset is to be used.
@@ -145,8 +148,8 @@ def load_model(model_spec: backends.ModelSpec) -> Any:
         model_args["load_in_4bit"] = model_spec.model_config["load_in_4bit"]
     if 'requires_api_key' in model_spec.model_config and model_spec['model_config']['requires_api_key']:
         # load HF API key:
-        creds = backends.load_credentials("huggingface")
-        model_args["token"] = creds["huggingface"]["api_key"]
+        key = KeyRegistry.from_json().get_key_for("huggingface")
+        model_args["token"] = key["api_key"]
 
     hf_model_str = model_spec['huggingface_id']
     model = AutoModelForCausalLM.from_pretrained(hf_model_str, **model_args)
@@ -191,7 +194,7 @@ class HuggingfaceLocalModel(backends.BatchGenerativeModel):
         super().__init__(model_spec)
         # fail-fast
         self.tokenizer, self.config, self.context_size = load_config_and_tokenizer(model_spec)
-        self.model = load_model(model_spec)
+        self.model: PreTrainedModel = load_model(model_spec)
 
         # check if model's generation_config has pad_token_id set:
         if not self.model.generation_config.pad_token_id:
@@ -313,7 +316,8 @@ class HuggingfaceLocalModel(backends.BatchGenerativeModel):
             "temperature": None,  # avoid warning
             "top_p": None,  # avoid warning
             "max_new_tokens": self.max_tokens,
-            "attention_mask": attention_mask
+            "attention_mask": attention_mask,
+            "return_dict_in_generate": True,
         }
         if self.temperature > 0.0:
             gen_args["do_sample"] = True
@@ -324,11 +328,14 @@ class HuggingfaceLocalModel(backends.BatchGenerativeModel):
         if 'cot_output' in self.model_spec.model_config and self.model_spec.model_config['cot_output']:
             gen_args["max_new_tokens"] = self.context_size
 
-        # Generate outputs for the whole batch
-        model_output_ids = self.model.generate(prompt_token_ids, **gen_args)
+        # Put the model into evaluation mode e.g., disable dropout and configure batch norm etc.
+        self.model.eval()
+
+        # Generate outputs for the whole batch (Note: model.generate() is decorated with torch.no_grad() !)
+        generation_output: GenerateOutput = self.model.generate(prompt_token_ids, **gen_args)
 
         # Decode all outputs and prompts
-        model_outputs = self.tokenizer.batch_decode(model_output_ids)
+        model_outputs = self.tokenizer.batch_decode(generation_output.sequences)
         prompt_texts = self.tokenizer.batch_decode(prompt_token_ids)
 
         prompts, response_texts, responses = split_and_clean_batch_outputs(self,
@@ -457,7 +464,7 @@ def assert_context_limits(model: HuggingfaceLocalModel, prompt_token_ids):
         if not context_check[0]:
             logger.info(f"Context token limit for {model.model_spec.model_name} exceeded on batch index {i}: "
                         f"{context_check[1]}/{context_check[3]}")
-            raise backends.ContextExceededError(
+            raise ContextExceededError(
                 f"Context token limit for {model.model_spec.model_name} exceeded at batch index {i}",
                 tokens_used=context_check[1],
                 tokens_left=context_check[2],
