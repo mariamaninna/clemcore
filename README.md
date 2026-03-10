@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # clemcore: A Framework for the Systematic Exploration of Generalist Models as Conversational Agents
 
 The cLLM (chat-optimized Large Language Model, "clem") framework allows researchers to easily evaluate the ability of large language models (LLM) by engaging them in games – rule-constituted activities played using language.
@@ -367,3 +368,21 @@ Framework developers that want to contribute to the clemcore framework should fo
 ---
 
 This repository is tested on `Python 3.10`.
+=======
+Experiments conducted so far:
+
+0) Baseline
+
+A ClemAgent playing clemgames
+
+1) LangChain-based
+
+- Agent with a tag extraction tool (simple LM) and a short-term memory component
+- Agent with 4 abstract tools for rule following and game observations and a short-term memory component
+- Agent with 2 abstract tools for strategy planning and a short-term memory component
+
+
+2) Base ClemAgent with add-ons
+
+- Agent with an additional planning loop: queries the model for an ACT: response, then the answer is passed to the game environment.
+>>>>>>> 579e2b72 (Added new experiments)
