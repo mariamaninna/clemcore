@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "game_name": "matchit_ascii",
+    "experiment_name": "different_grid",
+    "game_id": 2,
+    "results_folder": "format_checking_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "MatchItPlayer",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "MatchItPlayer",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-10T15:22:11.383442",
+        "action": {
+          "type": "send message",
+          "content": "You are participating in a collaborative guessing game.\nThe goal is to find out whether this grid and another picture only I can see, are the same.\nPlease describe your grid first. Then, I will provide my description and we can ask each other questions about the grids to figure out whether they are the same. Now start your short grid description with \"DESCRIPTION:\" followed by the description. Do not add anything else. This is your grid:\nX X X X X\nX X X X X\n▢ ▢ X ▢ ▢\nX X X X X\nX X X X X",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:11.383442",
+        "action": {
+          "type": "get message",
+          "content": "DESCRIPTION: A 5x5 grid with the third row containing two black squares on the left and right, with a white square in the center, and the rest of the grid filled with black squares.",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:11.383442",
+        "action": {
+          "type": "valid format",
+          "content": "continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-10T15:22:11.902827",
+        "action": {
+          "type": "send message",
+          "content": "You are participating in a collaborative guessing game.\nThe goal is to find out whether this grid and another picture only I can see, are the same.\nPlease describe your grid first. Then, I will provide my description and we can ask each other questions about the grids to figure out whether they are the same. Now start your short grid description with \"DESCRIPTION:\" followed by the description. Do not add anything else. This is your grid:\nX ▢ ▢ ▢ ▢\nX X ▢ ▢ ▢\nX X X ▢ ▢\nX X X X ▢\nX X X X X",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:11.902827",
+        "action": {
+          "type": "get message",
+          "content": "DESCRIPTION: A 5x5 grid where the first column is entirely filled with X's, and each subsequent column has one fewer X, starting from the second column with two X's, then three, four, and five X's in the last column. The remaining cells are empty (represented by ▢).",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:11.902827",
+        "action": {
+          "type": "valid format",
+          "content": "continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-10T15:22:12.503597",
+        "action": {
+          "type": "send message",
+          "content": "This is my DESCRIPTION: A 5x5 grid with the third row containing two black squares on the left and right, with a white square in the center, and the rest of the grid filled with black squares.\nNow ask a question in order to find out new aspects of my grid that may be different to your grid. Start with \"QUESTION:\" and do not add anything else.",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:12.503597",
+        "action": {
+          "type": "get message",
+          "content": "DESCRIPTION: A 5x5 grid where each row has an increasing number of X's from left to right, starting with one X in the first row and ending with five X's in the fifth row. The remaining cells are empty (represented by ▢).\n\nQUESTION: Does your grid have any empty cells (white squares) in the first two rows?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-10T15:22:12.503597",
+        "action": {
+          "type": "invalid format",
+          "content": "abort, first word: DESCRIPTION:, but expected QUESTION:"
+        }
+      }
+    ]
+  ]
+}

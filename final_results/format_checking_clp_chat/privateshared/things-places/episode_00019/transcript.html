@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'privateshared', experiment 'things-places', episode 3 with format_checking_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>Things are in different places, but the questioner does not know about it yet. Here is the situation:<br/><br/>WHAT: Things at places<br/>LEFT: daisy<br/>RIGHT: hand saw<br/>TOP: boron<br/>BOTTOM: flute<br/>CENTER: notebook<br/>NORTHWEST: dress<br/>NORTHEAST: banjo<br/>SOUTHWEST: blush<br/>SOUTHEAST: bikini<br/>HERE: rake<br/>THERE: iron<br/>NOWHERE: buttercup<br/>EVERYWHERE: eagle<br/>INSIDE: iodine<br/>OUTSIDE: shampoo<br/><br/>Questions from the questioner will start with QUESTIONER. Please reply in the form: ANSWER: &lt;one sentence&gt;<br/><br/>I will also ask you questions. These questions will start with ME: . Please answer these questions with: ASIDE: &lt;one sentence&gt;<br/><br/>Important: Give short, direct answers!<br/><br/>Let us start.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Ok.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for LEFT valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for RIGHT valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for TOP valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for BOTTOM valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for CENTER valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NORTHWEST valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NORTHEAST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for SOUTHWEST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for SOUTHEAST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for HERE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for THERE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NOWHERE valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for EVERYWHERE valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for INSIDE valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for OUTSIDE valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is there?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is there?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: There is everything—matter, energy, consciousness, time, space, and the universe itself.  <br/>ASIDE: The question &quot;What is there?&quot; is deeply philosophical and can be interpreted in many ways depending on context.</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is everywhere?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is everywhere?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: The universe is filled with matter, energy, space, and time—everything that exists is everywhere in some form, even if not visible.</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Slot filled: False</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for LEFT valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for RIGHT valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for TOP valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for BOTTOM valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for CENTER valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NORTHWEST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NORTHEAST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for SOUTHWEST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for SOUTHEAST valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for HERE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for THERE valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for NOWHERE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for EVERYWHERE valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for INSIDE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for OUTSIDE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+</div><div class="game-round" data-round="2">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is inside?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is inside?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, space, consciousness, the present moment, the self, the universe, awareness.  <br/>ASIDE: These questions invite contemplation of existence, perception, and unity—each answer points to a deeper layer of reality, from the physical to the metaphysical.</p>
+    </div>
+</div><div class="game-round" data-round="3">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is at the bottom?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is at the bottom?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: What is there? Everything. What is everywhere? Space. What is inside? The universe. What is at the bottom? The source.  <br/>ASIDE: These questions point to the nature of reality—beyond words, beyond form, into the stillness where all things meet.</p>
+    </div>
+</div><div class="game-round" data-round="4">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is nowhere?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is nowhere?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Nothing and everything — the unnameable, the ever-present, the silent witness.  <br/>ASIDE: These questions are often used in contemplative traditions to point beyond conceptual thinking toward direct experience.</p>
+    </div>
+</div><div class="game-round" data-round="5">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is here?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is here?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: The universe and all that exists.  <br/>ANSWER: Space, ASIDE: The boundless expanse that contains all things.  <br/>ANSWER: The heart, ASIDE: The inner core of being and emotion.  <br/>ANSWER: The foundation, ASIDE: The base from which all things rise.  <br/>ANSWER: The void, ASIDE: The absence of presence, the concept of nothingness.  <br/>ANSWER: Now, ASIDE: The present moment, the only true reality.</p>
+    </div>
+</div><div class="game-round" data-round="6">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is on your left?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is on your left?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: A reflection on existence and presence.  <br/>ANSWER: Nothing, ASIDE: The absence that permeates all space.  <br/>ANSWER: The self, ASIDE: The inner world of thought and feeling.  <br/>ANSWER: The foundation, ASIDE: The unseen base of all things.  <br/>ANSWER: The void, ASIDE: The concept of non-location.  <br/>ANSWER: The present, ASIDE: The only true moment we inhabit.  <br/>ANSWER: The unknown, ASIDE: What lies beyond sight and thought.</p>
+    </div>
+</div><div class="game-round" data-round="7">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is in the northwest?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is in the northwest?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything that exists,  <br/>ASIDE: A contemplation of presence and absence.</p>
+    </div>
+</div><div class="game-round" data-round="8">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is in the northeast?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is in the northeast?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: A broad answer to &quot;What is there?&quot; — encompassing all that exists.  <br/>ANSWER: Nothing, ASIDE: &quot;What is everywhere?&quot; — the absence of something, yet present in all gaps.  <br/>ANSWER: The self, ASIDE: &quot;What is inside?&quot; — the inner core, consciousness, or essence.  <br/>ANSWER: The foundation, ASIDE: &quot;What is at the bottom?&quot; — the base, origin, or lowest point.  <br/>ANSWER: Absence, ASIDE: &quot;What is nowhere?&quot; — the concept of non-existence, the void.  <br/>ANSWER: The present, ASIDE: &quot;What is here?&quot; — the now, the immediate reality.  <br/>ANSWER: The unknown, ASIDE: &quot;What is on your left?&quot; — the unseen, the intuitive, the other side.  <br/>ANSWER: The future, ASIDE: &quot;What is in the northwest?&quot; — a direction of mystery and exploration.  <br/>ANSWER: The beginning, ASIDE: &quot;What is in the northeast?&quot; — the source, clarity, or inspiration.</p>
+    </div>
+</div><div class="game-round" data-round="9">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is in the southeast?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is in the southeast?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything that exists,  <br/>ASIDE: A philosophical inquiry into presence and perception.</p>
+    </div>
+</div><div class="game-round" data-round="10">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is at the top?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is at the top?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Nothing, ASIDE: The question &quot;What is there?&quot; points to existence itself, but the most profound answer may be that nothing is truly separate — everything is interconnected.  <br/>ANSWER: Nothing, ASIDE: &quot;Everywhere&quot; suggests omnipresence, but if something is everywhere, it may be indistinguishable from nothingness.  <br/>ANSWER: The self, ASIDE: &quot;Inside&quot; refers to the inner world — the mind, soul, or essence that defines us.  <br/>ANSWER: The foundation, ASIDE: &quot;At the bottom&quot; implies the base or origin, the unseen support of all things.  <br/>ANSWER: Nothing, ASIDE: &quot;Nowhere&quot; is the absence of place — a concept that only exists in contrast to everywhere.  <br/>ANSWER: Now, ASIDE: &quot;Here&quot; is the only place that is real — the present moment.  <br/>ANSWER: The past, ASIDE: &quot;On your left&quot; is a directional cue, but metaphorically, it may represent what lies behind us.  <br/>ANSWER: The unknown, ASIDE: &quot;Northwest&quot; is a direction often associated with mystery and the unseen.  <br/>ANSWER: The future, ASIDE: &quot;Northeast&quot; symbolizes growth, new beginnings, and what lies ahead.  <br/>ANSWER: The heart, ASIDE: &quot;Southeast&quot; is linked to warmth, emotion, and the center of life.  <br/>ANSWER: The top, ASIDE: &quot;At the top&quot; is the highest point, but in paradox, it may be the same as the bottom.</p>
+    </div>
+</div><div class="game-round" data-round="11">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is in the southwest?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is in the southwest?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Nothing.  <br/>ASIDE: These questions point to the nature of emptiness and the limits of language in describing reality. The answer to all is &quot;nothing&quot; — not in a nihilistic sense, but as a pointer to the formless, boundless, and ever-present nature of existence.</p>
+    </div>
+</div><div class="game-round" data-round="12">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is at the center?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is at the center?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: A contemplative exploration of presence and perspective.  <br/>ANSWER: Space, ASIDE: The boundless container of all things.  <br/>ANSWER: The self, ASIDE: The inner world of thought and feeling.  <br/>ANSWER: The foundation, ASIDE: What supports all existence.  <br/>ANSWER: Nothing, ASIDE: The absence of all things.  <br/>ANSWER: Now, ASIDE: The present moment, the only true reality.  <br/>ANSWER: The unknown, ASIDE: What lies beyond sight and understanding.  <br/>ANSWER: Mystery, ASIDE: The uncharted territory of the mind.  <br/>ANSWER: Possibility, ASIDE: The realm of new beginnings.  <br/>ANSWER: The heart, ASIDE: Where emotion and truth reside.  <br/>ANSWER: The sky, ASIDE: The infinite expanse above.  <br/>ANSWER: The past, ASIDE: What has been, yet still shapes us.  <br/>ANSWER: The self, ASIDE: The center from which all experience flows.</p>
+    </div>
+</div><div class="game-round" data-round="13">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is outside?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is outside?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything, ASIDE: A philosophical inquiry into existence and perception.  <br/>ANSWER: Nothing and everything, ASIDE: The paradox of omnipresence.  <br/>ANSWER: The inner self, ASIDE: The core of being.  <br/>ANSWER: The foundation, ASIDE: The lowest point of structure.  <br/>ANSWER: Absence, ASIDE: The concept of non-location.  <br/>ANSWER: The present moment, ASIDE: The immediacy of now.  <br/>ANSWER: The unknown, ASIDE: The side of mystery and intuition.  <br/>ANSWER: Mystery, ASIDE: The direction of transition and change.  <br/>ANSWER: Wisdom, ASIDE: The path of enlightenment.  <br/>ANSWER: Passion, ASIDE: The fire of transformation.  <br/>ANSWER: The peak, ASIDE: The highest point of achievement.  <br/>ANSWER: Stability, ASIDE: The grounding of relationships.  <br/>ANSWER: The heart, ASIDE: The center of all things.  <br/>ANSWER: The world beyond, ASIDE: The vastness of the unknown.</p>
+    </div>
+</div><div class="game-round" data-round="14">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is on your right?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>QUESTIONER: What is on your right?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: Everything,  <br/>ASIDE: A simple answer to a profound question—what is there? Everything. The universe, existence, all that is.  <br/><br/>ANSWER: Space,  <br/>ASIDE: What fills all places, even where nothing seems to be.  <br/><br/>ANSWER: The heart,  <br/>ASIDE: The innermost core, the unseen center of being.  <br/><br/>ANSWER: The foundation,  <br/>ASIDE: What supports all things, the unseen base of existence.  <br/><br/>ANSWER: Nothing,  <br/>ASIDE: The absence of presence—what is not, yet is part of the whole.  <br/><br/>ANSWER: Now,  <br/>ASIDE: The only place where everything truly exists—right here, right now.  <br/><br/>ANSWER: The past,  <br/>ASIDE: What you’ve left behind, the memory that shapes you.  <br/><br/>ANSWER: The unknown,  <br/>ASIDE: A direction of mystery, of uncharted territory.  <br/><br/>ANSWER: The future,  <br/>ASIDE: Where new things emerge, where hope and clarity rise.  <br/><br/>ANSWER: The heart,  <br/>ASIDE: The seat of emotion, of love, of connection.  <br/><br/>ANSWER: The sky,  <br/>ASIDE: The highest point, the goal, the divine, the limit of reach.  <br/><br/>ANSWER: The earth,  <br/>ASIDE: The hidden, the deep, the grounding force.  <br/><br/>ANSWER: The self,  <br/>ASIDE: The heart of existence, the place from which all things radiate.  <br/><br/>ANSWER: The world,  <br/>ASIDE: What lies beyond the self, the unbounded, the unknown.  <br/><br/>ANSWER: The future,  <br/>ASIDE: What you are moving toward, what you are choosing to embrace.</p>
+    </div>
+
+    <div speaker="Game Master: end" class="msg gm-gm" style="">
+        <p>Game finished.</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
