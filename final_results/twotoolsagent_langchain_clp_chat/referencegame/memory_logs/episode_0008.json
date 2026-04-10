@@ -1,0 +1,266 @@
+[
+  {
+    "step": 0,
+    "agent_id": "player_0",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYour task is to generate a referring expression that best describes the target grid while distinguishing it from the two other distractor grids.\nThe first grid is the target grid, and the following two grids are the distractors.\n\nTarget grid:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\n\u25a1 \u25a1 \u25a1 X \u25a1\nX X X X \u25a1\n\nDistractor grid 1:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 X\nX X X X \u25a1\n\nDistractor grid 2:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 \u25a1\n\u25a1 X X X X\n\nInstruction: Describe the target grid.\nGenerate the referring expression starting with the tag \"Expression: \" for the given target grid. Omit any other text.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right."
+            },
+            "id": "chatcmpl-tool-a40a11038a1c258f",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-a7f2f940c9d1aac5",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Expression: The grid with a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "agent_id": "player_1",
+    "thread_id": "player1",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYou are also given a referring expression that describes one of the given grids.\nYour task is to select the grid that matches the given referring expression.\nGenerate only the number (in text) of the grid that matches the given expression by selecting first, second, or third.\n\nFirst:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 \u25a1\n\u25a1 X X X X\n\nSecond:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 X\nX X X X \u25a1\n\nThird:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\n\u25a1 \u25a1 \u25a1 X \u25a1\nX X X X \u25a1\n\nExpression: The grid with a full row of Xs in the first row and no X in the bottom right corner.\nQuestion: Which grid does the expression refer to?\nStart with the tag \"Answer: \", followed by your selection. Omit any other text.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "First grid has a full row of Xs in the first row and an X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-9559ba7648c976c7",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Second grid has a full row of Xs in the first row and an X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-80859073054623ca",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Third grid has a full row of Xs in the first row and no X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-acdcd1bf295e284c",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: First grid has a full row of Xs in the first row and an X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Second grid has a full row of Xs in the first row and an X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Third grid has a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-95a1800052153035",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. First grid has a full row of Xs in the first row and an X in the bottom right corner.\n2. Second grid has a full row of Xs in the first row and an X in the bottom right corner.\n3. Third grid has a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Answer: third",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "agent_id": "player_0",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYour task is to generate a referring expression that best describes the target grid while distinguishing it from the two other distractor grids.\nThe first grid is the target grid, and the following two grids are the distractors.\n\nTarget grid:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\n\u25a1 \u25a1 \u25a1 X \u25a1\nX X X X \u25a1\n\nDistractor grid 1:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 X\nX X X X \u25a1\n\nDistractor grid 2:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 \u25a1\n\u25a1 X X X X\n\nInstruction: Describe the target grid.\nGenerate the referring expression starting with the tag \"Expression: \" for the given target grid. Omit any other text.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right."
+            },
+            "id": "chatcmpl-tool-a40a11038a1c258f",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-a7f2f940c9d1aac5",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. The target grid has a full row of Xs in the first row, while the distractor grids do not. Distractor 1 has an X in the bottom right corner, and Distractor 2 has a full row of Xs in the last row but shifted to the right.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Expression: The grid with a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "agent_id": "player_1",
+    "thread_id": "player1",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYou are also given a referring expression that describes one of the given grids.\nYour task is to select the grid that matches the given referring expression.\nGenerate only the number (in text) of the grid that matches the given expression by selecting first, second, or third.\n\nFirst:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 \u25a1\n\u25a1 X X X X\n\nSecond:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 X\nX X X X \u25a1\n\nThird:\n\nX X X X \u25a1\nX \u25a1 \u25a1 \u25a1 \u25a1\nX X X X \u25a1\n\u25a1 \u25a1 \u25a1 X \u25a1\nX X X X \u25a1\n\nExpression: The grid with a full row of Xs in the first row and no X in the bottom right corner.\nQuestion: Which grid does the expression refer to?\nStart with the tag \"Answer: \", followed by your selection. Omit any other text.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "First grid has a full row of Xs in the first row and an X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-9559ba7648c976c7",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Second grid has a full row of Xs in the first row and an X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-80859073054623ca",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Third grid has a full row of Xs in the first row and no X in the bottom right corner."
+            },
+            "id": "chatcmpl-tool-acdcd1bf295e284c",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: First grid has a full row of Xs in the first row and an X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Second grid has a full row of Xs in the first row and an X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Third grid has a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-95a1800052153035",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. First grid has a full row of Xs in the first row and an X in the bottom right corner.\n2. Second grid has a full row of Xs in the first row and an X in the bottom right corner.\n3. Third grid has a full row of Xs in the first row and no X in the bottom right corner.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Answer: third",
+        "tool_calls": []
+      }
+    ]
+  }
+]

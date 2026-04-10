@@ -1,0 +1,400 @@
+[
+  {
+    "step": 0,
+    "agent_id": "player_0",
+    "thread_id": "describer",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYour task is to generate a referring expression that best describes the target grid while distinguishing it from the two other distractor grids.\nThe first grid is the target grid, and the following two grids are the distractors.\n\nTarget grid:\n\nX X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\nDistractor grid 1:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nDistractor grid 2:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nInstruction: Describe the target grid.\nGenerate the referring expression starting with the tag \"Expression: \" for the given target grid. Omit any other text.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "goal",
+              "value": "generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids"
+            },
+            "id": "chatcmpl-tool-a1bb9262570c91c2",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "format",
+              "value": "Expression: <text>"
+            },
+            "id": "chatcmpl-tool-b6336a68dcd6e56a",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "target",
+              "value": "first grid"
+            },
+            "id": "chatcmpl-tool-b571c608b0fc9ec6",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "forbidden",
+              "value": "first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2"
+            },
+            "id": "chatcmpl-tool-bac6f8f11772c384",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: goal = generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: format = Expression: <text>",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: target = first grid",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: forbidden = first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Target grid has a vertical line of X's on the rightmost column, with the rest of the cells being empty except for the first row which is fully filled with X's."
+            },
+            "id": "chatcmpl-tool-891f527c8c3e252d",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Distractor grid 1 has X's forming a frame around the edges, with a vertical line of X's in the second column and a horizontal line of X's in the first and last rows."
+            },
+            "id": "chatcmpl-tool-92779485f002e30c",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Distractor grid 2 has X's forming a frame around the edges, with a horizontal line of X's in the third row and a vertical line of X's in the second column."
+            },
+            "id": "chatcmpl-tool-aa19432fa21fbe16",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Target grid has a vertical line of X's on the rightmost column, with the rest of the cells being empty except for the first row which is fully filled with X's.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Distractor grid 1 has X's forming a frame around the edges, with a vertical line of X's in the second column and a horizontal line of X's in the first and last rows.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Distractor grid 2 has X's forming a frame around the edges, with a horizontal line of X's in the third row and a vertical line of X's in the second column.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "goal"
+            },
+            "id": "chatcmpl-tool-ae23771c7ac49f25",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "format"
+            },
+            "id": "chatcmpl-tool-9723a6da5c589368",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "target"
+            },
+            "id": "chatcmpl-tool-a0035576c3335a15",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "forbidden"
+            },
+            "id": "chatcmpl-tool-a657248442145233",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "goal: generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "format: Expression: <text>",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "target: first grid",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "forbidden: first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Expression: The one with a full top row and a vertical line on the far right.",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "agent_id": "player_1",
+    "thread_id": "guesser",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYou are also given a referring expression that describes one of the given grids.\nYour task is to select the grid that matches the given referring expression.\nGenerate only the number (in text) of the grid that matches the given expression by selecting first, second, or third.\n\nFirst:\n\nX X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\nSecond:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nThird:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nExpression: The one with a full top row and a vertical line on the far right.\nQuestion: Which grid does the expression refer to?\nStart with the tag \"Answer: \", followed by your selection. Omit any other text.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Answer: first",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "agent_id": "player_0",
+    "thread_id": "describer",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYour task is to generate a referring expression that best describes the target grid while distinguishing it from the two other distractor grids.\nThe first grid is the target grid, and the following two grids are the distractors.\n\nTarget grid:\n\nX X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\nDistractor grid 1:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nDistractor grid 2:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nInstruction: Describe the target grid.\nGenerate the referring expression starting with the tag \"Expression: \" for the given target grid. Omit any other text.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "goal",
+              "value": "generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids"
+            },
+            "id": "chatcmpl-tool-a1bb9262570c91c2",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "format",
+              "value": "Expression: <text>"
+            },
+            "id": "chatcmpl-tool-b6336a68dcd6e56a",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "target",
+              "value": "first grid"
+            },
+            "id": "chatcmpl-tool-b571c608b0fc9ec6",
+            "type": "tool_call"
+          },
+          {
+            "name": "remember_rules",
+            "args": {
+              "key": "forbidden",
+              "value": "first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2"
+            },
+            "id": "chatcmpl-tool-bac6f8f11772c384",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: goal = generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: format = Expression: <text>",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: target = first grid",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Stored: forbidden = first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Target grid has a vertical line of X's on the rightmost column, with the rest of the cells being empty except for the first row which is fully filled with X's."
+            },
+            "id": "chatcmpl-tool-891f527c8c3e252d",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Distractor grid 1 has X's forming a frame around the edges, with a vertical line of X's in the second column and a horizontal line of X's in the first and last rows."
+            },
+            "id": "chatcmpl-tool-92779485f002e30c",
+            "type": "tool_call"
+          },
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "Distractor grid 2 has X's forming a frame around the edges, with a horizontal line of X's in the third row and a vertical line of X's in the second column."
+            },
+            "id": "chatcmpl-tool-aa19432fa21fbe16",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Target grid has a vertical line of X's on the rightmost column, with the rest of the cells being empty except for the first row which is fully filled with X's.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Distractor grid 1 has X's forming a frame around the edges, with a vertical line of X's in the second column and a horizontal line of X's in the first and last rows.",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: Distractor grid 2 has X's forming a frame around the edges, with a horizontal line of X's in the third row and a vertical line of X's in the second column.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "goal"
+            },
+            "id": "chatcmpl-tool-ae23771c7ac49f25",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "format"
+            },
+            "id": "chatcmpl-tool-9723a6da5c589368",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "target"
+            },
+            "id": "chatcmpl-tool-a0035576c3335a15",
+            "type": "tool_call"
+          },
+          {
+            "name": "recall_rules",
+            "args": {
+              "key": "forbidden"
+            },
+            "id": "chatcmpl-tool-a657248442145233",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "goal: generate a referring expression that best describes the target grid while distinguishing it from the two distractor grids",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "format: Expression: <text>",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "target: first grid",
+        "tool_calls": []
+      },
+      {
+        "type": "ToolMessage",
+        "content": "forbidden: first, second, third, left, right, top, bottom, middle, same, different, identical, unique, only, other, another, both, all, none, every, each, any, every, grid, cell, pattern, shape, row, column, filled, empty, X, \u25a2",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Expression: The one with a full top row and a vertical line on the far right.",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "agent_id": "player_1",
+    "thread_id": "guesser",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are given three grids, where each of them is 5 by 5 in size.\nGrids have empty cells marked with \"\u25a2\" and filled cells marked with \"X\".\nYou are also given a referring expression that describes one of the given grids.\nYour task is to select the grid that matches the given referring expression.\nGenerate only the number (in text) of the grid that matches the given expression by selecting first, second, or third.\n\nFirst:\n\nX X X X X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\u25a1 \u25a1 \u25a1 \u25a1 X\n\nSecond:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nThird:\n\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\u25a1 X \u25a1 \u25a1 X\n\u25a1 X X X X\n\nExpression: The one with a full top row and a vertical line on the far right.\nQuestion: Which grid does the expression refer to?\nStart with the tag \"Answer: \", followed by your selection. Omit any other text.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "Answer: first",
+        "tool_calls": []
+      }
+    ]
+  }
+]
