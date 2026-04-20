@@ -1,0 +1,197 @@
+{
+  "meta": {
+    "game_name": "codenames",
+    "experiment_name": "ambiguous",
+    "game_id": 0,
+    "results_folder": "base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "ClueGiver",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "Guesser",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-16T23:01:26.097436",
+        "action": {
+          "type": "board status",
+          "content": {
+            "hidden": {
+              "team": [
+                "post",
+                "stall",
+                "rear",
+                "lash",
+                "plot",
+                "liver",
+                "rack",
+                "jar",
+                "pose"
+              ],
+              "innocent": [
+                "stable",
+                "grave",
+                "boom",
+                "poop",
+                "pile",
+                "brush",
+                "camp"
+              ],
+              "opponent": [
+                "soil",
+                "lime",
+                "repair",
+                "match",
+                "press",
+                "box",
+                "vault",
+                "stem"
+              ],
+              "assassin": [
+                "hitch"
+              ]
+            },
+            "revealed": {
+              "team": {
+                "team": [],
+                "innocent": [],
+                "opponent": [],
+                "assassin": []
+              },
+              "opponent": {
+                "team": [],
+                "innocent": [],
+                "opponent": [],
+                "assassin": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-16T23:01:26.354654",
+        "action": {
+          "type": "send message",
+          "content": "Provide one single-word clue that relates to some of your team's words from the list below. You can choose to how many and to which words your clue relates to.\nThe goal is to have your partner guess all of your team's words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an 'opponent' or a 'distractor' word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a 'kill' word, the game ends and your team loses immediately.\nThe more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.\n\nAlways give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:\n\nCLUE: <WORD>\nTARGETS: <TARGETS>\n\nYour team words are: post, stall, rear, lash, plot, liver, rack, jar, pose.\nYour opponent's team words are: soil, lime, repair, match, press, box, vault, stem.\nDistractor words are: stable, grave, boom, poop, pile, brush, camp.\nThe kill words are: hitch.",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-16T23:01:26.354654",
+        "action": {
+          "type": "get message",
+          "content": "CLUE: rear  \nTARGETS: rear, post, stall, pose, rack, plot, liver, jar, lash",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-16T23:01:26.355756",
+        "action": {
+          "type": "validation error",
+          "content": {
+            "player": "Cluegiver",
+            "type": "clue is morphologically related to word on the board",
+            "utterance": "CLUE: rear  \nTARGETS: rear, post, stall, pose, rack, plot, liver, jar, lash",
+            "message": "Your clue 'rear' is morphologically similar to the word rear, please choose another clue word.",
+            "clue": "rear",
+            "similar_board_word": "rear"
+          }
+        }
+      }
+    ]
+  ],
+  "board end status": {
+    "hidden": {
+      "team": [
+        "post",
+        "stall",
+        "rear",
+        "lash",
+        "plot",
+        "liver",
+        "rack",
+        "jar",
+        "pose"
+      ],
+      "innocent": [
+        "stable",
+        "grave",
+        "boom",
+        "poop",
+        "pile",
+        "brush",
+        "camp"
+      ],
+      "opponent": [
+        "soil",
+        "lime",
+        "repair",
+        "match",
+        "press",
+        "box",
+        "vault",
+        "stem"
+      ],
+      "assassin": [
+        "hitch"
+      ]
+    },
+    "revealed": {
+      "team": {
+        "team": [],
+        "innocent": [],
+        "opponent": [],
+        "assassin": []
+      },
+      "opponent": {
+        "team": [],
+        "innocent": [],
+        "opponent": [],
+        "assassin": []
+      }
+    }
+  },
+  "Number of turns": 1,
+  "Aborted": true,
+  "Lose": false,
+  "Game ended through assassin": false,
+  "Request Count": 1,
+  "Parsed Request Count": 0,
+  "Violated Request Count": 1,
+  "Cluegiver engaged flags": {
+    "IGNORE RAMBLING": 0,
+    "IGNORE FALSE TARGETS OR GUESSES": 0,
+    "REPROMPT ON ERROR": 0,
+    "STRIP WORDS": 1,
+    "IGNORE NUMBER OF TARGETS": 0
+  },
+  "Guesser engaged flags": {
+    "IGNORE RAMBLING": 0,
+    "IGNORE FALSE TARGETS OR GUESSES": 0,
+    "REPROMPT ON ERROR": 0,
+    "STRIP WORDS": 0,
+    "IGNORE NUMBER OF TARGETS": 0
+  }
+}
