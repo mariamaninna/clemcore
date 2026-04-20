@@ -1,0 +1,1506 @@
+[
+  {
+    "step": 1,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-b672c562cb934fce",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: north, east\n2. tried GO: north, successful; now in a room with options: east, south\n3. tried GO: east, successful; now in a room with options: west\n4. tried GO: west, successful; now in a room with options: east, south\n5. tried GO: south, successful; now in a room with options: north, east\n6. tried GO: east, successful; now in a room with options: south, west\n7. tried GO: west, successful; now in a room with options: north, east\n8. tried GO: north, successful; now in a room with options: east, south\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: west, successful; now in a room with options: north, east"
+            },
+            "id": "chatcmpl-tool-ab7d20c79e0740d9",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: west, successful; now in a room with options: north, east",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: north, east\n2. tried GO: north, successful; now in a room with options: east, south\n3. tried GO: east, successful; now in a room with options: west\n4. tried GO: west, successful; now in a room with options: east, south\n5. tried GO: south, successful; now in a room with options: north, east\n6. tried GO: east, successful; now in a room with options: south, west\n7. tried GO: west, successful; now in a room with options: north, east\n8. tried GO: north, successful; now in a room with options: east, south\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: west, successful; now in a room with options: north, east"
+            },
+            "id": "chatcmpl-tool-ab7d20c79e0740d9",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: west, successful; now in a room with options: north, east",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9c21017e0528bfd6",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: north, successful; now in a room with options: east, south\n2. tried GO: east, successful; now in a room with options: west\n3. tried GO: west, successful; now in a room with options: east, south\n4. tried GO: south, successful; now in a room with options: north, east\n5. tried GO: east, successful; now in a room with options: south, west\n6. tried GO: west, successful; now in a room with options: north, east\n7. tried GO: north, successful; now in a room with options: east, south\n8. tried GO: east, successful; now in a room with options: west\n9. tried GO: west, successful; now in a room with options: east, south\n10. tried GO: west, successful; now in a room with options: north, east",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}\n\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: east, successful; now in a room with options: west"
+            },
+            "id": "chatcmpl-tool-848d4b75be1e5ceb",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 5,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: north, successful; now in a room with options: east, south\n2. tried GO: east, successful; now in a room with options: west\n3. tried GO: west, successful; now in a room with options: east, south\n4. tried GO: south, successful; now in a room with options: north, east\n5. tried GO: east, successful; now in a room with options: south, west\n6. tried GO: west, successful; now in a room with options: north, east\n7. tried GO: north, successful; now in a room with options: east, south\n8. tried GO: east, successful; now in a room with options: west\n9. tried GO: west, successful; now in a room with options: east, south\n10. tried GO: west, successful; now in a room with options: north, east",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}\n\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: east, successful; now in a room with options: west"
+            },
+            "id": "chatcmpl-tool-848d4b75be1e5ceb",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8f30fffe4c4f97ea",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: east, successful; now in a room with options: west\n2. tried GO: west, successful; now in a room with options: east, south\n3. tried GO: south, successful; now in a room with options: north, east\n4. tried GO: east, successful; now in a room with options: south, west\n5. tried GO: west, successful; now in a room with options: north, east\n6. tried GO: north, successful; now in a room with options: east, south\n7. tried GO: east, successful; now in a room with options: west\n8. tried GO: west, successful; now in a room with options: east, south\n9. tried GO: west, successful; now in a room with options: north, east\n10. tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}\n\n\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: west, successful; now in a room with options: east, south"
+            },
+            "id": "chatcmpl-tool-99888950029f6700",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: south\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 7,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8f30fffe4c4f97ea",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: east, successful; now in a room with options: west\n2. tried GO: west, successful; now in a room with options: east, south\n3. tried GO: south, successful; now in a room with options: north, east\n4. tried GO: east, successful; now in a room with options: south, west\n5. tried GO: west, successful; now in a room with options: north, east\n6. tried GO: north, successful; now in a room with options: east, south\n7. tried GO: east, successful; now in a room with options: west\n8. tried GO: west, successful; now in a room with options: east, south\n9. tried GO: west, successful; now in a room with options: north, east\n10. tried GO: east, successful; now in a room with options: west",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}\n\n\n",
+        "tool_calls": [
+          {
+            "name": "write_trajectory",
+            "args": {
+              "observation": "tried GO: west, successful; now in a room with options: east, south"
+            },
+            "id": "chatcmpl-tool-99888950029f6700",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: south\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "The move was invalid and we are still in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-b269248cfe0d3813",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 9,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "Noted: tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: south\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "The move was invalid and we are still in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-b269248cfe0d3813",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-96958481eb9dcc37",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 11,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-96958481eb9dcc37",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-a2b637b916812dff",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 13,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-a2b637b916812dff",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9558ef9347b9f86b",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 15,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9558ef9347b9f86b",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8d006a40b6134d6e",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 17,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8d006a40b6134d6e",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8f477b16faa36e07",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 19,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-8f477b16faa36e07",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-be0b4c1c47cbacfe",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 21,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-be0b4c1c47cbacfe",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-ad5618b0079b34d5",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 23,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-ad5618b0079b34d5",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-bd0b3413a872b899",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 25,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-bd0b3413a872b899",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-82faea85eaa605d1",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 27,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-82faea85eaa605d1",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-926ac8aaef0b339f",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 29,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-926ac8aaef0b339f",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9ca11d3df2438cbb",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 31,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9ca11d3df2438cbb",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-a790524c2a9b390d",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 33,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-a790524c2a9b390d",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9fd6290bf86a9042",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 35,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9fd6290bf86a9042",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-aacdb3aec081ef05",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 37,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-aacdb3aec081ef05",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9f40d8a41fde2fbf",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 39,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9f40d8a41fde2fbf",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-84eb22e2cbe9141e",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 41,
+    "agent_id": "player_1",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: east, west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-9f40d8a41fde2fbf",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: east\"}",
+        "tool_calls": []
+      },
+      {
+        "type": "HumanMessage",
+        "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?\n\nSTRATEGIES AND OBSERVATIONS FROM PAST EPISODES:\nPast observations:\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: south, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: south, west\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: north, successful; now in a room with options: east, south\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south\n- tried GO: west, successful; now in a room with options: north, east\n- tried GO: east, successful; now in a room with options: west\n- tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_written_trajectories",
+            "args": {},
+            "id": "chatcmpl-tool-84eb22e2cbe9141e",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. tried GO: west, successful; now in a room with options: east, south\n2. tried GO: south, successful; now in a room with options: north, east\n3. tried GO: east, successful; now in a room with options: south, west\n4. tried GO: west, successful; now in a room with options: north, east\n5. tried GO: north, successful; now in a room with options: east, south\n6. tried GO: east, successful; now in a room with options: west\n7. tried GO: west, successful; now in a room with options: east, south\n8. tried GO: west, successful; now in a room with options: north, east\n9. tried GO: east, successful; now in a room with options: west\n10. tried GO: west, successful; now in a room with options: east, south",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "{\"description\": \"We are in a room with a bookshelf and a desk.\", \"action\": \"GO: west\"}",
+        "tool_calls": []
+      }
+    ]
+  }
+]

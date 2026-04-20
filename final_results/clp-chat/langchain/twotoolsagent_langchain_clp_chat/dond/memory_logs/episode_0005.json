@@ -1,0 +1,214 @@
+[
+  {
+    "step": 0,
+    "agent_id": "player_0",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.\n\nRules:\n(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.\n(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.\n(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: \"[Proposal: <number> <object name>, <number> <object name>, <...>]\"\n(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.\n(e) Your goal is to maximize the sum of your score and the score of the other player.\n\nLet us start.\n\nThe set of available items is:\n\n1 carrot, 1 pen, 3 scissors\n\nYour secret value function is:\n\ncarrot: 4, pen: 6, scissors: 0\n\nIMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores."
+            },
+            "id": "chatcmpl-tool-b90643b26a33ce94",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-9f444f337daf4e2a",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "I value the pen the most (6), followed by the carrot (4), and I don't value the scissors at all (0). Since the other player's preferences are unknown, I should aim to propose a division that maximizes the total value while ensuring both of us benefit. I will propose that I take the pen and the other player takes the carrot and the scissors. This way, I get my highest-value item, and the other player gets the rest, which might be valuable to them. \n\n[Proposal: 1 pen, 1 carrot, 3 scissors]",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "agent_id": "player_1",
+    "thread_id": "player1",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.\n\nRules:\n(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.\n(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.\n(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: \"[Proposal: <number> <object name>, <number> <object name>, <...>]\"\n(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.\n(e) Your goal is to maximize the sum of your score and the score of the other player.\n\nLet us start.\n\nThe set of available items is:\n\n1 carrot, 1 pen, 3 scissors\n\nYour secret value function is:\n\ncarrot: 6, pen: 1, scissors: 1\n\nIMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.\n\n\nThe other player has submitted a secret proposal. It is now your turn to submit a proposal of your own.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-8a2c84d6df7a5441",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "No observations yet.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The other player has submitted a secret proposal, but I don't know what it is yet."
+            },
+            "id": "chatcmpl-tool-ae1fa2a23e32567d",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The other player has submitted a secret proposal, but I don't know what it is yet.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "I need to make a secret proposal that maximizes the sum of our scores, given my value function and the other player's unknown proposal. Since I value the carrot the most (6), I should aim to get it if possible. The pen and scissors are worth 1 each, so they are less valuable to me.\n\nTo maximize the total score, I should propose a combination that is likely to be complementary to the other player's proposal. Since I don't know their proposal, I should consider what they might want. They might value the carrot as well, or they might prefer the scissors or pen.\n\nGiven that I value the carrot the most, I will propose to get the carrot and possibly some scissors or the pen. However, to ensure complementarity, I should not take all items, as that might conflict with their proposal.\n\nI will propose: [Proposal: 1 carrot, 1 scissors]\n\nThis gives me a score of 7 (6 for the carrot and 1 for the scissors), and leaves the pen and the remaining 2 scissors for the other player. If their proposal includes the pen and scissors, this could be complementary.\n\nI will submit this proposal.",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "agent_id": "player_0",
+    "thread_id": "player0",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.\n\nRules:\n(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.\n(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.\n(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: \"[Proposal: <number> <object name>, <number> <object name>, <...>]\"\n(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.\n(e) Your goal is to maximize the sum of your score and the score of the other player.\n\nLet us start.\n\nThe set of available items is:\n\n1 carrot, 1 pen, 3 scissors\n\nYour secret value function is:\n\ncarrot: 4, pen: 6, scissors: 0\n\nIMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores."
+            },
+            "id": "chatcmpl-tool-b90643b26a33ce94",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-9f444f337daf4e2a",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "1. The available items are 1 carrot, 1 pen, and 3 scissors. My value function is carrot: 4, pen: 6, scissors: 0. The other player's value function is unknown. The goal is to maximize the sum of both scores.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "I value the pen the most (6), followed by the carrot (4), and I don't value the scissors at all (0). Since the other player's preferences are unknown, I should aim to propose a division that maximizes the total value while ensuring both of us benefit. I will propose that I take the pen and the other player takes the carrot and the scissors. This way, I get my highest-value item, and the other player gets the rest, which might be valuable to them. \n\n[Proposal: 1 pen, 1 carrot, 3 scissors]",
+        "tool_calls": []
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "agent_id": "player_1",
+    "thread_id": "player1",
+    "messages": [
+      {
+        "type": "HumanMessage",
+        "content": "You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.\n\nRules:\n(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.\n(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.\n(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: \"[Proposal: <number> <object name>, <number> <object name>, <...>]\"\n(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.\n(e) Your goal is to maximize the sum of your score and the score of the other player.\n\nLet us start.\n\nThe set of available items is:\n\n1 carrot, 1 pen, 3 scissors\n\nYour secret value function is:\n\ncarrot: 6, pen: 1, scissors: 1\n\nIMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.\n\n\nThe other player has submitted a secret proposal. It is now your turn to submit a proposal of your own.\n",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "get_game_observations",
+            "args": {},
+            "id": "chatcmpl-tool-8a2c84d6df7a5441",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "No observations yet.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "",
+        "tool_calls": [
+          {
+            "name": "observe_game",
+            "args": {
+              "observation": "The other player has submitted a secret proposal, but I don't know what it is yet."
+            },
+            "id": "chatcmpl-tool-ae1fa2a23e32567d",
+            "type": "tool_call"
+          }
+        ]
+      },
+      {
+        "type": "ToolMessage",
+        "content": "Noted: The other player has submitted a secret proposal, but I don't know what it is yet.",
+        "tool_calls": []
+      },
+      {
+        "type": "AIMessage",
+        "content": "I need to make a secret proposal that maximizes the sum of our scores, given my value function and the other player's unknown proposal. Since I value the carrot the most (6), I should aim to get it if possible. The pen and scissors are worth 1 each, so they are less valuable to me.\n\nTo maximize the total score, I should propose a combination that is likely to be complementary to the other player's proposal. Since I don't know their proposal, I should consider what they might want. They might value the carrot as well, or they might prefer the scissors or pen.\n\nGiven that I value the carrot the most, I will propose to get the carrot and possibly some scissors or the pen. However, to ensure complementarity, I should not take all items, as that might conflict with their proposal.\n\nI will propose: [Proposal: 1 carrot, 1 scissors]\n\nThis gives me a score of 7 (6 for the carrot and 1 for the scissors), and leaves the pen and the remaining 2 scissors for the other player. If their proposal includes the pen and scissors, this could be complementary.\n\nI will submit this proposal.",
+        "tool_calls": []
+      }
+    ]
+  }
+]
