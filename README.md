@@ -14,3 +14,12 @@ A ClemAgent playing clemgames
 2) Base ClemAgent with add-ons
 
 - Agent with an additional planning loop: queries the model for an ACT: response, then the answer is passed to the game environment.
+
+
+Installation:
+
+Some clemcore elements were modified to handle new architectural add-ons. Please install the version from this repo:
+
+git clone https://github.com/mariamaninna/clemcore.git
+cd clemcore
+pip install -e .
