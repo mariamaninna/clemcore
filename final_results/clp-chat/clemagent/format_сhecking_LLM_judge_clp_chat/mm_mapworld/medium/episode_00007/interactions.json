@@ -1,0 +1,1986 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "medium",
+    "game_id": 1,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 20,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.633897",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:47.635899",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [3, 1], \"size\": 6, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.635899",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['description', 'action']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.486677",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:49.487682",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:49.487682",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.685021",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:51.686030",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:51.686030",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.769706",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002567.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:59.770706",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:59.770706",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002567.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.533379",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:01.534413",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:01.534413",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:09.942557",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.942557",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.943571",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.943571",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.943571",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.943571",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:09.944080",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:09.944080",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:16.008597",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.009597",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.009597",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.009597",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.009597",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.009597",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:16.010860",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:16.010860",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:19.014338",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.014338",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:19.015340",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:21.484233",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.484233",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.484233",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.484233",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.484233",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.485218",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:21.485218",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:21.485218",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['south']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.395368",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:24.396378",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:24.396378",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.014141",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002567.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:26.015142",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:26.015142",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002567.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.772162",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:27.773175",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:27.773175",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.891702",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:28.892702",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:28.892702",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.077848",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:36.078848",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.078848",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.802944",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000653.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:36.803956",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:36.803956",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:37.614500",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000653.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.614500",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.614500",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.614500",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.614500",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.615501",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:37.616501",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:37.616501",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.312019",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:39.314020",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:39.314020",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.450285",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:40.451287",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red sofa, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:40.451287",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.531181",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:42.532197",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:42.533195",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.592512",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000751.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:11:43.593510",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:43.593510",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:11:44.323733",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000751.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.323733",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.323733",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.323733",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a living room with a fireplace, a red couch, and a patterned rug.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.324734",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 2], \"new\": [3, 2]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.324734",
+        "action": {
+          "type": "aborted",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:11:44.324734",
+        "action": {
+          "type": "turn limit reached",
+          "content": true
+        }
+      }
+    ]
+  ]
+}

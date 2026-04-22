@@ -1,0 +1,1474 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "medium_cycle",
+    "game_id": 4,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 15,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.946140",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010889.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:06.947150",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 0], \"size\": 6, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.947150",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: east, north, west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: east, north, west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010889.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['description', 'action', 'GO:', 'DONE']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.981733",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00006921.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:09.982636",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:09.982636",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00006921.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:13.906628",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:13.907627",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:15.519390",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.519390",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.519390",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.520390",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.520390",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.520390",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:15.521390",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines and a television.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:15.521390",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.939528",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:24.940525",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:24.940525",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:28.951377",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.951377",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:28.952491",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.668961",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:30.669958",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:30.669958",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.458960",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:31.459960",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:31.459960",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.831833",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:33.832834",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:33.832834",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:36.223861",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.223861",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.223861",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.223861",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.224870",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.224870",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:36.225866",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:36.225866",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.070482",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:38.071483",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:38.071483",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:41.297359",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.298346",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.298346",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.298346",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.298346",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.298346",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:41.300343",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:41.300343",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:43.352666",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.352666",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.352666",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.352666",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.352666",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.353669",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001098.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:43.353669",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:43.354682",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:44.564935",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001098.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.564935",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.565934",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.565934",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.565934",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.565934",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:44.566838",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:44.566838",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.405327",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002584.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:45.406324",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:45.406324",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:46.111996",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002584.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"DONE\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:46.111996",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"DONE\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:46.111996",
+        "action": {
+          "type": "DONE",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:46.111996",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a laundry room with washing machines, dryers, and a table.\", \"action\": \"DONE\"}"
+        }
+      }
+    ]
+  ]
+}

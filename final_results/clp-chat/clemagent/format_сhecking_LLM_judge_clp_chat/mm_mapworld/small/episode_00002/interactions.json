@@ -1,0 +1,1425 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "small",
+    "game_id": 1,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 14,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:05:56.937528",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015419.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:05:56.937528",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 3], \"size\": 4, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:05:56.937528",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015419.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['\"{\"description\": \"<room description>\", \"action\": \"<action>\"}\"']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 3], \"new\": [2, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004113.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with colorful toy bins, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:01.503329",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:03.567399",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004113.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.567399",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.567399",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.568399",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.568399",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 2], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.568399",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007159.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:03.568399",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:03.568399",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007159.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:07.654914",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007159.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:11.056874",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007159.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.067973",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:13.069984",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:13.069984",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:16.088723",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['north']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.088723",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.088723",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.088723",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.088723",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.089720",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:16.089720",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:16.089720",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.564224",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007159.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:18.565238",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:18.565238",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:22.295673",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007159.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.295673",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.295673",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.295673",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.295673",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.296681",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:22.296681",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:22.296681",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.838637",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:27.839642",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:27.839642",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.993035",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007159.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:28.994056",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:28.994056",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007159.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['south', 'north']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.144413",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:32.145413",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:32.145413",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:42.500448",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:43.785440",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.785440",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.785440",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.785440",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.785440",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.786439",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010673.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:06:43.786439",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV displaying a cartoon, and framed photos on the wall.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:43.786439",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:06:45.489633",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010673.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"DONE\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:45.489633",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"DONE\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:45.489633",
+        "action": {
+          "type": "DONE",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:06:45.489633",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a playroom with a toy storage unit, a TV on a stand, and framed photos on the wall.\", \"action\": \"DONE\"}"
+        }
+      }
+    ]
+  ]
+}
