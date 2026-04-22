@@ -1,0 +1,1986 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "medium_cycle",
+    "game_id": 3,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 20,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:06.692197",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004095.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:06.692197",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 0], \"size\": 6, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:06.692197",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:09.778407",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004095.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['\"description\":', '\"action\":', 'GO:', 'DONE']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.778407",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.778407",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.778407",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.778407",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.779407",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004093.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:09.780404",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:09.780404",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:12.105895",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004093.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.105895",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.105895",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.105895",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.105895",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.106909",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:12.107914",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:12.107914",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:13.884565",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.885563",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.885563",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.885563",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.885563",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.885563",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:13.886559",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:13.886559",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:18.513520",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.513520",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.513520",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.513520",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.514530",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.514530",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:18.514530",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:18.514530",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.655173",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:22.656172",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:22.656172",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:25.192460",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.192460",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.192460",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.192460",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.193460",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.193460",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:25.193460",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:25.193460",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.702818",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:31.703761",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:31.703761",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['west', 'south']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.180576",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:33.181580",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:33.181580",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.960181",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:37.961182",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:37.961182",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:43.626261",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.626261",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.626261",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.626261",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.627261",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.627261",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:43.628262",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:43.628262",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.323037",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:49.324049",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:49.324049",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:51.108437",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.108437",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:51.109436",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.230961",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:53.231960",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:53.231960",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.893465",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:54.894463",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:54.894463",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.180206",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:58.181219",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:58.181219",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.345555",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:19:59.347068",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:19:59.347068",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [0, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.909757",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000103.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:01.910756",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:01.910756",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:03.672331",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000103.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.673329",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.673329",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.673329",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.673329",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [0, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.673329",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:03.674326",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:03.674326",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.906921",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010701.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:20:04.907916",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:04.907916",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:20:06.869140",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010701.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.869140",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.869140",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.870154",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a bedroom with a large bed, wooden furniture, and plants.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.870154",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [0, 1]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.870154",
+        "action": {
+          "type": "aborted",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:20:06.870154",
+        "action": {
+          "type": "turn limit reached",
+          "content": true
+        }
+      }
+    ]
+  ]
+}

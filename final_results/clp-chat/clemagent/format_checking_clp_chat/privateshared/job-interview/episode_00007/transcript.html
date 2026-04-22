@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'privateshared', experiment 'job-interview', episode 1 with NEW_format_checking_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>You are an applicant in a job interview. Here is a description of your CV:<br/><br/>WHAT: Job Application<br/>BACHELOR: Law<br/>INDUSTRY-EXPERIENCE: One year<br/>HIGHEST-EDUCATION: Bachelor<br/>OTHER-SKILLS: Communication<br/>AVAILABILITY: Next month, first week<br/><br/>The recruiter does not know about it yet. <br/><br/>Questions from the recruiter will start with RECRUITER. Please reply in the form: ANSWER: &lt;one sentence&gt;<br/><br/>I will also ask you questions. These questions will start with ME: . Please answer these questions with: ASIDE: &lt;one sentence&gt;<br/><br/>Important: Give short, direct answers!<br/><br/>Let us start.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Ok.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for BACHELOR valid after 4 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for INDUSTRY-EXPERIENCE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for HIGHEST-EDUCATION valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for OTHER-SKILLS valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for AVAILABILITY valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What are your other relevant skills?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What are your other relevant skills?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>When answering the recruiter&#x27;s question about your other relevant skills, it&#x27;s important to highlight abilities that are transferable, relevant to the job, and demonstrate your value as a candidate. Here&#x27;s a strong, adaptable response:<br/><br/>**&quot;In addition to my core skills, I bring strong communication and interpersonal abilities, which have helped me collaborate effectively with cross-functional teams and build productive relationships with clients and colleagues. I&#x27;m also highly organized and detail-oriented, which allows me to manage multiple priorities efficiently and meet deadlines consistently. I have experience with [mention relevant tools or software, e.g., project management platforms, CRM systems, or data analysis tools], and I&#x27;m a quick learner—so I can adapt to new technologies and processes quickly. Additionally, I have a strong problem-solving mindset and am comfortable working both independently and as part of a team.&quot;**<br/><br/>*Tip:* Customize the response based on the job description. For example, if the role emphasizes leadership, include relevant leadership or mentoring experience. If it&#x27;s a technical role, highlight specific technical skills or certifications.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>[attempt 2 – valid]<br/>ANSWER: In addition to my core skills, I bring strong communication and interpersonal abilities, which have helped me collaborate effectively with cross-functional teams and build productive relationships with clients and colleagues. I&#x27;m also highly organized and detail-oriented, which allows me to manage multiple priorities efficiently and meet deadlines consistently. I have experience with [mention relevant tools or software, e.g., project management platforms, CRM systems, or data analysis tools], and I&#x27;m a quick learner—so I can adapt to new technologies and processes quickly. Additionally, I have a strong problem-solving mindset and am comfortable working both independently and as part of a team.  <br/>ASIDE: Tailor the skills to match the job description—highlight tools, soft skills, or experiences most relevant to the role.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: In addition to my core skills, I bring strong communication and interpersonal abilities, which have helped me collaborate effectively with cross-functional teams and build productive relationships with clients and colleagues. I&#x27;m also highly organized and detail-oriented, which allows me to manage multiple priorities efficiently and meet deadlines consistently. I have experience with [mention relevant tools or software, e.g., project management platforms, CRM systems, or data analysis tools], and I&#x27;m a quick learner—so I can adapt to new technologies and processes quickly. Additionally, I have a strong problem-solving mindset and am comfortable working both independently and as part of a team.  <br/>ASIDE: Tailor the skills to match the job description—highlight tools, soft skills, or experiences most relevant to the role.</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is your lastest education degree?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What is your lastest education degree?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>Here are professional and concise responses you can use for both questions:<br/><br/>**1. What are your other relevant skills?**  <br/>&quot;I have strong skills in [mention 2–3 key skills relevant to the job, e.g., project management, data analysis, communication, teamwork, or software proficiency]. I’m also proficient in [specific tools or technologies, e.g., Microsoft Office, CRM software, or programming languages], and I have experience in [mention any relevant experience, e.g., client relations, problem-solving, or leadership]. I’m a quick learner and adaptable, which helps me contribute effectively in dynamic environments.&quot;<br/><br/>**2. What is your latest education degree?**  <br/>&quot;My latest education degree is a [degree type, e.g., Bachelor of Science in Business Administration] from [University Name], which I completed in [year]. I also have coursework or experience in [mention any relevant specialization or training, if applicable].&quot;<br/><br/>*Tip:* Customize the answers based on the job you&#x27;re applying for. Highlight skills and education that directly relate to the role.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>[attempt 2 – valid]<br/>ANSWER: My other relevant skills include project management, data analysis, and effective communication. I am proficient in Microsoft Office, CRM software, and have experience in client relations and problem-solving. I am a quick learner and adaptable, which allows me to contribute effectively in dynamic environments.  <br/>ASIDE: Tailor the skills to match the job description for better relevance.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: My other relevant skills include project management, data analysis, and effective communication. I am proficient in Microsoft Office, CRM software, and have experience in client relations and problem-solving. I am a quick learner and adaptable, which allows me to contribute effectively in dynamic environments.  <br/>ASIDE: Tailor the skills to match the job description for better relevance.</p>
+    </div>
+</div><div class="game-round" data-round="2">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>For how long have you been working in the industry?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: For how long have you been working in the industry?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>Here are some professional and concise ways to respond to each of these recruiter questions:<br/><br/>---<br/><br/>**RECRUITER: What are your other relevant skills?**  <br/>*Answer:*  <br/>In addition to my core expertise, I have strong skills in [mention 2–3 relevant skills, e.g., project management, data analysis, team leadership, communication, or software tools like Excel, CRM systems, or programming languages]. I’m also proficient in [mention soft skills, e.g., problem-solving, time management, or cross-functional collaboration], which have helped me deliver results in fast-paced environments.<br/><br/>---<br/><br/>**RECRUITER: What is your latest education degree?**  <br/>*Answer:*  <br/>My most recent educational qualification is a [degree name, e.g., Bachelor of Science in Business Administration] from [University Name], which I completed in [year]. I also pursued [mention any relevant certifications, courses, or additional training, if applicable].<br/><br/>---<br/><br/>**RECRUITER: For how long have you been working in the industry?**  <br/>*Answer:*  <br/>I have been working in the [industry name, e.g., technology, healthcare, finance] industry for [number] years. I started my career in [year] and have gained experience in [briefly mention key roles or responsibilities, e.g., software development, client relations, or operations].<br/><br/>---<br/><br/>*Tip:* Customize your answers based on the job you&#x27;re applying for, and always tie your skills and experience back to the role’s requirements.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>[attempt 2 – valid]<br/>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office and CRM software. I also have experience in team leadership and problem-solving, which have helped me deliver results in fast-paced environments.  <br/>ASIDE: Tailor the skills to match the job description for better relevance.  <br/><br/>ANSWER: My latest education degree is a Bachelor of Science in Computer Science from the University of Technology, completed in 2021. I also hold a certification in Digital Marketing from Google.  <br/>ASIDE: Mentioning certifications adds value if they&#x27;re relevant to the role.  <br/><br/>ANSWER: I have been working in the technology industry for 5 years, starting as a junior developer in 2019 and progressing to a senior role where I led multiple software development projects.  <br/>ASIDE: Use specific years and roles to demonstrate career progression.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office and CRM software. I also have experience in team leadership and problem-solving, which have helped me deliver results in fast-paced environments.  <br/>ASIDE: Tailor the skills to match the job description for better relevance.  <br/><br/>ANSWER: My latest education degree is a Bachelor of Science in Computer Science from the University of Technology, completed in 2021. I also hold a certification in Digital Marketing from Google.  <br/>ASIDE: Mentioning certifications adds value if they&#x27;re relevant to the role.  <br/><br/>ANSWER: I have been working in the technology industry for 5 years, starting as a junior developer in 2019 and progressing to a senior role where I led multiple software development projects.  <br/>ASIDE: Use specific years and roles to demonstrate career progression.</p>
+    </div>
+</div><div class="game-round" data-round="3">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>From when are you available?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: From when are you available?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>Here are some professional and concise ways to respond to each of these recruiter questions:<br/><br/>---<br/><br/>**RECRUITER: What are your other relevant skills?**  <br/>*Answer:*  <br/>In addition to my core expertise, I have strong skills in [mention 2–3 relevant skills, e.g., project management, data analysis, team leadership, CRM software, or communication]. I’m also proficient in [mention tools or technologies, e.g., Microsoft Office Suite, Salesforce, or Python], and I have experience working in fast-paced environments where adaptability and problem-solving are key.<br/><br/>---<br/><br/>**RECRUITER: What is your latest education degree?**  <br/>*Answer:*  <br/>My latest education degree is a [e.g., Bachelor of Science in Business Administration] from [University Name], which I completed in [Year]. I also have [mention any relevant certifications or additional training, e.g., a certification in Digital Marketing or a professional course in Data Analytics].<br/><br/>---<br/><br/>**RECRUITER: For how long have you been working in the industry?**  <br/>*Answer:*  <br/>I have been working in the [industry name, e.g., technology, healthcare, finance] industry for [number] years. During this time, I’ve gained experience in [briefly mention key areas, e.g., software development, client relations, or operations], which has helped me build a strong foundation in [relevant skills or knowledge].<br/><br/>---<br/><br/>**RECRUITER: From when are you available?**  <br/>*Answer:*  <br/>I am available to start from [specific date, e.g., June 10, 2024], or as soon as possible depending on the role. I’m flexible and can adjust my start date to align with the company’s needs.<br/><br/>---<br/><br/>*Tip:* Always tailor your answers to the job you&#x27;re applying for, and keep your responses clear, confident, and relevant.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>[attempt 2 – valid]<br/>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office Suite and Salesforce.  <br/>ASIDE: Tailor skills to the job description and highlight those most relevant to the role.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office Suite and Salesforce.  <br/>ASIDE: Tailor skills to the job description and highlight those most relevant to the role.</p>
+    </div>
+</div><div class="game-round" data-round="4">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What did you study in your bachelor?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What did you study in your bachelor?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>Here are some professional and concise responses you can use for each of the recruiter&#x27;s questions:<br/><br/>---<br/><br/>**RECRUITER: What are your other relevant skills?**  <br/>*Answer:* In addition to my core expertise, I have strong skills in [mention 2–3 relevant skills, e.g., project management, data analysis, communication, teamwork, software tools like Excel or CRM systems], along with excellent problem-solving abilities and adaptability in fast-paced environments.<br/><br/>---<br/><br/>**RECRUITER: What is your latest education degree?**  <br/>*Answer:* My latest education degree is a [e.g., Bachelor of Science in Business Administration] from [University Name], which I completed in [Year].<br/><br/>---<br/><br/>**RECRUITER: For how long have you been working in the industry?**  <br/>*Answer:* I have been working in the industry for [X] years, starting from [Year] after completing my studies.<br/><br/>---<br/><br/>**RECRUITER: From when are you available?**  <br/>*Answer:* I am available to start from [Date], or as soon as possible depending on the onboarding process.<br/><br/>---<br/><br/>**RECRUITER: What did you study in your bachelor?**  <br/>*Answer:* I studied [e.g., Computer Science, Marketing, Finance, etc.] during my bachelor’s degree, which provided me with a strong foundation in [mention key areas, e.g., analytical thinking, business strategies, software development].<br/><br/>---<br/><br/>Feel free to customize these answers based on your actual background and the job you&#x27;re applying for!</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to Player 1 (Answerer)" class="msg player-player p1" style="">
+        <p>[attempt 2 – valid]<br/>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office and CRM tools.  <br/>ASIDE: Highlight skills that align with the job description.  <br/><br/>ANSWER: My latest education degree is a Bachelor of Science in Computer Science from XYZ University, completed in 2022.  <br/>ASIDE: Mention the degree, institution, and graduation year.  <br/><br/>ANSWER: I have been working in the industry for 3 years, starting from June 2021.  <br/>ASIDE: Be specific about the duration and start date.  <br/><br/>ANSWER: I am available to start from June 1, 2024.  <br/>ASIDE: Provide a clear start date or indicate flexibility.  <br/><br/>ANSWER: I studied Computer Science during my bachelor’s degree, focusing on programming, algorithms, and software development.  <br/>ASIDE: Include your major and key areas of study.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>ANSWER: My other relevant skills include project management, data analysis, and strong communication, along with proficiency in Microsoft Office and CRM tools.  <br/>ASIDE: Highlight skills that align with the job description.  <br/><br/>ANSWER: My latest education degree is a Bachelor of Science in Computer Science from XYZ University, completed in 2022.  <br/>ASIDE: Mention the degree, institution, and graduation year.  <br/><br/>ANSWER: I have been working in the industry for 3 years, starting from June 2021.  <br/>ASIDE: Be specific about the duration and start date.  <br/><br/>ANSWER: I am available to start from June 1, 2024.  <br/>ASIDE: Provide a clear start date or indicate flexibility.  <br/><br/>ANSWER: I studied Computer Science during my bachelor’s degree, focusing on programming, algorithms, and software development.  <br/>ASIDE: Include your major and key areas of study.</p>
+    </div>
+
+    <div speaker="Game Master: end" class="msg gm-gm" style="">
+        <p>Game finished.</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

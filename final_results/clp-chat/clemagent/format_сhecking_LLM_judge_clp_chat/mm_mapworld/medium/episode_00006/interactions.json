@@ -1,0 +1,2010 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "medium",
+    "game_id": 0,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 20,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:47.302448",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:09:47.302448",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 0], \"size\": 6, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:47.302448",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['GO: north', 'GO: south', 'GO: east', 'GO: west', 'DONE']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in an ornate room with gilded ceilings, large paintings, and a chandelier.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in an ornate room with gilded ceilings, large paintings, and a chandelier.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in an ornate room with gilded ceilings, large paintings, and a chandelier.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.818337",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010601.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:09:49.819336",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in an ornate room with gilded ceilings, large paintings, and a chandelier.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:49.819336",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:09:50.767359",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010601.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.767359",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.767359",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.767359",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.768378",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.768378",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:09:50.768378",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:50.768378",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.374089",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:09:52.375094",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:09:52.375094",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:04.851624",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.851624",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.852620",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.852620",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.852620",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.852620",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:04.853624",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:04.853624",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.796542",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010601.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:06.797541",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:06.797541",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010601.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.489292",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:07.490292",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:07.490292",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:09.567164",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.567164",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.567164",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.568166",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.568166",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.568166",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010601.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:09.568166",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:09.568166",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010601.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.409714",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:10.410830",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:10.410830",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:12.757716",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.757716",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.757716",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.757716",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.758717",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.758717",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:12.758717",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:12.758717",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.914171",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:17.917172",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:17.917172",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:24.177175",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.177175",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.178175",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.178175",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.178175",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.178175",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:24.179181",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:24.179181",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.122547",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:26.124551",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:26.124551",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.973650",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:27.974649",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, large paintings, and a chandelier.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:27.974649",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:29.989550",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.989550",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.989550",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.990551",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.990551",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.990551",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:29.991556",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:29.991556",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.651413",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:31.652419",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:31.652419",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:34.206578",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.206578",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.207561",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.207561",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.207561",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.207561",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00010601.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:34.208560",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:34.208560",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:35.272898",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00010601.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.272898",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.273890",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.273890",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.273890",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.273890",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00015151.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:35.274884",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:35.274884",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00015151.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.701645",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:43.702645",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:43.702645",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:45.281197",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.281197",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.281197",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.281197",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.281197",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [1, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.282172",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00003341.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:10:45.282172",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:45.282172",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00003341.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['east']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a grand room with ornate gold decorations, chandeliers, and large paintings on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 0], \"new\": [1, 0]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "aborted",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:10:47.570270",
+        "action": {
+          "type": "turn limit reached",
+          "content": true
+        }
+      }
+    ]
+  ]
+}

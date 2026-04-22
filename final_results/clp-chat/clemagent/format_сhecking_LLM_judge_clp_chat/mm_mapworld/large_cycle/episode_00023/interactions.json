@@ -1,0 +1,2058 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "large_cycle",
+    "game_id": 2,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 20,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:12.216212",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00001478.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:12.217212",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 1], \"size\": 8, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:12.217212",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00001478.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['{\"description\": \"<room description>\", \"action\": \"<action>\"}']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.358317",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:15.359316",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop island.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:15.359316",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.048400",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:17.049397",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, and a black countertop.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:17.049397",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:19.796976",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.796976",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.796976",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.796976",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.796976",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.797975",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:19.797975",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:19.797975",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.690972",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:21.691973",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:21.691973",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.598709",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:23.599708",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:23.599708",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:25.450974",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.450974",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.451974",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.451974",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.451974",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.451974",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002721.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:25.452964",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:25.452964",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south, west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002721.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: south\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: south\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.932483",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:28.933482",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: south\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:28.933482",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:32.062307",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.062307",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.063304",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.063304",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.063304",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [2, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.063304",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00011332.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:32.064303",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:32.064303",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, west, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00011332.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:33.513775",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:35.718208",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.718208",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.718208",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.718208",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.719205",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.719205",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:35.720200",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:35.720200",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['west', 'north']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:38.203738",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:38.204738",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['west', 'north']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.641310",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:41.642298",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:41.642298",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:44.997661",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:44.997661",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:44.997661",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:44.997661",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:45.001628",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:45.001628",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:45.002662",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:45.002662",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.267092",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:47.268091",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, stainless steel appliances, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:47.268091",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:49.462423",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.463416",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.463416",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.463416",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.463416",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.464313",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:49.465416",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:49.465416",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:22:54.512351",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.512351",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.512351",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.512351",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.512351",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.513348",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:22:54.514354",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:22:54.514354",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.864410",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:23:01.865408",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:01.865408",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:23:11.926126",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.926126",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.926126",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.927135",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.927135",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.927135",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:23:11.927135",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a stove.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:11.927135",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.817144",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00002578.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:23:19.818155",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:19.818155",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00002578.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a kitchen with wooden cabinets, a stainless steel refrigerator, a microwave, and a central island.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 0], \"new\": [3, 0]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "aborted",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:23:24.211968",
+        "action": {
+          "type": "turn limit reached",
+          "content": true
+        }
+      }
+    ]
+  ]
+}

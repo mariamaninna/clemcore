@@ -1,0 +1,2010 @@
+{
+  "meta": {
+    "game_name": "mm_mapworld",
+    "experiment_name": "large",
+    "game_id": 2,
+    "results_folder": "NEW_FormatCheckingAgent_LLM_judge_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 20,
+    "completed": true
+  },
+  "player_models": "FormatCheckingAgent_LLM_judge-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "PathDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "PathWalker",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:44.205691",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:44.206683",
+        "action": {
+          "type": "send message",
+          "content": "{\"start\": [2, 1], \"size\": 8, \"game\": \"mm_mapworld\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:44.206683",
+        "action": {
+          "type": "get message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "send message",
+          "content": "We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: \"{\"description\": \"<room description>\", \"action\": \"<action>\"}\". Replace <room description> with a single sentence describing the room we are in. To move to a neighboring room, replace <action> with \"GO: DIRECTION\" where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace <action> with \"DONE\". Omit any other text.\nHere is an example:\nWe are in this room. From here we can go: north, west. What is your next instruction?\n{\"description\": \"We are in a kitchen with a red fridge.\", \"action\": \"GO: north\"}\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a living room with a couch and a tv.\", \"action\": \"GO: east\"}\n...\nWe have made a step and are now in this room. From here we can go: south, east. What is your next instruction?\n{\"description\": \"We are in a bathroom\", \"action\": \"DONE\"}\nLet us start. \nWe have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['description', 'action', 'GO:', 'DONE']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.517966",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004094.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:46.518981",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:46.518981",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:48.678352",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004094.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:48.679352",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.607946",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007405.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:50.608945",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:50.608945",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:51.495982",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007405.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.495982",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.495982",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.495982",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.496980",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.496980",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007405.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:51.496980",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:51.496980",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007405.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.153529",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:57.155056",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:57.155056",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.676680",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004094.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:15:59.677678",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:15:59.677678",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004094.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['east']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:02.429180",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:03.904670",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.904670",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [3, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007405.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:03.905667",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:04.787849",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007405.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.787849",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.787849",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.787849",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.788849",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [3, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.788849",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:04.788849",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:04.789837",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:05.808874",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004094.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:05.809872",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004094.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.551818",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:07.553816",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:07.553816",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.514476",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004094.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:08.515750",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:08.515750",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004094.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['east']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 1 (invalid)",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 2 (invalid)",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (invalid)",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt 3 (final fallback)",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [1, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.019341",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00004094.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:11.020354",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:11.020354",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00004094.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "['east']"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 1], \"new\": [2, 1]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.416685",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_val_00000317.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:15.417697",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: east\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:15.417697",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: west, east, north. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_val_00000317.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 1], \"new\": [2, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.392331",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00007095.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:16.393330",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:16.393330",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south, west, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:18.441241",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south, west, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00007095.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and scenic wall murals.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.441241",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and scenic wall murals.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.442243",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.442243",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and scenic wall murals.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.442243",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [2, 2], \"new\": [1, 2]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.442243",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00000319.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:18.443230",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and scenic wall murals.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:18.443230",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00000319.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 2], \"new\": [1, 3]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.905510",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00009399.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:21.906527",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and large landscape murals on the walls.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:21.907508",
+        "action": {
+          "type": "get message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "send message",
+          "content": "We have made a step and are now in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00009399.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 3], \"new\": [1, 3]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.419074",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00009399.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:24.420067",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:24.420067",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00009399.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: west\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: west\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 3], \"new\": [1, 3]}"
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.402902",
+        "action": {
+          "type": "room_image",
+          "content": "{\"image\": [\"games/mm_mapworld/resources/images/ADE_train_00009399.jpg\"]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-21T21:16:25.403900",
+        "action": {
+          "type": "send message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: west\"}",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:25.403900",
+        "action": {
+          "type": "get message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "send message",
+          "content": "The move was invalid and we are still in this room. From here we can go: south. What is your next instruction?",
+          "label": "context",
+          "image": [
+            "..\\clembench\\mm_mapworld\\mm_mapworld_main\\resources\\images\\ADE_train_00009399.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "tags extracted",
+          "content": "[]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "attempt",
+          "content": "[attempt 1 \u2013 valid]\n{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "get message",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "Valid format",
+          "content": "Continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "parse",
+          "content": "{\"description\": \"We are in a dining room with a glass table, black chairs, and painted wall murals.\", \"action\": \"GO: north\"}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "move",
+          "content": "{\"old\": [1, 3], \"new\": [1, 3]}"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "aborted",
+          "content": true
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-21T21:16:26.309729",
+        "action": {
+          "type": "turn limit reached",
+          "content": true
+        }
+      }
+    ]
+  ]
+}
