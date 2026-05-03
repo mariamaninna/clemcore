@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "game_name": "adventuregame",
+    "experiment_name": "home_deliver_three_planning_hard_invlimittwo",
+    "game_id": 0,
+    "results_folder": "NEW_base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 2,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "Adventurer",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T17:39:42.076203",
+        "action": {
+          "type": "send message",
+          "content": "You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \"Next actions:\".\nFor example:\n> open cupboard\nNext actions: take orange, eat orange\n\nYou can have up to two objects in your inventory at the same time.\n\nYour goal for this game is: Put the pillow on the counter, the book on the shelf and the plate on the table.\n\nOnce you have achieved your goal, write \"> done\" to end the game.\n\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \\\"Next actions:\\\".\\nFor example:\\n> open cupboard\\nNext actions: take orange, eat orange\\n\\nYou can have up to two objects in your inventory at the same time.\\n\\nYour goal for this game is: Put the pillow on the counter, the book on the shelf and the plate on the table.\\n\\nOnce you have achieved your goal, write \\\"> done\\\" to end the game.\\n\\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "ACT: > open cupboard  \nNext actions: take pillow, take book"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.076203",
+        "action": {
+          "type": "get message",
+          "content": "> open cupboard  \nNext actions: take pillow, take book",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.076203",
+        "action": {
+          "type": "metadata",
+          "content": "Round: 0"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.076203",
+        "action": {
+          "type": "turn_plan",
+          "content": [
+            "take pillow",
+            "take book"
+          ]
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.082199",
+        "action": {
+          "type": "action_fail",
+          "content": {
+            "phase": "resolution",
+            "fail_type": "entity_not_accessible",
+            "arg": {
+              "failed_action_type": "open",
+              "failed_precon_predicate": {
+                "predicate_tuple": [
+                  "at",
+                  "cupboard1",
+                  "broomcloset1"
+                ],
+                "fulfilled": false,
+                "precon_idx": 1
+              }
+            },
+            "exploration_info": {
+              "action_epistemic": true,
+              "action_pragmatic": true,
+              "effective_epistemic_gain_facts": [],
+              "effective_epistemic_gain_amount": 0,
+              "known_entities": [
+                [
+                  "at",
+                  "mop1",
+                  "broomcloset1"
+                ],
+                [
+                  "at",
+                  "broom1",
+                  "broomcloset1"
+                ],
+                [
+                  "at",
+                  "player1",
+                  "broomcloset1"
+                ]
+              ],
+              "known_entities_ratio": 0.10344827586206896,
+              "visited_rooms": [
+                "broomcloset1"
+              ],
+              "visited_rooms_ratio": 0.16666666666666666,
+              "known_goal_entities": [],
+              "known_goal_entities_ratio": 0.0
+            }
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.082199",
+        "action": {
+          "type": "goal_status",
+          "content": {
+            "goal_states_achieved": [],
+            "turn_goal_score": 0
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.082199",
+        "action": {
+          "type": "current_plan",
+          "content": "['take pillow', 'take book']"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.082199",
+        "action": {
+          "type": "plan_length",
+          "content": 2
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.088192",
+        "action": {
+          "type": "plan_results",
+          "content": [
+            [
+              [],
+              "You can't see a pillow here.\n",
+              {
+                "phase": "resolution",
+                "fail_type": "entity_not_accessible",
+                "arg": {
+                  "failed_action_type": "take",
+                  "failed_precon_predicate": {
+                    "predicate_tuple": [
+                      "at",
+                      "pillow1",
+                      "broomcloset1"
+                    ],
+                    "fulfilled": false,
+                    "precon_idx": 1
+                  }
+                },
+                "exploration_info": {
+                  "action_epistemic": false,
+                  "action_pragmatic": true,
+                  "effective_epistemic_gain_amount": 0,
+                  "known_entities": [
+                    [
+                      "at",
+                      "mop1",
+                      "broomcloset1"
+                    ],
+                    [
+                      "at",
+                      "broom1",
+                      "broomcloset1"
+                    ],
+                    [
+                      "at",
+                      "player1",
+                      "broomcloset1"
+                    ]
+                  ],
+                  "known_entities_ratio": 0.10344827586206896,
+                  "visited_rooms": [
+                    "broomcloset1"
+                  ],
+                  "visited_rooms_ratio": 0.16666666666666666,
+                  "known_goal_entities": [],
+                  "known_goal_entities_ratio": 0.0
+                }
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.088192",
+        "action": {
+          "type": "plan_command_success_ratio",
+          "content": 0.0
+        }
+      }
+    ],
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T17:39:42.172636",
+        "action": {
+          "type": "send message",
+          "content": "You can't see a cupboard here.\n",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \\\"Next actions:\\\".\\nFor example:\\n> open cupboard\\nNext actions: take orange, eat orange\\n\\nYou can have up to two objects in your inventory at the same time.\\n\\nYour goal for this game is: Put the pillow on the counter, the book on the shelf and the plate on the table.\\n\\nOnce you have achieved your goal, write \\\"> done\\\" to end the game.\\n\\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"> open cupboard  \\nNext actions: take pillow, take book\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You can't see a cupboard here.\\n\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "ACT: look around"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.172636",
+        "action": {
+          "type": "get message",
+          "content": "look around",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.172636",
+        "action": {
+          "type": "metadata",
+          "content": "Round: 1"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.172636",
+        "action": {
+          "type": "invalid_format",
+          "content": "command_tag_missing"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T17:39:42.172636",
+        "action": {
+          "type": "game_result",
+          "content": {
+            "goal_states_achieved": [],
+            "game_successfully_finished": false
+          }
+        }
+      }
+    ]
+  ],
+  "adventure_info": {
+    "variant": "plan",
+    "max_turns": 50,
+    "optimal_turns": 16,
+    "goal_count": 3
+  }
+}

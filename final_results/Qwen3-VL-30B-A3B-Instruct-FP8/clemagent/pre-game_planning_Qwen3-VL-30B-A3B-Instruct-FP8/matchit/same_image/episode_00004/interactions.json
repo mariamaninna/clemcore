@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "game_name": "matchit",
+    "experiment_name": "same_image",
+    "game_id": 3,
+    "results_folder": "NEW_base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "MatchItPlayer",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "MatchItPlayer",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T18:53:23.913201",
+        "action": {
+          "type": "send message",
+          "content": "You are participating in a collaborative guessing game.\nThe goal is to find out whether this picture and another picture only I can see, are the same.\nPlease describe your image first. Then, I will provide my description and we can ask each other questions about the images to figure out whether they are the same. Now start your short image description with \"DESCRIPTION:\" followed by the description. Do not add anything else.",
+          "label": "context",
+          "image": [
+            "https://cs.stanford.edu/people/rak248/VG_100K_2/2385813.jpg"
+          ]
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are participating in a collaborative guessing game.\\nThe goal is to find out whether this picture and another picture only I can see, are the same.\\nPlease describe your image first. Then, I will provide my description and we can ask each other questions about the images to figure out whether they are the same. Now start your short image description with \\\"DESCRIPTION:\\\" followed by the description. Do not add anything else.\",\n    \"image\": [\n      \"https://cs.stanford.edu/people/rak248/VG_100K_2/2385813.jpg\"\n    ]\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "DESCRIPTION: The image shows an indoor event, likely a panel discussion or presentation, in a lecture hall or conference room. There are three people on a stage: a woman sitting on the left, a man in the center, and another man on the right who is gesturing while speaking. The audience is seated in rows of chairs facing the stage. A large projection screen is visible on the right side of the stage, and a curtain hangs behind the speakers. The room has dim lighting, with spotlights on the stage. There is a podium on the left side of the stage, and a monitor is placed on a stand near it. The audience appears to be engaged, with some individuals looking toward the speakers. The overall atmosphere is formal and professional.\n\nACT: I will now ask you a question to help determine if our images are the same. What is the color of the curtain behind the speakers on the stage?"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:53:23.913201",
+        "action": {
+          "type": "get message",
+          "content": "I will now ask you a question to help determine if our images are the same. What is the color of the curtain behind the speakers on the stage?",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:53:23.914193",
+        "action": {
+          "type": "invalid format",
+          "content": "abort, first word: I"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:53:23.914193",
+        "action": {
+          "type": "Game over",
+          "content": "Aborted"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:53:23.914193",
+        "action": {
+          "type": "Game over",
+          "content": "Aborted"
+        }
+      }
+    ]
+  ]
+}

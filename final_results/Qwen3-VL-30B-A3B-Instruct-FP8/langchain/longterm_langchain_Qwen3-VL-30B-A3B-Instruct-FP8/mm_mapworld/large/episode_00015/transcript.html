@@ -1,0 +1,831 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'mm_mapworld', experiment 'large', episode 4 with longterm_langchain_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00007088.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;start&quot;: [2, 2], &quot;size&quot;: 8, &quot;game&quot;: &quot;mm_mapworld&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: &quot;{&quot;description&quot;: &quot;&lt;room description&gt;&quot;, &quot;action&quot;: &quot;&lt;action&gt;&quot;}&quot;. Replace &lt;room description&gt; with a single sentence describing the room we are in. To move to a neighboring room, replace &lt;action&gt; with &quot;GO: DIRECTION&quot; where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace &lt;action&gt; with &quot;DONE&quot;. Omit any other text.<br/>Here is an example:<br/>We are in this room. From here we can go: north, west. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a kitchen with a red fridge.&quot;, &quot;action&quot;: &quot;GO: north&quot;}<br/>We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a living room with a couch and a tv.&quot;, &quot;action&quot;: &quot;GO: east&quot;}<br/>...<br/>We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a bathroom&quot;, &quot;action&quot;: &quot;DONE&quot;}<br/>Let us start. <br/>We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We are currently in this room. Please help me with the following task. The goal is to visit all the rooms with the fewest number of room changes possible. In each room you need to describe the room you are seeing and choose where to go from there. Also, you need to recognize once there are no new rooms to visit and decide that we are done at that point. Please give your answer in the following format: &quot;{&quot;description&quot;: &quot;&lt;room description&gt;&quot;, &quot;action&quot;: &quot;&lt;action&gt;&quot;}&quot;. Replace &lt;room description&gt; with a single sentence describing the room we are in. To move to a neighboring room, replace &lt;action&gt; with &quot;GO: DIRECTION&quot; where DIRECTION can be one of [north, south, east, west]. To stop the exploration, replace &lt;action&gt; with &quot;DONE&quot;. Omit any other text.<br/>Here is an example:<br/>We are in this room. From here we can go: north, west. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a kitchen with a red fridge.&quot;, &quot;action&quot;: &quot;GO: north&quot;}<br/>We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a living room with a couch and a tv.&quot;, &quot;action&quot;: &quot;GO: east&quot;}<br/>...<br/>We have made a step and are now in this room. From here we can go: south, east. What is your next instruction?<br/>{&quot;description&quot;: &quot;We are in a bathroom&quot;, &quot;action&quot;: &quot;DONE&quot;}<br/>Let us start. <br/>We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a room with a bookshelf and a lamp.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a room with a bookshelf and a lamp.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 2], &quot;new&quot;: [2, 3]}</p>
+    </div>
+</div><div class="game-round" data-round="1"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00014990.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a room with a bookshelf and a lamp.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 3], &quot;new&quot;: [1, 3]}</p>
+    </div>
+</div><div class="game-round" data-round="2"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00007362.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007362.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007362.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007362.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007362.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007362.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007362.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 3], &quot;new&quot;: [2, 3]}</p>
+    </div>
+</div><div class="game-round" data-round="3"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00014990.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00014990.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west, east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00014990.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 3], &quot;new&quot;: [2, 2]}</p>
+    </div>
+</div><div class="game-round" data-round="4"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00007088.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00007088.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00007088.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 2], &quot;new&quot;: [1, 2]}</p>
+    </div>
+</div><div class="game-round" data-round="5"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00003559.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a laundry room with a washer and dryer.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a laundry room with a washer and dryer.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 2], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="6"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a laundry room with a washer and dryer.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a utility room with tools and storage shelves.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a utility room with tools and storage shelves.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [2, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="7"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00000679.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a utility room with tools and storage shelves.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a garage with a car and storage bins.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a garage with a car and storage bins.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 1], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="8"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a garage with a car and storage bins.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a workshop with tools and workbenches.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a workshop with tools and workbenches.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [1, 2]}</p>
+    </div>
+</div><div class="game-round" data-round="9"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00003559.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a workshop with tools and workbenches.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a storage room with shelves and boxes.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a storage room with shelves and boxes.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 2], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="10"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a storage room with shelves and boxes.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a pantry with food supplies and cabinets.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a pantry with food supplies and cabinets.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [2, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="11"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00000679.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a pantry with food supplies and cabinets.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a kitchen with a red fridge.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a kitchen with a red fridge.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 1], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="12"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a kitchen with a red fridge.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a living room with a couch and a tv.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a living room with a couch and a tv.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [1, 2]}</p>
+    </div>
+</div><div class="game-round" data-round="13"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00003559.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a living room with a couch and a tv.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 2], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="14"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a dining room with a large table and chairs.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [2, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="15"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00000679.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bathroom with a sink and a mirror.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bathroom with a sink and a mirror.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 1], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="16"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bathroom with a sink and a mirror.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [1, 2]}</p>
+    </div>
+</div><div class="game-round" data-round="17"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00003559.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a hallway with paintings on the walls.&quot;, &quot;action&quot;: &quot;GO: north&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: east, south. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00003559.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 2], &quot;new&quot;: [1, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="18"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00010613.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a study with a desk and bookshelves.&quot;, &quot;action&quot;: &quot;GO: south&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: north, east. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00010613.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [1, 1], &quot;new&quot;: [2, 1]}</p>
+    </div>
+</div><div class="game-round" data-round="19"><div speaker="Game Master: room_image" class="msg gm-gm" style="">
+  <p>{&quot;image&quot;: [&quot;games/mm_mapworld/resources/images/ADE_train_00000679.jpg&quot;]}</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\games/mm_mapworld/resources/images/ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="GM (Game Master) to Player 1 (PathDescriber)" class="msg gm-player p1" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bedroom with a bed and a nightstand.&quot;, &quot;action&quot;: &quot;GO: east&quot;}</p>
+    </div>
+
+    <div speaker="Player 1 (PathDescriber) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+    </div>
+<div speaker="GM (Game Master) to Player 2 (PathWalker)" class="msg gm-player p2" style="">
+  <p>We have made a step and are now in this room. From here we can go: west. What is your next instruction?</p>
+  <a title="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg"><img style="width:100%" src="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" alt="C:\Users\white\anaconda3\envs\playpen-env\lib\site-packages\..\clembench\mm_mapworld\mm_mapworld_main\resources\images\ADE_train_00000679.jpg" /></a>
+</div>
+
+    <div speaker="Player 2 (PathWalker) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bathroom with a sink and a mirror.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: Valid format" class="msg gm-gm" style="">
+        <p>Continue</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>{&quot;description&quot;: &quot;We are in a bathroom with a sink and a mirror.&quot;, &quot;action&quot;: &quot;GO: west&quot;}</p>
+    </div>
+
+    <div speaker="Game Master: move" class="msg gm-gm" style="">
+        <p>{&quot;old&quot;: [2, 1], &quot;new&quot;: [1, 1]}</p>
+    </div>
+
+    <div speaker="Game Master: aborted" class="msg gm-gm" style="">
+        <p>True</p>
+    </div>
+
+    <div speaker="Game Master: turn limit reached" class="msg gm-gm" style="">
+        <p>True</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

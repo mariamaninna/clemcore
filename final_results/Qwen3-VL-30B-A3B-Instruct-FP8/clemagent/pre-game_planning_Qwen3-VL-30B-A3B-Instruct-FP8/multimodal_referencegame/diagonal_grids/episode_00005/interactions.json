@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "game_name": "multimodal_referencegame",
+    "experiment_name": "diagonal_grids",
+    "game_id": 0,
+    "results_folder": "NEW_base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "InstructionGiver",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "InstructionFollower",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T18:59:08.325511",
+        "action": {
+          "type": "send message",
+          "content": "You are given three images, one is called target and the other two are distractors.\nYour task is to generate a referring expression that best describes the target image while distinguishing it from the two other distractor images.\nThe first image is the target, the second image is a distractor, and the third image is a distractor. Instruction: Describe the target image. Generate the referring expression starting with the tag \"Expression: \" for the given target image. Omit any other text.",
+          "label": "context",
+          "image": [
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\6.png",
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\7.png",
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\8.png"
+          ]
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are given three images, one is called target and the other two are distractors.\\nYour task is to generate a referring expression that best describes the target image while distinguishing it from the two other distractor images.\\nThe first image is the target, the second image is a distractor, and the third image is a distractor. Instruction: Describe the target image. Generate the referring expression starting with the tag \\\"Expression: \\\" for the given target image. Omit any other text.\",\n    \"image\": [\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\6.png\",\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\7.png\",\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\8.png\"\n    ]\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "Expression: a grid with X in the top right corner and the rest filled with \u00e2-\u00e7"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:59:08.325511",
+        "action": {
+          "type": "get message",
+          "content": "Expression: a grid with X in the top right corner and the rest filled with \u00e2-\u00e7",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:59:08.325511",
+        "action": {
+          "type": "parse",
+          "content": "Expression: a grid with X in the top right corner and the rest filled with \u00e2-\u00e7"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-20T18:59:08.484712",
+        "action": {
+          "type": "send message",
+          "content": "You are given three images.\nYou are also given a referring expression that describes one of the given images.\nYour task is to select the image that matches the given referring expression.\nGenerate only the number (in text) of the image that matches the given expression by selecting first, second, or third.\n\nExpression: a grid with X in the top right corner and the rest filled with \u00e2-\u00e7\nQuestion: Which image does the expression refer to?\nStart with the tag \"Answer: \", followed by your selection. Omit any other text.\n",
+          "label": "context",
+          "image": [
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\6.png",
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\7.png",
+            "C:/Users/white/Desktop/agents_experiments/clembench\\multimodal_referencegame\\resources\\grid_images\\8.png"
+          ]
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are given three images.\\nYou are also given a referring expression that describes one of the given images.\\nYour task is to select the image that matches the given referring expression.\\nGenerate only the number (in text) of the image that matches the given expression by selecting first, second, or third.\\n\\nExpression: a grid with X in the top right corner and the rest filled with \\u00e2-\\u00e7\\nQuestion: Which image does the expression refer to?\\nStart with the tag \\\"Answer: \\\", followed by your selection. Omit any other text.\\n\",\n    \"image\": [\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\6.png\",\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\7.png\",\n      \"C:/Users/white/Desktop/agents_experiments/clembench\\\\multimodal_referencegame\\\\resources\\\\grid_images\\\\8.png\"\n    ]\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning module",
+          "content": "Answer: first"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:59:08.484712",
+        "action": {
+          "type": "get message",
+          "content": "Answer: first",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:59:08.484712",
+        "action": {
+          "type": "parse_correct",
+          "content": "first"
+        }
+      }
+    ]
+  ]
+}

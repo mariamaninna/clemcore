@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'privateshared', experiment 'job-interview', episode 4 with baseline_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>You are an applicant in a job interview. Here is a description of your CV:<br/><br/>WHAT: Job Application<br/>BACHELOR: Literature<br/>INDUSTRY-EXPERIENCE: Twenty years<br/>HIGHEST-EDUCATION: Professor<br/>OTHER-SKILLS: Painting<br/>AVAILABILITY: In two weeks<br/><br/>The recruiter does not know about it yet. <br/><br/>Questions from the recruiter will start with RECRUITER. Please reply in the form: ANSWER: &lt;one sentence&gt;<br/><br/>I will also ask you questions. These questions will start with ME: . Please answer these questions with: ASIDE: &lt;one sentence&gt;<br/><br/>Important: Give short, direct answers!<br/><br/>Let us start.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Ok.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for BACHELOR valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for INDUSTRY-EXPERIENCE valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for HIGHEST-EDUCATION valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for OTHER-SKILLS valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for AVAILABILITY valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>How long have you been working in your area in the industry?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: How long have you been working in your area in the industry?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Here’s a strong, professional way to answer this question, depending on your experience level:<br/><br/>**For Experienced Candidates:**<br/>&gt; &quot;I’ve been working in the [your industry/field] for [number] years, with [number] years specifically focused on [your area/specialty]. In that time, I’ve gained extensive experience in [mention 1-2 key skills or achievements], which I believe aligns well with the requirements of this role.&quot;<br/><br/>**For Entry-Level or Early-Career Candidates:**<br/>&gt; &quot;While I’m early in my career, I’ve been actively working in the [industry/field] for [number] years, primarily through [internships, entry-level roles, or relevant projects]. This has given me a solid foundation in [key skill or area], and I’m eager to build on that experience in a role like this.&quot;<br/><br/>**For Career Changers:**<br/>&gt; &quot;I’ve been working in the [new industry] for [number] years, transitioning from my previous background in [old industry]. My experience in [transferable skill, e.g., project management, client relations] has equipped me to contribute effectively in this role.&quot;<br/><br/>**Key Tips:**<br/>- **Be specific:** Mention years, roles, and key skills.<br/>- **Highlight relevance:** Connect your experience to the job.<br/>- **Keep it concise:** Aim for 1-2 sentences.<br/>- **Avoid vagueness:** Don’t say &quot;a long time&quot; or &quot;a few years&quot; without context.<br/><br/>**Example (Experienced):**  <br/>&gt; &quot;I’ve been working in digital marketing for 7 years, with 5 years specializing in SEO and content strategy. I’ve led campaigns that increased organic traffic by 150% for clients in the tech sector, which I believe directly supports the goals of this role.&quot;<br/><br/>This shows confidence, clarity, and relevance.</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is your bachelor background?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What is your bachelor background?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Here’s a professional and effective way to answer the recruiter’s question about your bachelor’s background:<br/><br/>---<br/><br/>**For Relevant Background (e.g., degree matches the job):**  <br/>&gt; &quot;I earned my Bachelor’s degree in [Your Major] from [University Name]. During my studies, I focused on [key areas, e.g., data analysis, marketing strategy, computer science], which gave me a strong foundation in [relevant skills]. I also completed projects like [brief example], which helped me develop practical experience in [related field].&quot;<br/><br/>**For Non-Relevant Background (e.g., degree is unrelated to the job):**  <br/>&gt; &quot;I hold a Bachelor’s degree in [Your Major] from [University Name]. While my academic focus was on [subject], I’ve built relevant skills through [internships, certifications, projects, or work experience] in [industry/field]. For example, I developed [specific skill] while working on [project or role], which has prepared me well for this position.&quot;<br/><br/>**For Career Changers or Self-Taught Candidates:**  <br/>&gt; &quot;I have a Bachelor’s degree in [Your Major], but I’ve since transitioned into [new field] through [courses, bootcamps, or hands-on experience]. I’ve been actively building my expertise in [relevant area] and have successfully applied it in roles such as [brief example].&quot;<br/><br/>---<br/><br/>**Key Tips:**<br/>- **Be honest and concise.**<br/>- **Highlight transferable skills** if your degree isn’t directly related.<br/>- **Connect your background to the job**—show how your education or experience supports the role.<br/>- **Avoid over-explaining** unless asked.<br/><br/>---<br/><br/>**Example (Relevant):**  <br/>&gt; &quot;I earned my Bachelor’s in Computer Science from the University of Washington. I focused on software development and data structures, and I completed a capstone project building a mobile app that won a university innovation award. That experience helped me develop strong problem-solving and coding skills, which I’ve applied in my previous roles.&quot;<br/><br/>**Example (Non-Relevant):**  <br/>&gt; &quot;I have a Bachelor’s in English Literature from NYU. While my degree wasn’t directly in business, I developed strong communication, research, and analytical skills. I’ve since built experience in marketing through internships and freelance projects, where I managed content strategy and social media campaigns.&quot;<br/><br/>This approach shows confidence, relevance, and adaptability.</p>
+    </div>
+</div><div class="game-round" data-round="2">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>Do you have any other skills?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: Do you have any other skills?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Here’s a professional and effective way to answer the recruiter’s question: **&quot;Do you have any other skills?&quot;**<br/><br/>This is your chance to highlight **relevant, transferable, and standout skills**—especially those that align with the job description. Keep it concise, confident, and focused.<br/><br/>---<br/><br/>### ✅ **Best Approach:**<br/>**Structure your answer as:**  <br/>&gt; &quot;Yes, in addition to my core experience, I also have strong skills in [Skill 1], [Skill 2], and [Skill 3]. For example, I’ve used [Skill 1] to [brief achievement], and I’m also proficient in [Skill 2] from [experience or training].&quot;<br/><br/>---<br/><br/>### 🎯 **Examples by Experience Level:**<br/><br/>#### **Experienced Candidate:**<br/>&gt; &quot;Yes, in addition to my technical expertise in project management, I’m also skilled in data analysis using tools like Excel and Power BI. I’ve used these skills to track KPIs and improve team efficiency by 20% in previous roles. I’m also fluent in Spanish, which has helped me lead cross-cultural teams and support international clients.&quot;<br/><br/>#### **Entry-Level Candidate:**<br/>&gt; &quot;Yes, I have strong communication and organizational skills from my role as a student ambassador, where I coordinated events and represented the university to prospective students. I’m also proficient in Google Workspace and have experience using CRM software from my internship. I’m a quick learner and always eager to pick up new tools.&quot;<br/><br/>#### **Career Changer:**<br/>&gt; &quot;Yes, I bring strong skills in client relationship management and problem-solving from my time in customer service, which I’ve applied in my recent role as a freelance consultant. I’m also skilled in digital marketing tools like Canva and Hootsuite, and I’ve completed a certification in SEO, which I’ve used to grow small business websites.&quot;<br/><br/>---<br/><br/>### 🔍 **Key Tips:**<br/>- **Prioritize job-relevant skills** (e.g., if applying for a tech role, highlight coding, debugging, or cloud platforms).<br/>- **Include soft skills** like communication, teamwork, or time management—especially if they’re critical to the role.<br/>- **Mention tools or software** (e.g., Salesforce, Photoshop, Python, Zoom) to add credibility.<br/>- **Give a brief example** to show impact (e.g., &quot;used Excel to streamline reporting&quot;).<br/>- **Avoid listing every skill**—focus on 2–4 that matter most.<br/><br/>---<br/><br/>### 🚫 **Avoid:**<br/>- &quot;I can use a computer&quot; or &quot;I’m good at working hard.&quot;<br/>- Overloading with unrelated skills (e.g., &quot;I can play the guitar&quot; unless it’s relevant).<br/>- Saying &quot;I don’t know&quot; or &quot;Not really.&quot;<br/><br/>---<br/><br/>### ✅ **Final Example (Strong Answer):**<br/>&gt; &quot;Yes, in addition to my experience in sales, I’m also skilled in CRM software like Salesforce and HubSpot, which I’ve used to manage client pipelines and improve conversion rates. I’m also proficient in data analysis using Excel and have completed a certification in digital marketing, which has helped me run targeted campaigns. I’m a strong communicator and enjoy collaborating across teams to achieve shared goals.&quot;<br/><br/>This answer shows **confidence, relevance, and initiative**—exactly what recruiters want to hear.</p>
+    </div>
+</div><div class="game-round" data-round="3">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>From when are you available?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: From when are you available?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Here’s a professional and effective way to answer the recruiter’s question: **&quot;From when are you available?&quot;**<br/><br/>This is a common question, especially in hiring processes, and your response should be clear, honest, and aligned with your current situation.<br/><br/>---<br/><br/>### ✅ **Best Practice:**<br/>Be direct and specific. Include your **notice period** (if applicable) and your **earliest start date**.<br/><br/>---<br/><br/>### 📌 **Examples by Situation:**<br/><br/>#### **If You’re Currently Employed (Need Notice Period):**<br/>&gt; &quot;I’m currently employed and have a [number]-week notice period. I’d be available to start on [specific date], which would give me enough time to wrap up my responsibilities professionally.&quot;<br/><br/>*Example:*  <br/>&gt; &quot;I’m currently employed and have a 3-week notice period. I’d be available to start on [e.g., June 10th], which allows me to transition smoothly.&quot;<br/><br/>---<br/><br/>#### **If You’re Unemployed or Recently Laid Off:**<br/>&gt; &quot;I’m available to start immediately. I’m ready to begin as soon as you’re ready—my earliest start date would be [e.g., next week or a specific date].&quot;<br/><br/>*Example:*  <br/>&gt; &quot;I’m currently not working and am available to start right away. I can begin as early as next Monday if needed.&quot;<br/><br/>---<br/><br/>#### **If You’re on a Contract or Freelance Role:**<br/>&gt; &quot;I’m currently working on a contract that ends on [date], so I’d be available to start on [new start date]. I can provide a smooth handover if needed.&quot;<br/><br/>---<br/><br/>#### **If You’re a Recent Graduate or Student:**<br/>&gt; &quot;I’m a recent graduate and am available to start immediately. I can begin as soon as you’d like—my earliest start date is [e.g., next week or a specific date].&quot;<br/><br/>---<br/><br/>### 🔍 **Key Tips:**<br/>- **Be honest** about your availability—don’t overpromise.<br/>- **Mention your notice period** if applicable (e.g., 2 weeks, 30 days).<br/>- **Offer flexibility** if possible (e.g., &quot;I can be flexible depending on your timeline&quot;).<br/>- **Avoid vagueness** like &quot;soon&quot; or &quot;as soon as possible&quot; without a timeframe.<br/><br/>---<br/><br/>### ✅ **Strong Example Answer:**<br/>&gt; &quot;I’m currently employed and have a 2-week notice period. I’d be available to start on [specific date], which would allow me to wrap up my current responsibilities professionally. I’m flexible and can adjust if needed.&quot;<br/><br/>This shows **professionalism, reliability, and respect for your current employer**—qualities recruiters value.<br/><br/>---<br/><br/>### 🚫 **Avoid:**<br/>- &quot;I don’t know&quot; or &quot;I’ll see.&quot;<br/>- &quot;I can start anytime&quot; without context (unless true).<br/>- Being too rigid (e.g., &quot;I can only start in 3 months&quot;) unless you have a valid reason.<br/><br/>---<br/><br/>✅ **Final Tip:**  <br/>If you’re unsure about your notice period, check your employment contract or HR policy. If you’re not bound by a notice period, say so clearly—this can be a strong advantage in the hiring process.</p>
+    </div>
+</div><div class="game-round" data-round="4">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is your highest academic degree?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What is your highest academic degree?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Here’s a professional and effective way to answer the recruiter’s question: **&quot;What is your highest academic degree?&quot;**<br/><br/>Keep your response clear, concise, and accurate. If relevant, briefly mention your major, institution, and graduation year (if appropriate).<br/><br/>---<br/><br/>### ✅ **Best Practice:**<br/>&gt; &quot;My highest academic degree is a [Degree Type] in [Major] from [University Name].&quot;<br/><br/>---<br/><br/>### 📌 **Examples by Situation:**<br/><br/>#### **Bachelor’s Degree (Most Common):**<br/>&gt; &quot;My highest academic degree is a Bachelor of Science in Business Administration from the University of Texas at Austin. I graduated in May 2020.&quot;<br/><br/>#### **Master’s Degree:**<br/>&gt; &quot;I hold a Master of Science in Data Science from Stanford University, which I completed in 2022.&quot;<br/><br/>#### **Doctorate (PhD, MD, etc.):**<br/>&gt; &quot;My highest academic degree is a Doctor of Philosophy (PhD) in Molecular Biology from Harvard University, which I earned in 2021.&quot;<br/><br/>#### **Non-Traditional or Self-Taught Background:**<br/>&gt; &quot;My highest academic degree is a Bachelor of Arts in Communications from the University of Phoenix. I’ve also completed several professional certifications in digital marketing and project management to further develop my skills.&quot;<br/><br/>---<br/><br/>### 🔍 **Key Tips:**<br/>- **Be accurate**—only state the highest degree you’ve earned.<br/>- **Include the field of study** if it’s relevant to the job.<br/>- **Mention the university** only if it’s well-known or adds value (e.g., Ivy League, top program).<br/>- **Avoid oversharing**—no need to list all degrees unless asked.<br/>- **If you’re still studying**, say:  <br/>  &gt; &quot;I’m currently pursuing a Master’s degree in [Field] at [University], and I expect to graduate in [Month, Year].&quot;<br/><br/>---<br/><br/>### ✅ **Strong Example Answer:**<br/>&gt; &quot;My highest academic degree is a Master of Business Administration (MBA) in Finance from New York University, which I completed in 2021. I also hold a Bachelor of Science in Economics from the University of California, Berkeley.&quot;<br/><br/>This answer is **clear, professional, and highlights your educational background** in a way that supports your qualifications.<br/><br/>---<br/><br/>### 🚫 **Avoid:**<br/>- &quot;I don’t have a degree&quot; (unless you’re being honest and have strong alternative credentials).<br/>- &quot;I have a diploma&quot; (unless it’s a recognized qualification).<br/>- Over-explaining or apologizing for your education level.<br/><br/>---<br/><br/>✅ **Final Tip:**  <br/>If you have certifications, licenses, or relevant training, you can briefly mention them after your degree:  <br/>&gt; &quot;I also hold a PMP certification and have completed advanced courses in AI and machine learning.&quot;<br/><br/>This shows you’re committed to continuous learning.</p>
+    </div>
+
+    <div speaker="Game Master: end" class="msg gm-gm" style="">
+        <p>Game finished.</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
