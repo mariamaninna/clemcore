@@ -32,15 +32,21 @@ class PlayedScoreError(Exception):
     pass
 
 
-def save_clem_table(df: pd.DataFrame, path: str) -> pd.DataFrame | None:
-    """Create benchmark results as a table."""
+def save_clem_table(df: pd.DataFrame, path: str, show_std: bool = False, sort_by: str = "model_name") -> pd.DataFrame | None:
+    """Create benchmark results as a table.
+    Args:
+        df: Episode scores dataframe.
+        path: Directory path to save the results files.
+        show_std: If True, include standard deviation columns for Quality Score. Default: False.
+        sort_by: Sort rows by 'model_name' (alphabetical) or 'clemscore' (descending). Default: 'model_name'.
+    """
 
     # extract only relevant metrics
     df = df[df['metric'].isin(MAIN_METRICS)]
 
-    # make sure all values are actually numeric (temporarily surpressing SettingwithCopyWarning)
-    with pd.option_context('mode.chained_assignment', None):
-        df['value'] = pd.to_numeric(df['value'])
+    # make sure all values are actually numeric
+    df = df.copy()
+    df['value'] = pd.to_numeric(df['value'])
 
     # compute mean benchscore and mean played (which is binary, so a proportion)
     df_a = (df.groupby(['game', 'model', 'metric'])
@@ -48,19 +54,8 @@ def save_clem_table(df: pd.DataFrame, path: str) -> pd.DataFrame | None:
             .reset_index())
     df_a.loc[df_a.metric == clemmetrics.METRIC_PLAYED, 'value'] *= 100
     df_a = df_a.round(2)
-    df_a['metric'].replace(
-        {clemmetrics.METRIC_PLAYED: '% ' + clemmetrics.METRIC_PLAYED},
-        inplace=True)
-
-    # compute the std of benchscore
-    df = df[df.metric == clemmetrics.BENCH_SCORE]
-    df_b = (df.groupby(['game', 'model', 'metric'])
-            .std(numeric_only=True)
-            .reset_index()
-            .round(2))
-    df_b['metric'].replace(
-        {clemmetrics.BENCH_SCORE: clemmetrics.BENCH_SCORE + ' (std)'},
-        inplace=True)
+    df_a['metric'] = df_a['metric'].replace(
+        {clemmetrics.METRIC_PLAYED: '% ' + clemmetrics.METRIC_PLAYED})
 
     # compute the macro-average main score over games, per model
     df_all = (df_a.groupby(['model', 'metric'])
@@ -71,8 +66,21 @@ def save_clem_table(df: pd.DataFrame, path: str) -> pd.DataFrame | None:
     df_all['game'] = 'all'
     df_all['metric'] = 'Average ' + df_all['metric']
 
+    parts = [df_a, df_all]
+
+    if show_std:
+        # compute the std of benchscore
+        df_std = df[df.metric == clemmetrics.BENCH_SCORE]
+        df_b = (df_std.groupby(['game', 'model', 'metric'])
+                .std(numeric_only=True)
+                .reset_index()
+                .round(2))
+        df_b['metric'] = df_b['metric'].replace(
+            {clemmetrics.BENCH_SCORE: clemmetrics.BENCH_SCORE + ' (std)'})
+        parts.insert(1, df_b)
+
     # merge all data and make it one model per row
-    df_full = pd.concat([df_a, df_b, df_all], axis=0, ignore_index=True)
+    df_full = pd.concat(parts, axis=0, ignore_index=True)
     # sort just so all metrics are close to each other in a game column
     df_full.sort_values(by=['game', 'metric'], inplace=True)
     # rename according to paper
@@ -90,6 +98,12 @@ def save_clem_table(df: pd.DataFrame, path: str) -> pd.DataFrame | None:
     df_results.index.name = None
     df_results.columns = df_results.columns.to_flat_index()
     df_results.columns = [', '.join(x) for x in df_results.columns]
+
+    # sort rows
+    if sort_by == "clemscore":
+        df_results.sort_values(by='-, clemscore', ascending=False, inplace=True)
+    else:
+        df_results.sort_index(inplace=True)
 
     # save table
     df_results.to_csv(Path(path) / f'{TABLE_NAME}.csv')
@@ -120,10 +134,19 @@ def parse_directory_name(name: Path) -> dict:
             'episode': episode}
 
 
-def load_scores(path: str) -> dict:
-    """Get all turn and episodes scores and return them in a dictionary."""
+def load_scores(path: str, model_selector: str = None, game_selector: str = None) -> dict:
+    """Get all turn and episodes scores and return them in a dictionary.
+    Args:
+        path: Root directory to search for score files.
+        model_selector: Optional substring to filter score files by model name.
+        game_selector: Optional substring to filter score files by game name.
+    """
     # https://stackoverflow.com/a/18394205
     score_files = list(Path(path).rglob("*scores.json"))
+    if model_selector is not None:
+        score_files = [f for f in score_files if model_selector in str(f)]
+    if game_selector is not None:
+        score_files = [f for f in score_files if game_selector in Path(f).parts]
     print(f'Loading {len(score_files)} JSON files.')
     scores = {}
     for path in tqdm(score_files, desc="Loading scores"):
@@ -152,25 +175,60 @@ def build_df_episode_scores(scores: dict) -> pd.DataFrame:
     return df_episode_scores
 
 
-def perform_evaluation(results_path: str, return_dataframe: bool = False) -> pd.DataFrame | None:
-    # Get all episode scores as a pandas dataframe
-    scores = load_scores(path=results_path)
-    df_episode_scores = build_df_episode_scores(scores)
+def perform_evaluation(results_path: str, return_dataframe: bool = False,
+                       show_std: bool = False, sort_by: str = "model_name",
+                       model_selector: str = None, game_selector: str = None) -> pd.DataFrame | None:
+    """Run evaluation and save results table.
+    Args:
+        results_path: Root directory containing score files and where results are saved.
+        return_dataframe: If True, return the results dataframe.
+        show_std: If True, include standard deviation columns.
+        sort_by: Sort rows by 'model_name' or 'clemscore'.
+        model_selector: Optional substring to restrict evaluation to a specific model.
+            When set (with or without game_selector), loads only matching scores from
+            disk, merges them into the existing raw.csv (replacing matching rows), and
+            recomputes the full results table.
+        game_selector: Optional substring to restrict evaluation to a specific game.
+            Can be combined with model_selector for finer-grained updates.
+    """
+    raw_csv_path = Path(results_path) / 'raw.csv'
+    incremental = (model_selector is not None or game_selector is not None) and raw_csv_path.exists()
 
-    # Create the PLAYED variable, inferring it from ABORTED
-    if clemmetrics.METRIC_PLAYED in df_episode_scores['metric'].unique():
-        raise PlayedScoreError("Computed scores should not contain METRIC_PLAYED.")
-    aux = df_episode_scores[df_episode_scores["metric"] == clemmetrics.METRIC_ABORTED].copy()
-    aux["metric"] = clemmetrics.METRIC_PLAYED
-    aux["value"] = 1 - aux["value"]
-    # We need ignore_index=True to reset the indices (otherwise we have duplicates)
-    df_episode_scores = pd.concat([df_episode_scores, aux], ignore_index=True)
+    if incremental:
+        # Incremental update: load existing raw data, drop rows matching the selectors,
+        # load fresh scores for the selection, then recompute the full table.
+        df_existing = pd.read_csv(raw_csv_path, index_col=0)
+        mask = pd.Series(True, index=df_existing.index)
+        if model_selector is not None:
+            mask &= df_existing['model'].str.contains(model_selector, na=False)
+        if game_selector is not None:
+            mask &= df_existing['game'] == game_selector
+        df_existing = df_existing[~mask]
+        scores = load_scores(path=results_path, model_selector=model_selector, game_selector=game_selector)
+        df_new = build_df_episode_scores(scores)
+        if clemmetrics.METRIC_PLAYED in df_new['metric'].unique():
+            raise PlayedScoreError("Computed scores should not contain METRIC_PLAYED.")
+        aux = df_new[df_new["metric"] == clemmetrics.METRIC_ABORTED].copy()
+        aux["metric"] = clemmetrics.METRIC_PLAYED
+        aux["value"] = 1 - aux["value"]
+        df_new = pd.concat([df_new, aux], ignore_index=True)
+        df_episode_scores = pd.concat([df_existing, df_new], ignore_index=True)
+    else:
+        # Full evaluation: load all scores from disk.
+        scores = load_scores(path=results_path, model_selector=model_selector, game_selector=game_selector)
+        df_episode_scores = build_df_episode_scores(scores)
+        if clemmetrics.METRIC_PLAYED in df_episode_scores['metric'].unique():
+            raise PlayedScoreError("Computed scores should not contain METRIC_PLAYED.")
+        aux = df_episode_scores[df_episode_scores["metric"] == clemmetrics.METRIC_ABORTED].copy()
+        aux["metric"] = clemmetrics.METRIC_PLAYED
+        aux["value"] = 1 - aux["value"]
+        df_episode_scores = pd.concat([df_episode_scores, aux], ignore_index=True)
 
     # save raw scores
-    df_episode_scores.to_csv(Path(results_path) / f'raw.csv')
+    df_episode_scores.to_csv(raw_csv_path)
     print(f'\n Saved raw scores into {results_path}/raw.csv')
 
     # save main table
-    df_episode_scores = save_clem_table(df_episode_scores, results_path)
+    df_episode_scores = save_clem_table(df_episode_scores, results_path, show_std=show_std, sort_by=sort_by)
     if return_dataframe:
         return df_episode_scores

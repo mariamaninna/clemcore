@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import Callable
 
 import gymnasium
@@ -5,9 +6,9 @@ import gymnasium
 from clemcore.backends.model_registry import CustomResponseModel
 from clemcore.clemgame.callbacks.base import GameBenchmarkCallbackList, GameStep
 from clemcore.clemgame.registry import GameRegistry
-from clemcore.clemgame.instances import GameInstanceIterator
+from clemcore.clemgame.instances import GameInstances
 from clemcore.clemgame.benchmark import GameBenchmark
-from clemcore.clemgame.master import GameMaster
+from clemcore.clemgame.master import GameMaster, GameState, Outcome
 from clemcore.clemgame.envs.pettingzoo.wrappers import (
     GameInstanceIteratorWrapper,
     GameBenchmarkWrapper,
@@ -24,11 +25,13 @@ from pettingzoo.utils.env import AgentID, ObsType, ActionType
 
 def gym_env(game_name: str,
             *,
-            game_instance_filter: Callable[[str, str], list[int]] | None = None,
+            instances_filter: Callable[[dict], bool] | None = None,
             single_pass: bool = False,
             learner_agent: AgentID = "player_0",
             env_agents: dict[AgentID, EnvAgent] | None = None,
-            callbacks: GameBenchmarkCallbackList | None = None
+            callbacks: GameBenchmarkCallbackList | None = None,
+            reward_func: Callable[[dict, str, GameState, dict], float] | None = None,
+            feedback_func: Callable[[dict, str, GameState, dict], str | None] | None = None
             ) -> gymnasium.Env:
     """
     Factory method for Gymnasium style game envs.
@@ -46,16 +49,25 @@ def gym_env(game_name: str,
 
     Args:
         game_name: The name of the clem-game to wrap as a PZ env
-        game_instance_filter: A callable mapping from (game_name, experiment_name) tuples to lists of game instance ids.
+        instances_filter: A condition to filter the list of dicts with "experiment" and "game_instance" keys.
+            If the filter is None, then all game instances will be used.
         single_pass: Whether to run through the game instances only once or multiple times.
         learner_agent: the agent id of the learner agent (e.g. player_0)
         env_agents: a mapping from agent ids to Models or Callables (e.g. {player_1: gpt5} or {player_1: lambda obs: "action"})
         callbacks: a list of callbacks to be applied to the environment lifecycle
+        reward_func: a callable (observation, action, state, info) -> float to compute the reward signal.
+            Defaults to outcome-based rewards: 1. on success, 0. on failure, -1. on abort, 0. otherwise.
+            Game-specific rewards can be implemented by subclassing GameState to carry additional fields
+            (e.g. letter matches in Wordle) and reading them in a custom reward_func.
+        feedback_func: an optional callable (observation, action, state, info) -> str | None to provide
+            qualitative language feedback. When provided, the result is stored in info["turn_feedback"]
+            and can be used by the training loop (e.g. as a verbal reward signal).
 
     Returns:
         A fully initialized game env ready for RL-like training
     """
-    game_env = env(game_name, game_instance_filter=game_instance_filter, single_pass=single_pass, callbacks=callbacks)
+    game_env = env(game_name, instances_filter=instances_filter, single_pass=single_pass, callbacks=callbacks,
+                   reward_func=reward_func, feedback_func=feedback_func)
     game_env = SinglePlayerWrapper(game_env, learner_agent, env_agents=env_agents)
     game_env = AECToGymWrapper(game_env)
     return game_env
@@ -63,9 +75,11 @@ def gym_env(game_name: str,
 
 def env(game_name: str,
         *,
-        game_instance_filter: Callable[[str, str], list[int]] | None = None,
+        instances_filter: Callable[[dict], bool] | None = None,
         single_pass: bool = False,
-        callbacks: GameBenchmarkCallbackList | None = None
+        callbacks: GameBenchmarkCallbackList | None = None,
+        reward_func: Callable[[dict, str, GameState, dict], float] | None = None,
+        feedback_func: Callable[[dict, str, GameState, dict], str | None] | None = None
         ) -> AECEnv:
     """
     Factory method for Pettingzoo style game envs.
@@ -83,9 +97,17 @@ def env(game_name: str,
 
     Args:
         game_name: The name of the clem-game to wrap as a PZ env
-        game_instance_filter: A callable mapping from (game_name, experiment_name) tuples to lists of game instance ids.
+        instances_filter: A condition to filter the list of dicts with "experiment" and "game_instance" keys.
+            If the filter is None, then all game instances will be used.
         single_pass: Whether to run through the game instances only once or multiple times.
         callbacks: a list of callbacks to be applied to the environment lifecycle
+        reward_func: a callable (observation, action, state, info) -> float to compute the reward signal.
+            Defaults to outcome-based rewards: 1. on success, 0. on failure, -1. on abort, 0. otherwise.
+            Game-specific rewards can be implemented by subclassing GameState to carry additional fields
+            (e.g. letter matches in Wordle) and reading them in a custom reward_func.
+        feedback_func: an optional callable (observation, action, state, info) -> str | None to provide
+            qualitative language feedback. When provided, the result is stored in info["turn_feedback"]
+            and can be used by the training loop (e.g. as a verbal reward signal).
 
     Returns:
         A fully initialized game env ready for RL-like training
@@ -93,23 +115,53 @@ def env(game_name: str,
     # Load game registry
     game_registry = GameRegistry.from_directories_and_cwd_files()
     game_spec = game_registry.get_game_specs_that_unify_with(game_name)[0]
-    game_env = GameBenchmarkWrapper(GameMasterEnv, game_spec=game_spec, callbacks=callbacks)
+    game_env = GameBenchmarkWrapper(GameMasterEnv, game_spec=game_spec, callbacks=callbacks, reward_func=reward_func,
+                                    feedback_func=feedback_func)
 
     # Warn env users in case of wrong method execution order
     game_env = OrderEnforcingWrapper(game_env)
 
-    # Load the packaged default instances.json to be played and pass an optional filter
-    game_iterator = GameInstanceIterator.from_game_spec(game_spec, sub_selector=game_instance_filter)
-    game_env = GameInstanceIteratorWrapper(game_env, game_iterator, single_pass=single_pass)
+    # Load the packaged default instances.json to be played and apply an optional filter
+    game_instances = GameInstances.from_game_spec(game_spec)
+    game_instances = game_instances.filter(instances_filter)
+    game_env = GameInstanceIteratorWrapper(game_env, game_instances, single_pass=single_pass)
     return game_env
+
+
+def _notify_on_error(method):
+    """Decorator for GameMasterEnv methods that notifies callbacks when a game episode ends
+    unexpectedly due to an exception, then reraises.
+
+    This ensures callbacks such as SignalFileSaver can write signal files (e.g. error.json)
+    regardless of whether the episode ended normally or due to an error, mirroring the
+    on_game_end call that happens in step() on normal completion.
+
+    Only notifies when game_master is already initialised (i.e. after create_game_master()
+    succeeded in reset()), so callbacks always receive a valid game_master instance.
+    """
+
+    @wraps(method)
+    def wrapper(self: "GameMasterEnv", *args, **kwargs):
+        try:
+            return method(self, *args, **kwargs)
+        except Exception as e:
+            if self.game_master is not None and self.game_instance is not None:
+                self.callbacks.on_game_end(self.game_master, self.game_instance, e)
+            raise
+
+    return wrapper
 
 
 class GameMasterEnv(AECEnv):
 
-    def __init__(self, game_benchmark: GameBenchmark, *, callbacks: GameBenchmarkCallbackList | None = None):
+    def __init__(self, game_benchmark: GameBenchmark, *, callbacks: GameBenchmarkCallbackList | None = None,
+                 reward_func: Callable[[dict, str, GameState, dict], float] | None = None,
+                 feedback_func: Callable[[dict, str, GameState, dict], str | None] | None = None):
         super().__init__()
         self.game_benchmark = game_benchmark
         self.callbacks = callbacks or GameBenchmarkCallbackList()
+        self._reward_func = reward_func or self._default_reward
+        self._feedback_func = feedback_func
         self.game_master: GameMaster | None = None  # initialized on reset()
         self.game_instance: dict | None = None  # initialized on reset()
         self.experiment: dict | None = None  # initialized on reset()
@@ -138,10 +190,23 @@ class GameMasterEnv(AECEnv):
         )
         self._action_space = spaces.Text(max_length=8192)
 
+    @staticmethod
+    def _default_reward(observation: dict, action: str, state: GameState, info: dict) -> float:
+        """Default reward function mapping game outcome to scalar reward.
+
+        Returns 1. on success, 0. on failure, -1. on abort, and 0. for non-terminal steps.
+
+        Note: relies on state.outcome being set (i.e. state is a GameState instance).
+        Legacy games that replace self.state with a custom dataclass need to provide a custom reward_func.
+        """
+        reward_mapping = {Outcome.SUCCESS: 1., Outcome.FAILURE: 0., Outcome.ABORTED: -1.}
+        return reward_mapping.get(getattr(state, 'outcome', None), 0.)
+
     def get_current_agent(self):
         """ Mapping the current player to an agent id """
         return self.player_to_agent_id[self.game_master.current_player.name]
 
+    @_notify_on_error
     def reset(self, seed: int | None = None, options: dict | None = None):
         self.options = options or {}
         assert "experiment" in self.options, "Missing 'experiment' in reset options"
@@ -176,6 +241,7 @@ class GameMasterEnv(AECEnv):
             self._cumulative_rewards[agent] = 0.
             self.infos[agent] = {}
 
+    @_notify_on_error
     def step(self, action: ActionType) -> None:
         """Accepts, executes, and logs the action of the current agent in the environment.
 
@@ -193,36 +259,43 @@ class GameMasterEnv(AECEnv):
             # Note: This removes the agent and selects the next (dead) agent in self.agents
             # or selects the next live agent stored during _deads_step_first() at the end of this step
             self._was_dead_step(action)
+            if not self.agents:
+                # PZ doesn't handle this case: All agents terminate simultaneously.
+                # See https://github.com/Farama-Foundation/PettingZoo/issues/652
+                self.agent_selection = None
             return
 
         # After step() current_player might have changed, so we reference it here already
         current_agent = self.get_current_agent()
+        current_player = self.player_by_agent_id[current_agent]
 
         # Get the context that was given from GM -> Player (logging happens in game_master.step)
-        current_context = self.game_master.get_context_for(self.player_by_agent_id[current_agent])
+        current_context = self.game_master.get_context_for(current_player)
 
         # Step possibly transitions the current agent (as specified by the game master)
         # Log the response action from Player -> GM
         done, info = self.game_master.step(action)
 
-        # Update current rewards and info for the current agent (response_score is returned in legacy master)
+        # Update current rewards and info for the current agent
         self._cumulative_rewards[current_agent] = 0
-        self.rewards[current_agent] = info.get("turn_score", info.get("response_score", 0.)) or 0.  # when None
+        self.rewards[current_agent] = self._reward_func(current_context, action, self.game_master.state, info)
+        if self._feedback_func is not None:
+            info["turn_feedback"] = self._feedback_func(current_context, action, self.game_master.state, info)
         self.infos[current_agent] = info
 
         # Inform callbacks about the game step results
-        game_step = GameStep(current_context, action, done, info)
+        game_step = GameStep(current_context, action, done, info, current_player.name, current_player.model.name)
         self.callbacks.on_game_step(self.game_master, self.game_instance, game_step)
 
         # The terminal case:
         # - Flag everyone as terminated so they all get a final "None" turn to observe the final reward
-        # - Distribute the game outcome as a team reward to all agents together (overwriting the individual turn_score)
+        # - Distribute the game outcome as a team reward to all agents together
         if done:
             for agent_id in self.agents:
                 # Note: we do not handle truncations separately yet, e.g., running out of turns
                 self.terminations[agent_id] = True
-                self.rewards[agent_id] = info.get("episode_score", 0.) or 0.  # when None
-            self.callbacks.on_game_end(self.game_master, self.game_instance)
+                self.rewards[agent_id] = self._reward_func(current_context, action, self.game_master.state, info)
+            self.callbacks.on_game_end(self.game_master, self.game_instance, rewards=self.rewards)
 
         # Collect and reset the rewards for all agents
         # Note: We accumulate the rewards to collect all environmental impacts on an agent until its next call of last()
@@ -257,13 +330,15 @@ class GameMasterEnv(AECEnv):
     def observation_space(self, agent: AgentID):
         """All agents share the same observation space.
 
+        Falls back to the default space before reset() is called (e.g. during AECToGymWrapper init).
         If necessary, use AEC wrapper to change the action space, e.g., to include images.
         """
-        return self.observation_spaces[agent]
+        return self.observation_spaces.get(agent, self._observation_space)
 
     def action_space(self, agent: AgentID):
         """All agents share the same action space. The agents are supposedly generalist models.
 
+        Falls back to the default space before reset() is called (e.g. during AECToGymWrapper init).
         If necessary, use AEC wrapper to change the action space.
         """
-        return self.action_spaces[agent]
+        return self.action_spaces.get(agent, self._action_space)

@@ -4,19 +4,15 @@ import inspect
 import logging
 import os
 import sys
-from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, ContextManager, Callable, Optional
 from tqdm import tqdm
 
 from clemcore import backends
-from clemcore.clemgame import GameBenchmarkCallbackList, GameBenchmarkCallback
 from clemcore.clemgame.master import GameMaster
 from clemcore.clemgame.metrics import GameScorer
 from clemcore.clemgame.registry import GameSpec
 from clemcore.clemgame.resources import GameResourceLocator, load_json
-from clemcore.clemgame.instances import GameInstanceIterator
 
 module_logger = logging.getLogger(__name__)
 stdout_logger = logging.getLogger("clemcore.run")
@@ -46,9 +42,9 @@ class GameBenchmark(GameResourceLocator):
         """
         super().__init__(game_spec.game_name, game_spec.game_path)
         self.game_spec = game_spec
-        self._extra_modules: List[str] = []  # additional modules loaded during load_from_spec
+        self._extra_modules: list[str] = []  # additional modules loaded during load_from_spec
 
-    def set_extra_modules(self, extra_modules: List[str]):
+    def set_extra_modules(self, extra_modules: list[str]):
         self._extra_modules = extra_modules
 
     def close(self):
@@ -63,26 +59,18 @@ class GameBenchmark(GameResourceLocator):
         self.close()
         return False
 
-    def compute_scores(self, results_dir: str):
+    def compute_scores(self, interaction_files: list[Path]):
         """Compute and store scores for each episode and player pair.
         Episode score JSON files are stored in each corresponding episode directory. Combined scores for a player/model
         pair are stored in the player pair directory.
         Args:
-            results_dir: Path to the results directory.
+            interaction_files: The path to the JSON files containing the interactions to score.
         """
-        results_root = results_dir
-        filter_games = [self.game_name]
-        interaction_files = glob.glob(os.path.join(results_root, '**', 'interactions.json'), recursive=True)
-        if filter_games:
-            interaction_files = [interaction_file for interaction_file in interaction_files
-                                 if any(game_name in interaction_file for game_name in filter_games)]
-        stdout_logger.info(f"Found {len(interaction_files)} interaction files to score. "
-                           f"Games: {filter_games if filter_games else 'all'}")
         error_count = 0
         for interaction_file in tqdm(interaction_files, desc="Scoring episodes"):
             try:
-                interactions = load_json(interaction_file)
-                interactions_dir = Path(interaction_file).parent
+                interactions = load_json(str(interaction_file))
+                interactions_dir = interaction_file.parent
                 instance = load_json(os.path.join(interactions_dir, "instance.json"))  # sibling file
                 experiment_dir = interactions_dir.parent
                 experiment = load_json(os.path.join(experiment_dir, "experiment.json"))  # parent file
@@ -97,7 +85,7 @@ class GameBenchmark(GameResourceLocator):
             stdout_logger.error(
                 f"{self.game_name}: '{error_count}' exceptions occurred: See clembench.log for details.")
 
-    def create_game_master(self, experiment: Dict, player_models: List[backends.Model]) -> GameMaster:
+    def create_game_master(self, experiment: dict, player_models: list[backends.Model]) -> GameMaster:
         """Create a game-specific GameMaster subclass instance to run the game with.
         Must be implemented!
         Args:
@@ -108,7 +96,7 @@ class GameBenchmark(GameResourceLocator):
         """
         raise NotImplementedError()
 
-    def create_game_scorer(self, experiment: Dict, game_instance: Dict) -> GameScorer:
+    def create_game_scorer(self, experiment: dict, game_instance: dict) -> GameScorer:
         """Create a game-specific GameScorer subclass instance to score benchmark records with.
         Must be implemented!
         Args:

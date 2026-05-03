@@ -2,6 +2,7 @@ import abc
 import collections
 import logging
 from copy import deepcopy
+from enum import Enum
 from pathlib import Path
 from typing import Any, final
 
@@ -15,10 +16,53 @@ from clemcore.clemgame.resources import GameResourceLocator
 module_logger = logging.getLogger(__name__)
 
 
+class Outcome(str, Enum):
+    RUNNING = "running"
+    SUCCESS = "success"
+    FAILURE = "failure"
+    ABORTED = "aborted"
+
+    @property
+    def is_terminal(self) -> bool:
+        return self is not Outcome.RUNNING
+
+
+class GameState:
+
+    def __init__(self):
+        self.outcome = Outcome.RUNNING
+        self.current_turn: int | None = None
+        self.game_id: int | None = None
+        self.game_name: str | None = None
+        self.experiment_name: str | None = None
+
+    def __str__(self):
+        # Example: [Experiment] GameName (ID) | Turn: 5
+        experiment_name = self.experiment_name or "None"
+        return f"[{experiment_name[:10]}] {self.game_name} ({self.game_id}) | Turn: {self.current_turn:02d}"
+
+    def succeed(self):
+        self.outcome = Outcome.SUCCESS
+
+    def failed(self):
+        self.outcome = Outcome.FAILURE
+
+    def abort(self):
+        self.outcome = Outcome.ABORTED
+
+
 class GameMaster(GameEventSource):
     """Base class to contain game-specific functionality."""
 
-    def __init__(self, game_spec: GameSpec, experiment: dict, player_models: list[backends.Model]):
+    _GAME_STATE_FIELDS = vars(GameState()).keys()
+
+    def __init__(
+            self,
+            game_spec: GameSpec,
+            experiment: dict,
+            player_models: list[backends.Model],
+            state: GameState | None = None
+    ):
         """
         Args:
             game_spec: the game specifications for this game as given in the clemgame.json file
@@ -26,6 +70,9 @@ class GameMaster(GameEventSource):
             player_models: Player models to use for one or two players.
         """
         super().__init__()
+        self._state = state or GameState()
+        self._state.game_name = game_spec.game_name
+        self._state.experiment_name = experiment.get("name", None)
         self.game_spec = game_spec
         self.experiment = experiment
         # Automatic player expansion: When only a single model is given, then use this model given for each game role.
@@ -38,6 +85,46 @@ class GameMaster(GameEventSource):
         # Note: Using GameResourceLocator could be obsolete, when all necessary info is in the instances file.
         self.game_resources = GameResourceLocator(game_spec.game_name, game_spec.game_path)
         self._current_player: Player | None = None
+
+    @property
+    def state(self) -> GameState:
+        return self._state
+
+    @state.setter
+    def state(self, new_state: GameState):
+        """Allows subclasses to replace the game state during _on_setup() without losing
+        base field values set during __init__. When a subclass assigns a new state object
+        (e.g. self.state = TabooGameState(...)), any base GameState fields already populated
+        on the current state are carried over to the new state, unless the new state has
+        already set them explicitly (i.e. they are not None).
+        """
+        if self._state is not None:
+            for field in self._GAME_STATE_FIELDS:
+                if getattr(new_state, field) is None:
+                    setattr(new_state, field, getattr(self._state, field))
+        self._state = new_state
+
+    def _does_game_proceed(self) -> bool:
+        """Determine whether the game should continue.
+
+        The default implementation checks ``self.state.outcome``: the game proceeds
+        as long as the outcome is ``Outcome.RUNNING`` (i.e., not terminal).
+
+        To end the game, call one of the state transition methods in ``_advance_game``
+        or error hooks::
+
+            self.state.succeed()   # player achieved the goal
+            self.state.failed()    # player lost but game rules were followed
+            self.state.abort()     # unrecoverable error (e.g., repeated parse failures)
+
+        Subclasses may override this method for custom termination logic (e.g., turn
+        limits, external conditions). When overriding, ensure consistency with
+        ``self.state.outcome`` if both mechanisms are used.
+
+        Returns:
+            True if the game should continue, False if it should stop.
+        """
+        return not self.state.outcome.is_terminal
 
     @property
     def current_player(self) -> Player:
@@ -128,7 +215,13 @@ class DialogueGameMaster(GameMaster):
     Has most logging and gameplay procedures implemented, including convenient logging methods.
     """
 
-    def __init__(self, game_spec: GameSpec, experiment: dict, player_models: list[backends.Model]):
+    def __init__(
+            self,
+            game_spec: GameSpec,
+            experiment: dict,
+            player_models: list[backends.Model],
+            state: GameState | None = None
+    ):
         """
         Args:
             name: The name of the game (as specified in game_registry).
@@ -136,7 +229,7 @@ class DialogueGameMaster(GameMaster):
             experiment: The experiment (set of instances) to use.
             player_models: Player models to use for one or two players.
         """
-        super().__init__(game_spec, experiment, player_models)
+        super().__init__(game_spec, experiment, player_models, state)
         # the logging works with an internal mapping of "Player N" -> Player
         self.players_by_names: dict[str, Player] = collections.OrderedDict()
         self.context_for_player: dict[str, dict] = dict()  # context entries look like {"role":"user", "content": ...}
@@ -147,10 +240,6 @@ class DialogueGameMaster(GameMaster):
 
     def __setstate__(self, state):
         self.__dict__.update(state)
-
-    @property
-    def game_state(self):
-        return None
 
     @final
     def get_players(self) -> list[Player]:
@@ -221,11 +310,13 @@ class DialogueGameMaster(GameMaster):
         """
         self._on_setup(**kwargs)
         self._current_player = self.get_players()[self._current_player_idx]
+        self.state.game_id = kwargs.get("game_id", None)
 
     @final
     def before_game(self):
         self._on_before_game()
         self.current_round += 1
+        self.state.current_turn = 0
         self._on_before_round()
 
     @abc.abstractmethod
@@ -318,6 +409,7 @@ class DialogueGameMaster(GameMaster):
         # Log message exchange (assuming the step response is from the current player and context)
         self.log_gm_to_player(context, self.current_player)
         self.log_player_to_gm(response, self.current_player)
+        self.count_request()
 
         # Consume the initial_prompt (if set) now that we've committed to this turn
         self.initial_prompt_for_player.pop(self.current_player.name, None)
@@ -330,9 +422,6 @@ class DialogueGameMaster(GameMaster):
         except GameError as error:
             self._on_game_error(error)
 
-        self.info["turn_score"] = self.compute_turn_score()
-        self.info["turn_feedback"] = self.get_turn_feedback()
-
         # determine if the current player should pass the turn to the next player or get another turn:
         if self._should_pass_turn():  # True = move on to next player
             self._current_player = self._next_player()
@@ -342,12 +431,15 @@ class DialogueGameMaster(GameMaster):
             self.current_round += 1  # already increment here b.c. _does_game_proceed might rely on it
 
         done = not self._does_game_proceed()
+
         if done:
             self._on_after_game()
             self.log_game_end()
-            self.info["episode_score"] = self.compute_episode_score()
         elif self._start_next_round():  # prepare next round only when game has not ended yet
             self.__prepare_next_round()
+
+        if not done:
+            self.state.current_turn += 1
 
         info = deepcopy(self.info)
         self.info = {}  # reset info after each step
@@ -389,29 +481,6 @@ class DialogueGameMaster(GameMaster):
         self.log_next_round()  # add record entry for player turns
         self._on_before_round()
 
-    def get_turn_feedback(self) -> str | None:
-        """Optional textual feedback to be fed back to model (for playpen RL).
-        Returns:
-            A verbal feedback about the player's response given the context
-        """
-        return None
-
-    @abc.abstractmethod
-    def compute_turn_score(self) -> float:
-        """Score response based on last context (for playpen RL)
-        Returns:
-            The performance score for a player's response given its last context
-        """
-        pass
-
-    @abc.abstractmethod
-    def compute_episode_score(self) -> float:
-        """
-        Returns:
-            The performance of the agent over the whole episode
-        """
-        pass
-
     @abc.abstractmethod
     def _advance_game(self, player: Player, parsed_response: str):
         """
@@ -445,19 +514,6 @@ class DialogueGameMaster(GameMaster):
             The parsed response
         Raises:
             ParseError: If the message format is incorrect or the message cannot be properly parsed by the game master.
-        """
-        pass
-
-    @abc.abstractmethod
-    def _does_game_proceed(self) -> bool:
-        """Check if game should proceed.
-
-        Mandatory override.
-
-        This method is used to determine if a game should continue or be stopped. Both successful completion of the game
-        and game-ending failures should lead to this method returning False.
-        Returns:
-            A bool, True if game continues, False if game should stop.
         """
         pass
 

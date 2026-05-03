@@ -1,14 +1,14 @@
 import logging
-from dataclasses import asdict
-from typing import Dict, Any
+from typing import Callable, Dict, Any
 
 from datasets import load_dataset
-from openenv_core import Environment
+from openenv.core import Environment
 
 from clemcore.backends import load_models
 from clemcore.clemgame.callbacks.base import GameBenchmarkCallbackList
 from clemcore.clemgame.envs.openenv.models import ClemGameState, ClemGameObservation, ClemGameAction
 from clemcore.clemgame.envs.pettingzoo import gym_env, check_agent_mapping_for_training
+from clemcore.clemgame.master import GameState
 from clemcore.clemgame.registry import GameRegistry
 from clemcore.clemgame.instances import to_instance_filter
 
@@ -25,7 +25,9 @@ class ClemGameEnvironment(Environment):
                  learner_agent: str = "player_0",
                  env_agents: Dict[str, str] = None,
                  gen_args: Dict[str, Any] = None,
-                 callbacks: GameBenchmarkCallbackList = None
+                 callbacks: GameBenchmarkCallbackList = None,
+                 reward_func: Callable[[dict, str, GameState, dict], float] = None,
+                 feedback_func: Callable[[dict, str, GameState, dict], str | None] = None
                  ):
         super().__init__()
         module_logger.info("Initialize ClemGameEnvironment: "
@@ -37,11 +39,11 @@ class ClemGameEnvironment(Environment):
         game_spec = GameRegistry.from_directories_and_cwd_files().get_game_spec(game_name)
         check_agent_mapping_for_training(game_spec, {learner_agent: "learner", **env_agents})
 
-        game_instance_filter = None  # use all the default game instances of the game
+        instances_filter = None  # use all the default game instances of the game
         if game_instance_split:
             # We only use the training instances so that we can properly evaluate on the validation set later
             dataset = load_dataset("colab-potsdam/playpen-data", "instances", split=game_instance_split)
-            game_instance_filter = to_instance_filter(dataset)
+            instances_filter = to_instance_filter(dataset)
 
         # Finally, load the opponent models, which can take a long time for large models
         if game_spec.is_multi_player():  # if single_player env_agents should be None; or check has failed above
@@ -55,33 +57,41 @@ class ClemGameEnvironment(Environment):
         self._game_name = game_name
         self._state = ClemGameState(game_name=game_name, episode_id="episode_0", step_count=0, episode_count=0)
         self._game_env = gym_env(game_name,
-                                 game_instance_filter=game_instance_filter,
+                                 instances_filter=instances_filter,
                                  single_pass=single_pass,
                                  learner_agent=learner_agent,
                                  env_agents=env_agents,
-                                 callbacks=callbacks
+                                 callbacks=callbacks,
+                                 reward_func=reward_func,
+                                 feedback_func=feedback_func
                                  )
 
     def close(self):
         module_logger.info(f"Close ClemGameEnvironment {self._state.game_name}")
         self._game_env.close()
 
-    def reset(self) -> ClemGameObservation:
-        observation, info = self._game_env.reset()
+    def reset(self, seed=None, episode_id=None, **kwargs) -> ClemGameObservation:
+        if episode_id is not None:
+            kwargs["episode_id"] = episode_id
+        options = kwargs if kwargs else None
+        module_logger.info(
+            f"Reset ClemGameEnvironment '{self._state.game_name}' for episode '{self._state.episode_id}' "
+            f"with kwargs={kwargs}"
+        )
+        observation, info = self._game_env.reset(seed=seed, options=options)
         self._state.step_count = 0
         self._state.episode_count += 1
         self._state.episode_id = f"episode_{self._state.episode_count}"
-        module_logger.info(f"Reset ClemGameEnvironment {self._state.game_name} for episode {self._state.episode_id}")
         return ClemGameObservation(context=observation)
 
-    def step(self, action: ClemGameAction) -> ClemGameObservation:
+    def step(self, action: ClemGameAction, timeout_s=None, **kwargs) -> ClemGameObservation:
         if module_logger.isEnabledFor(logging.DEBUG):
-            module_logger.debug(f"Step ClemGameEnvironment with action={asdict(action)}")
+            module_logger.debug(f"Step ClemGameEnvironment with action={action.model_dump()}")
         observation, reward, done, truncated, info = self._game_env.step(action.response)
         if module_logger.isEnabledFor(logging.DEBUG):
-            print(f"Step ClemGameEnvironment result is "
-                  f"observation={observation}, reward={reward}, done={done}, "
-                  f"truncated={truncated}, info={info}")
+            module_logger.debug(f"Step ClemGameEnvironment result is "
+                                f"observation={observation}, reward={reward}, done={done}, "
+                                f"truncated={truncated}, info={info}")
         self._state.step_count += 1
         return ClemGameObservation(
             context=observation,

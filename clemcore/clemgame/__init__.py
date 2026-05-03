@@ -1,16 +1,16 @@
 from clemcore.clemgame.callbacks import episode_results_folder_callbacks
-from clemcore.clemgame.callbacks.base import GameBenchmarkCallback, GameBenchmarkCallbackList, GameStep
+from clemcore.clemgame.callbacks.base import GameBenchmarkCallback, GameBenchmarkCallbackList, GameStep, GameSnapshot
 from clemcore.clemgame.callbacks.files import ResultsFolder, InstanceFileSaver, ExperimentFileSaver, \
-    InteractionsFileSaver, RunFileSaver, EpochResultsFolder, EpisodeResultsFolder, EpochResultsFolderCallback, \
-    EpisodeResultsFolderCallback
+    InteractionsFileSaver, RunFileSaver, SignalFileSaver, EpochResultsFolder, EpisodeResultsFolder, \
+    EpochResultsFolderCallback, EpisodeResultsFolderCallback
 from clemcore.clemgame.envs.openenv.client import ClemGameEnv
 from clemcore.clemgame.envs.openenv.models import ClemGameObservation, ClemGameAction, ClemGameState
 from clemcore.clemgame.envs.pettingzoo import env, gym_env
 from clemcore.clemgame.errors import GameError, ParseError, RuleViolationError, ResponseError, ProtocolError, \
     NotApplicableError
-from clemcore.clemgame.instances import GameInstanceGenerator, GameInstanceIterator
+from clemcore.clemgame.instances import GameInstanceGenerator, GameInstances
 from clemcore.clemgame.resources import GameResourceLocator
-from clemcore.clemgame.master import GameMaster, DialogueGameMaster, Player
+from clemcore.clemgame.master import GameMaster, DialogueGameMaster, Player, GameState
 from clemcore.clemgame.metrics import GameScorer
 from clemcore.clemgame.recorder import GameInteractionsRecorder
 from clemcore.clemgame.registry import GameSpec, GameRegistry
@@ -21,7 +21,9 @@ __all__ = [
     "GameBenchmarkCallback",
     "GameBenchmarkCallbackList",
     "GameStep",
+    "GameSnapshot",
     "Player",
+    "GameState",
     "GameMaster",
     "DialogueGameMaster",
     "ClemGameEnv",
@@ -33,7 +35,7 @@ __all__ = [
     "GameScorer",
     "GameSpec",
     "GameRegistry",
-    "GameInstanceIterator",
+    "GameInstances",
     "GameInstanceGenerator",
     "episode_results_folder_callbacks",
     "EpochResultsFolder",
@@ -42,6 +44,7 @@ __all__ = [
     "EpisodeResultsFolderCallback",
     "ResultsFolder",
     "RunFileSaver",
+    "SignalFileSaver",
     "InstanceFileSaver",
     "ExperimentFileSaver",
     "InteractionsFileSaver",

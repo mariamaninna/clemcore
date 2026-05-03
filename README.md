@@ -1,4 +1,4 @@
-# clembench: A Framework for the Systematic Evaluation of Chat-Optimized Language Models as Conversational Agents
+# clemcore: A Framework for the Systematic Exploration of Generalist Models as Conversational Agents
 
 The cLLM (chat-optimized Large Language Model, "clem") framework allows researchers to easily evaluate the ability of large language models (LLM) by engaging them in games – rule-constituted activities played using language.
 
@@ -104,8 +104,7 @@ Optional extras:
 
 ```
 pip install clemcore[huggingface] # installs dependencies for using the local huggingface backend
-pip install clemcore[vllm]        # installs dependencies for using the local vllm backend
-pip install clemcore[slurk]       # installs dependencies for using the slurk backend 
+pip install clemcore[slurk]       # installs dependencies for using the slurk backend
 ```
 
 Check installation:
@@ -256,7 +255,6 @@ clem list backends
 # Then you can use models that specify one of the following backends:
 # anthropic (packaged)
 # slurk (packaged)
-# vllm (packaged)
 # mistral (packaged)
 # huggingface_local (packaged)
 # openai_compatible (packaged)
