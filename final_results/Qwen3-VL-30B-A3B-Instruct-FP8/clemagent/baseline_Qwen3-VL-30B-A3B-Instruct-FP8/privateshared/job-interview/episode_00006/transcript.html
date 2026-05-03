@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'privateshared', experiment 'job-interview', episode 0 with baseline_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>You are an applicant in a job interview. Here is a description of your CV:<br/><br/>WHAT: Job Application<br/>BACHELOR: Music<br/>INDUSTRY-EXPERIENCE: None<br/>HIGHEST-EDUCATION: Professor<br/>OTHER-SKILLS: Painting<br/>AVAILABILITY: As soon as possible<br/><br/>The recruiter does not know about it yet. <br/><br/>Questions from the recruiter will start with RECRUITER. Please reply in the form: ANSWER: &lt;one sentence&gt;<br/><br/>I will also ask you questions. These questions will start with ME: . Please answer these questions with: ASIDE: &lt;one sentence&gt;<br/><br/>Important: Give short, direct answers!<br/><br/>Let us start.</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>Ok.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for BACHELOR valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for INDUSTRY-EXPERIENCE valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for HIGHEST-EDUCATION valid after 2 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>yes</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for OTHER-SKILLS valid after 1 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is incorrect.</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>NA</p>
+    </div>
+
+    <div speaker="Game Master: parse" class="msg gm-gm" style="">
+        <p>no</p>
+    </div>
+
+    <div speaker="Game Master: metadata" class="msg gm-gm" style="">
+        <p>Answer for AVAILABILITY valid after 3 tries.</p>
+    </div>
+
+    <div speaker="Game Master: check" class="msg gm-gm" style="">
+        <p>Answer is correct.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>How long have you been working in your area in the industry?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: How long have you been working in your area in the industry?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>A strong response to this question should highlight your experience, relevance to the role, and confidence. Here&#x27;s an example of a professional and effective answer:<br/><br/>&quot;I’ve been working in the [specific industry, e.g., technology, healthcare, finance] industry for [number] years, with [number] of those years focused specifically on [your area of expertise, e.g., software development, project management, digital marketing]. In that time, I’ve gained hands-on experience in [mention key skills or responsibilities], which has allowed me to develop a deep understanding of [relevant industry trends or challenges]. I’m particularly proud of [briefly mention a key achievement or project], which helped me refine my skills and contribute meaningfully to my team’s success.&quot;<br/><br/>Be sure to tailor the answer to your background and the job you&#x27;re applying for. For example:<br/><br/>- If you&#x27;re a recent graduate: &quot;While I’m early in my career, I’ve gained valuable experience through internships and academic projects in [field], where I developed strong skills in [skills]. I’m eager to apply that foundation in a professional setting.&quot;<br/>- If you have extensive experience: &quot;I’ve been in the [industry] for over 10 years, starting as a [entry-level role] and progressing to [current role]. This journey has given me a comprehensive understanding of [key aspects of the industry], and I’ve led teams and projects that delivered [specific results].&quot;<br/><br/>Keep it concise, honest, and focused on how your experience makes you a strong fit for the role.</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What other skills do you have?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What other skills do you have?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>A strong response to the question **&quot;What other skills do you have?&quot;** should highlight both your technical and soft skills—especially those that are relevant to the role and the company. The key is to be concise, confident, and tailored to the job description.<br/><br/>Here’s an example of a professional and effective answer:<br/><br/>**&quot;In addition to my core expertise in [your main skill, e.g., data analysis, software development, client relations], I have strong skills in [list 2–3 relevant skills, e.g., project management, cross-functional collaboration, problem-solving, and data visualization]. I’m also proficient in [specific tools or technologies, e.g., Python, Salesforce, Agile methodologies], which I’ve used to [briefly mention a result, e.g., streamline processes, improve team efficiency, or deliver successful projects]. On the soft skills side, I’m a strong communicator and team player—skills I’ve honed through [example, e.g., leading team initiatives or working with diverse stakeholders]. I believe these abilities allow me to contribute effectively in fast-paced, collaborative environments.&quot;**<br/><br/>### Tips to customize your answer:<br/>- **Match the job description**: If the role emphasizes leadership, include leadership skills. If it’s technical, highlight tools or systems you’ve used.<br/>- **Be specific**: Instead of saying “I’m good with computers,” say “I’m proficient in Excel, SQL, and Tableau for data analysis.”<br/>- **Include results**: Link skills to outcomes when possible (e.g., “used project management tools to deliver a project 2 weeks ahead of schedule”).<br/>- **Balance technical and soft skills**: Employers value both.<br/><br/>### Example for a marketing role:<br/>&quot;I have strong skills in digital marketing, content strategy, and SEO, and I’m proficient in tools like Google Analytics, HubSpot, and Canva. I also have excellent communication and copywriting skills, which I’ve used to develop campaigns that increased engagement by 40% on social media. Additionally, I’m highly organized and detail-oriented—skills that help me manage multiple campaigns simultaneously and meet tight deadlines.&quot;<br/><br/>Keep your answer focused, authentic, and aligned with the role.</p>
+    </div>
+</div><div class="game-round" data-round="2">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is your availability?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What is your availability?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>A strong response to the question **&quot;What is your availability?&quot;** should be clear, professional, and aligned with the job requirements—especially if you&#x27;re being asked about start dates, work hours, or flexibility.<br/><br/>Here’s an example of a confident and effective answer:<br/><br/>**&quot;I’m available to start immediately, and I’m fully flexible with work hours to meet the needs of the role. I’m happy to work standard business hours, and I’m also open to adjusting my schedule if required—such as occasional evening or weekend work—especially during key project deadlines or team initiatives. I’m committed to being reliable and responsive, and I’m ready to contribute from day one.&quot;**<br/><br/>### Tips to tailor your answer:<br/>- **If you’re available immediately**: Be direct—this is a strong advantage.<br/>- **If you need a notice period**: Be honest but positive. For example:  <br/>  *&quot;I’m currently in the final stages of wrapping up my current role and can provide a two-week notice. I’m eager to transition quickly and would be available to start as soon as possible, ideally within the next two weeks.&quot;*<br/>- **If the job requires flexibility**: Highlight your adaptability.  <br/>  *&quot;I’m comfortable with flexible hours and can adjust my schedule to support team needs, including early mornings, late evenings, or weekends when necessary.&quot;*<br/>- **If it’s a remote or hybrid role**: Mention your availability to work remotely and your ability to collaborate across time zones if applicable.<br/><br/>### Example for a remote role:<br/>&quot;I’m fully available to start immediately and am comfortable working remotely. I have a reliable home office setup and am available during standard business hours, with flexibility to accommodate meetings or deadlines outside of regular hours when needed.&quot;<br/><br/>Keep your answer concise, positive, and focused on your willingness to meet the role’s demands.</p>
+    </div>
+</div><div class="game-round" data-round="3">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What is your bachelor background?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What is your bachelor background?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>A strong response to the question **&quot;What is your bachelor background?&quot;** should clearly state your degree, major, and institution—while also connecting your academic experience to the role you&#x27;re applying for. This helps the recruiter see how your education has prepared you for the job.<br/><br/>Here’s an example of a professional and effective answer:<br/><br/>**&quot;I earned my Bachelor of Science in [Your Major, e.g., Computer Science, Business Administration, Marketing] from [Your University]. During my studies, I focused on [mention relevant coursework, projects, or areas of interest, e.g., data analysis, digital marketing strategies, or software development], which helped me build a strong foundation in [key skills or knowledge relevant to the role]. I also completed a capstone project on [briefly describe a relevant project], which allowed me to apply my academic knowledge to real-world problems. This experience, combined with my passion for [industry or field], has prepared me well for this role.&quot;**<br/><br/>### Tips to customize your answer:<br/>- **Be specific**: Name your degree, major, and university.<br/>- **Highlight relevant coursework or projects**: Focus on what’s most applicable to the job.<br/>- **Connect to the role**: Explain how your academic background supports your ability to succeed.<br/>- **Keep it concise**: Avoid unnecessary details—focus on what matters to the employer.<br/><br/>### Example for a software engineering role:<br/>&quot;I earned my Bachelor of Science in Computer Science from the University of Washington. I focused on algorithms, data structures, and software development, and completed a capstone project where I built a mobile app using React Native and Firebase. This hands-on experience helped me develop strong coding skills and a deep understanding of full-stack development—skills I’m excited to bring to this role.&quot;<br/><br/>### Example for a business or marketing role:<br/>&quot;I hold a Bachelor of Arts in Marketing from the University of Texas at Austin. My coursework in consumer behavior, digital marketing, and brand strategy gave me a solid foundation in marketing principles, and I led a team in a semester-long campaign that increased engagement by 35% for a local nonprofit. That experience helped me develop strategic thinking and data-driven decision-making skills that I’m eager to apply in this role.&quot;<br/><br/>Keep your answer clear, confident, and relevant to the position.</p>
+    </div>
+</div><div class="game-round" data-round="4">
+    <div speaker="GM (Game Master) to Player 2 (Questioner)" class="msg gm-player p2" style="">
+        <p>What is the next request?</p>
+    </div>
+
+    <div speaker="Player 2 (Questioner) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>What academic level have you achieved?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (Answerer)" class="msg gm-player p1" style="">
+        <p>RECRUITER: What academic level have you achieved?</p>
+    </div>
+
+    <div speaker="Player 1 (Answerer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>A strong response to the question **&quot;What academic level have you achieved?&quot;** should clearly and confidently state your highest level of education, along with relevant details such as your degree, field of study, and institution—especially if it&#x27;s directly related to the job.<br/><br/>Here’s an example of a professional and effective answer:<br/><br/>**&quot;I have achieved a Bachelor’s degree in [Your Major, e.g., Business Administration, Computer Science, Psychology] from [Your University]. I graduated with [mention honors, GPA, or relevant distinction if applicable, e.g., *cum laude* or a 3.8 GPA], and my academic focus included [mention key areas, e.g., data analysis, leadership, or software development], which has provided me with a strong foundation for this role.&quot;**<br/><br/>### Tips to customize your answer:<br/>- **Be specific**: Name your degree (e.g., Bachelor of Science, Bachelor of Arts), major, and university.<br/>- **Highlight achievements**: If you graduated with honors, had a high GPA, or completed a relevant thesis or capstone project, mention it.<br/>- **Connect to the role**: Briefly explain how your academic background supports your qualifications.<br/>- **Keep it concise**: Avoid unnecessary details—focus on what’s relevant to the employer.<br/><br/>### Example for a technical role:<br/>&quot;I have achieved a Bachelor of Science in Computer Science from the University of California, Berkeley. I graduated with honors and completed a senior project focused on machine learning algorithms, which gave me hands-on experience in data modeling and software development—skills that are directly applicable to this role.&quot;<br/><br/>### Example for a business or leadership role:<br/>&quot;I hold a Bachelor of Arts in Economics from New York University. I graduated with a 3.7 GPA and completed coursework in financial analysis and strategic planning, which helped me develop strong analytical and decision-making skills. I also led a student-run consulting group, where I applied my academic knowledge to real-world business challenges.&quot;<br/><br/>### Example for a recent graduate:<br/>&quot;I recently earned my Bachelor of Arts in Communications from the University of Michigan. My coursework in digital media, public relations, and content strategy has equipped me with the skills to create compelling messaging and manage brand narratives—experience I’m excited to bring to this role.&quot;<br/><br/>### If you have advanced degrees:<br/>**&quot;I hold a Master’s degree in [Field, e.g., Data Science, Finance, Education] from [University], which built on my undergraduate foundation and deepened my expertise in [specific area]. I also completed a thesis on [topic], which strengthened my research and analytical skills.&quot;**<br/><br/>Keep your answer clear, confident, and tailored to the job—showing how your academic achievements make you a strong candidate.</p>
+    </div>
+
+    <div speaker="Game Master: end" class="msg gm-gm" style="">
+        <p>Game finished.</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

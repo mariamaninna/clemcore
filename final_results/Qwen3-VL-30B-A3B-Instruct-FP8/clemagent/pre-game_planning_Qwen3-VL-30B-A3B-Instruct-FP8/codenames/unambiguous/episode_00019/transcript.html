@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'codenames', experiment 'unambiguous', episode 0 with NEW_base_planning_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="Game Master: board status" class="msg gm-gm" style="">
+        <p>{&#x27;hidden&#x27;: {&#x27;team&#x27;: [&#x27;motorcade&#x27;, &#x27;basement&#x27;, &#x27;coleslaw&#x27;, &#x27;cargo&#x27;, &#x27;factory&#x27;, &#x27;pharmacist&#x27;, &#x27;sorcerer&#x27;, &#x27;income&#x27;, &#x27;broker&#x27;], &#x27;innocent&#x27;: [&#x27;widower&#x27;, &#x27;latrine&#x27;, &#x27;pooch&#x27;, &#x27;haystack&#x27;, &#x27;drugstore&#x27;, &#x27;decorator&#x27;, &#x27;dime&#x27;], &#x27;opponent&#x27;: [&#x27;reindeer&#x27;, &#x27;petroleum&#x27;, &#x27;committee&#x27;, &#x27;allergy&#x27;, &#x27;bikini&#x27;, &#x27;luncheon&#x27;, &#x27;ammo&#x27;, &#x27;psychosis&#x27;], &#x27;assassin&#x27;: [&#x27;wildlife&#x27;]}, &#x27;revealed&#x27;: {&#x27;team&#x27;: {&#x27;team&#x27;: [], &#x27;innocent&#x27;: [], &#x27;opponent&#x27;: [], &#x27;assassin&#x27;: []}, &#x27;opponent&#x27;: {&#x27;team&#x27;: [], &#x27;innocent&#x27;: [], &#x27;opponent&#x27;: [], &#x27;assassin&#x27;: []}}}</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (ClueGiver)" class="msg gm-player p1" style="">
+        <p>Provide one single-word clue that relates to some of your team&#x27;s words from the list below. You can choose to how many and to which words your clue relates to.<br/>The goal is to have your partner guess all of your team&#x27;s words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an &#x27;opponent&#x27; or a &#x27;distractor&#x27; word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a &#x27;kill&#x27; word, the game ends and your team loses immediately.<br/>The more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.<br/><br/>Always give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:<br/><br/>CLUE: &lt;WORD&gt;<br/>TARGETS: &lt;TARGETS&gt;<br/><br/>Your team words are: motorcade, basement, coleslaw, cargo, factory, pharmacist, sorcerer, income, broker.<br/>Your opponent&#x27;s team words are: reindeer, petroleum, committee, allergy, bikini, luncheon, ammo, psychosis.<br/>Distractor words are: widower, latrine, pooch, haystack, drugstore, decorator, dime.<br/>The kill words are: wildlife.</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to Player 1 (ClueGiver)" class="msg player-player p1" style="">
+        <p>[<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;Provide one single-word clue that relates to some of your team&#x27;s words from the list below. You can choose to how many and to which words your clue relates to.\nThe goal is to have your partner guess all of your team&#x27;s words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an &#x27;opponent&#x27; or a &#x27;distractor&#x27; word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a &#x27;kill&#x27; word, the game ends and your team loses immediately.\nThe more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.\n\nAlways give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:\n\nCLUE: &lt;WORD&gt;\nTARGETS: &lt;TARGETS&gt;\n\nYour team words are: motorcade, basement, coleslaw, cargo, factory, pharmacist, sorcerer, income, broker.\nYour opponent&#x27;s team words are: reindeer, petroleum, committee, allergy, bikini, luncheon, ammo, psychosis.\nDistractor words are: widower, latrine, pooch, haystack, drugstore, decorator, dime.\nThe kill words are: wildlife.&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator &#x27;ACT:&#x27; on its own line. If multiple actions are required, write ACT: first and then all actions.&quot;<br/>  }<br/>]</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to Player 1 (ClueGiver)" class="msg player-player p1" style="">
+        <p>ACT: CLUE: transport<br/>TARGETS: motorcade, cargo, factory, broker, income, pharmacist, sorcerer, basement, coleslaw</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>CLUE: transport<br/>TARGETS: motorcade, cargo, factory, broker, income, pharmacist, sorcerer, basement, coleslaw</p>
+    </div>
+
+    <div speaker="Game Master: clue" class="msg gm-gm" style="">
+        <p>transport</p>
+    </div>
+
+    <div speaker="Game Master: targets" class="msg gm-gm" style="">
+        <p>[&#x27;motorcade&#x27;, &#x27;cargo&#x27;, &#x27;factory&#x27;, &#x27;broker&#x27;, &#x27;income&#x27;, &#x27;pharmacist&#x27;, &#x27;sorcerer&#x27;, &#x27;basement&#x27;, &#x27;coleslaw&#x27;]</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;motorcade&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;cargo&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;factory&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;broker&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;income&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;pharmacist&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;sorcerer&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;basement&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;coleslaw&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Guesser)" class="msg gm-player p2" style="">
+        <p>Provide a comma-separated list of up to 9 words from the following list that best relate or are most closely associated with the word &#x27;transport&#x27;. Always start your list of guess(es) with &#x27;GUESS: &#x27; and do not include any other text in your answer.<br/><br/>petroleum, ammo, motorcade, cargo, sorcerer, allergy, psychosis, bikini, factory, broker, pooch, coleslaw, wildlife, drugstore, dime, latrine, committee, basement, haystack, income, decorator, luncheon, pharmacist, reindeer, widower</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to Player 2 (Guesser)" class="msg player-player p2" style="">
+        <p>[<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;Provide a comma-separated list of up to 9 words from the following list that best relate or are most closely associated with the word &#x27;transport&#x27;. Always start your list of guess(es) with &#x27;GUESS: &#x27; and do not include any other text in your answer.\n\npetroleum, ammo, motorcade, cargo, sorcerer, allergy, psychosis, bikini, factory, broker, pooch, coleslaw, wildlife, drugstore, dime, latrine, committee, basement, haystack, income, decorator, luncheon, pharmacist, reindeer, widower&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator &#x27;ACT:&#x27; on its own line. If multiple actions are required, write ACT: first and then all actions.&quot;<br/>  }<br/>]</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to Player 2 (Guesser)" class="msg player-player p2" style="">
+        <p>GUESS: motorcade, cargo, petroleum, factory, drugstore, pharmacist, reindeer, committee, basement<br/><br/>ACT: GUESS: motorcade, cargo, petroleum, factory, drugstore, pharmacist, reindeer, committee, basement</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>GUESS: motorcade, cargo, petroleum, factory, drugstore, pharmacist, reindeer, committee, basement</p>
+    </div>
+
+    <div speaker="Game Master: guesses" class="msg gm-gm" style="">
+        <p>[&#x27;motorcade&#x27;, &#x27;cargo&#x27;, &#x27;petroleum&#x27;, &#x27;factory&#x27;, &#x27;drugstore&#x27;, &#x27;pharmacist&#x27;, &#x27;reindeer&#x27;, &#x27;committee&#x27;, &#x27;basement&#x27;]</p>
+    </div>
+
+    <div speaker="Game Master: team revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;motorcade&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: target revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;motorcade&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: team revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;cargo&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: target revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;cargo&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: team revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;petroleum&#x27;, &#x27;assignment&#x27;: &#x27;opponent&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: turn end after" class="msg gm-gm" style="">
+        <p>petroleum</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="Game Master: opponent revealed" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;bikini&#x27;, &#x27;assignment&#x27;: &#x27;opponent&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: board status" class="msg gm-gm" style="">
+        <p>{&#x27;hidden&#x27;: {&#x27;team&#x27;: [&#x27;basement&#x27;, &#x27;coleslaw&#x27;, &#x27;factory&#x27;, &#x27;pharmacist&#x27;, &#x27;sorcerer&#x27;, &#x27;income&#x27;, &#x27;broker&#x27;], &#x27;innocent&#x27;: [&#x27;widower&#x27;, &#x27;latrine&#x27;, &#x27;pooch&#x27;, &#x27;haystack&#x27;, &#x27;drugstore&#x27;, &#x27;decorator&#x27;, &#x27;dime&#x27;], &#x27;opponent&#x27;: [&#x27;reindeer&#x27;, &#x27;committee&#x27;, &#x27;allergy&#x27;, &#x27;luncheon&#x27;, &#x27;ammo&#x27;, &#x27;psychosis&#x27;], &#x27;assassin&#x27;: [&#x27;wildlife&#x27;]}, &#x27;revealed&#x27;: {&#x27;team&#x27;: {&#x27;team&#x27;: [&#x27;motorcade&#x27;, &#x27;cargo&#x27;], &#x27;innocent&#x27;: [], &#x27;opponent&#x27;: [&#x27;petroleum&#x27;], &#x27;assassin&#x27;: []}, &#x27;opponent&#x27;: {&#x27;team&#x27;: [], &#x27;innocent&#x27;: [], &#x27;opponent&#x27;: [&#x27;bikini&#x27;], &#x27;assassin&#x27;: []}}}</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 1 (ClueGiver)" class="msg gm-player p1" style="">
+        <p>The words motorcade, cargo were guessed correctly. The word petroleum was guessed but is an opponent word. Your teammate&#x27;s turn ended there.<br/>Now provide another clue relating to some of your remaining team words and a list of the related target words. Remember to start your clue with &#x27;CLUE: &#x27;, put a new line, and start your comma-separated list of target words with &#x27;TARGETS: &#x27;. Notice: some words have been removed from the lists compared to previous requests.<br/><br/>Your remaining team words are: basement, coleslaw, factory, pharmacist, sorcerer, income, broker.<br/>Remaining words for your opponent are: reindeer, committee, allergy, bikini, luncheon, ammo, psychosis.<br/>Remaining distractor words are: widower, latrine, pooch, haystack, drugstore, decorator, dime.<br/>Remaining kill words are: wildlife.</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to Player 1 (ClueGiver)" class="msg player-player p1" style="">
+        <p>[<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;Provide one single-word clue that relates to some of your team&#x27;s words from the list below. You can choose to how many and to which words your clue relates to.\nThe goal is to have your partner guess all of your team&#x27;s words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an &#x27;opponent&#x27; or a &#x27;distractor&#x27; word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a &#x27;kill&#x27; word, the game ends and your team loses immediately.\nThe more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.\n\nAlways give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:\n\nCLUE: &lt;WORD&gt;\nTARGETS: &lt;TARGETS&gt;\n\nYour team words are: motorcade, basement, coleslaw, cargo, factory, pharmacist, sorcerer, income, broker.\nYour opponent&#x27;s team words are: reindeer, petroleum, committee, allergy, bikini, luncheon, ammo, psychosis.\nDistractor words are: widower, latrine, pooch, haystack, drugstore, decorator, dime.\nThe kill words are: wildlife.&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;CLUE: transport\nTARGETS: motorcade, cargo, factory, broker, income, pharmacist, sorcerer, basement, coleslaw&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;The words motorcade, cargo were guessed correctly. The word petroleum was guessed but is an opponent word. Your teammate&#x27;s turn ended there.\nNow provide another clue relating to some of your remaining team words and a list of the related target words. Remember to start your clue with &#x27;CLUE: &#x27;, put a new line, and start your comma-separated list of target words with &#x27;TARGETS: &#x27;. Notice: some words have been removed from the lists compared to previous requests.\n\nYour remaining team words are: basement, coleslaw, factory, pharmacist, sorcerer, income, broker.\nRemaining words for your opponent are: reindeer, committee, allergy, bikini, luncheon, ammo, psychosis.\nRemaining distractor words are: widower, latrine, pooch, haystack, drugstore, decorator, dime.\nRemaining kill words are: wildlife.&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator &#x27;ACT:&#x27; on its own line. If multiple actions are required, write ACT: first and then all actions.&quot;<br/>  }<br/>]</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to Player 1 (ClueGiver)" class="msg player-player p1" style="">
+        <p>ACT: CLUE: work<br/>TARGETS: factory, pharmacist, broker, income, sorcerer, basement, coleslaw</p>
+    </div>
+
+    <div speaker="Player 1 (ClueGiver) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>CLUE: work<br/>TARGETS: factory, pharmacist, broker, income, sorcerer, basement, coleslaw</p>
+    </div>
+
+    <div speaker="Game Master: clue" class="msg gm-gm" style="">
+        <p>work</p>
+    </div>
+
+    <div speaker="Game Master: targets" class="msg gm-gm" style="">
+        <p>[&#x27;factory&#x27;, &#x27;pharmacist&#x27;, &#x27;broker&#x27;, &#x27;income&#x27;, &#x27;sorcerer&#x27;, &#x27;basement&#x27;, &#x27;coleslaw&#x27;]</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;factory&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;pharmacist&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;broker&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;income&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;sorcerer&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;basement&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="Game Master: word targeted" class="msg gm-gm" style="">
+        <p>{&#x27;word&#x27;: &#x27;coleslaw&#x27;, &#x27;assignment&#x27;: &#x27;team&#x27;}</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (Guesser)" class="msg gm-player p2" style="">
+        <p>The words motorcade, cargo were guessed correctly. The word petroleum was guessed but is an opponent word. Your turn ended there.<br/>Now provide another comma-separated list of at least 1 and up to 7 words from the following list of words that best relate or are most closely associated with the word &#x27;work&#x27;. Remember to start your answer with &#x27;GUESS: &#x27;. Notice: some words have been removed from the list compared to previous requests.<br/><br/>ammo, sorcerer, allergy, psychosis, factory, broker, pooch, coleslaw, wildlife, drugstore, dime, latrine, committee, basement, haystack, income, decorator, luncheon, pharmacist, reindeer, widower</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to Player 2 (Guesser)" class="msg player-player p2" style="">
+        <p>[<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;Provide a comma-separated list of up to 9 words from the following list that best relate or are most closely associated with the word &#x27;transport&#x27;. Always start your list of guess(es) with &#x27;GUESS: &#x27; and do not include any other text in your answer.\n\npetroleum, ammo, motorcade, cargo, sorcerer, allergy, psychosis, bikini, factory, broker, pooch, coleslaw, wildlife, drugstore, dime, latrine, committee, basement, haystack, income, decorator, luncheon, pharmacist, reindeer, widower&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;GUESS: motorcade, cargo, petroleum, factory, drugstore, pharmacist, reindeer, committee, basement&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;The words motorcade, cargo were guessed correctly. The word petroleum was guessed but is an opponent word. Your turn ended there.\nNow provide another comma-separated list of at least 1 and up to 7 words from the following list of words that best relate or are most closely associated with the word &#x27;work&#x27;. Remember to start your answer with &#x27;GUESS: &#x27;. Notice: some words have been removed from the list compared to previous requests.\n\nammo, sorcerer, allergy, psychosis, factory, broker, pooch, coleslaw, wildlife, drugstore, dime, latrine, committee, basement, haystack, income, decorator, luncheon, pharmacist, reindeer, widower&quot;<br/>  },<br/>  {<br/>    &quot;role&quot;: &quot;user&quot;,<br/>    &quot;content&quot;: &quot;You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator &#x27;ACT:&#x27; on its own line. If multiple actions are required, write ACT: first and then all actions.&quot;<br/>  }<br/>]</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to Player 2 (Guesser)" class="msg player-player p2" style="">
+        <p>The word &#x27;work&#x27; is closely associated with activities, jobs, and places where labor occurs. From the remaining list, the most relevant words are:<br/><br/>- factory: a place where work is done<br/>- broker: a person who works in finance or trade<br/>- income: money earned from work<br/>- decorator: a person who works in design<br/>- committee: a group that works together<br/>- basement: could be a place where work is done (e.g., work in a basement)<br/>- drugstore: a place where people work<br/>- pharmacist: a person who works in a drugstore<br/>- widower: not related to work<br/>- coleslaw: not related<br/>- ammo: not directly related<br/>- sorcerer: not related<br/>- allergy: not related<br/>- psychosis: not related<br/>- pooch: not related<br/>- dime: not related<br/>- latrine: not related<br/>- haystack: not related<br/>- reindeer: not related<br/><br/>The best associations with &#x27;work&#x27; are: factory, broker, income, decorator, committee, drugstore, pharmacist.<br/><br/>But since the game allows up to 7 words, and we need to pick the best ones, we should focus on the strongest associations.<br/><br/>Factory, broker, income, decorator, committee, drugstore, pharmacist — all are strong.<br/><br/>But the game may have a pattern: previous guesses were related to transport, and now we&#x27;re on work.<br/><br/>Let’s pick the most directly related to &#x27;work</p>
+    </div>
+
+    <div speaker="Player 2 (Guesser) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>The word &#x27;work&#x27; is closely associated with activities, jobs, and places where labor occurs. From the remaining list, the most relevant words are:<br/><br/>- factory: a place where work is done<br/>- broker: a person who works in finance or trade<br/>- income: money earned from work<br/>- decorator: a person who works in design<br/>- committee: a group that works together<br/>- basement: could be a place where work is done (e.g., work in a basement)<br/>- drugstore: a place where people work<br/>- pharmacist: a person who works in a drugstore<br/>- widower: not related to work<br/>- coleslaw: not related<br/>- ammo: not directly related<br/>- sorcerer: not related<br/>- allergy: not related<br/>- psychosis: not related<br/>- pooch: not related<br/>- dime: not related<br/>- latrine: not related<br/>- haystack: not related<br/>- reindeer: not related<br/><br/>The best associations with &#x27;work&#x27; are: factory, broker, income, decorator, committee, drugstore, pharmacist.<br/><br/>But since the game allows up to 7 words, and we need to pick the best ones, we should focus on the strongest associations.<br/><br/>Factory, broker, income, decorator, committee, drugstore, pharmacist — all are strong.<br/><br/>But the game may have a pattern: previous guesses were related to transport, and now we&#x27;re on work.<br/><br/>Let’s pick the most directly related to &#x27;work</p>
+    </div>
+
+    <div speaker="Game Master: validation error" class="msg gm-gm" style="">
+        <p>{&#x27;player&#x27;: &#x27;Guesser&#x27;, &#x27;type&#x27;: &#x27;rambling error&#x27;, &#x27;utterance&#x27;: &quot;The word &#x27;work&#x27; is closely associated with activities, jobs, and places where labor occurs. From the remaining list, the most relevant words are:\n\n- factory: a place where work is done\n- broker: a person who works in finance or trade\n- income: money earned from work\n- decorator: a person who works in design\n- committee: a group that works together\n- basement: could be a place where work is done (e.g., work in a basement)\n- drugstore: a place where people work\n- pharmacist: a person who works in a drugstore\n- widower: not related to work\n- coleslaw: not related\n- ammo: not directly related\n- sorcerer: not related\n- allergy: not related\n- psychosis: not related\n- pooch: not related\n- dime: not related\n- latrine: not related\n- haystack: not related\n- reindeer: not related\n\nThe best associations with &#x27;work&#x27; are: factory, broker, income, decorator, committee, drugstore, pharmacist.\n\nBut since the game allows up to 7 words, and we need to pick the best ones, we should focus on the strongest associations.\n\nFactory, broker, income, decorator, committee, drugstore, pharmacist — all are strong.\n\nBut the game may have a pattern: previous guesses were related to transport, and now we&#x27;re on work.\n\nLet’s pick the most directly related to &#x27;work&quot;, &#x27;message&#x27;: &#x27;Your answer contained more than one line, please only give one round of guesses on one line.&#x27;}</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

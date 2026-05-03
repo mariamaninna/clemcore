@@ -1,0 +1,40 @@
+[
+  {
+    "step": 0,
+    "agent": "player_0",
+    "context": "You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \"Next actions:\".\nFor example:\n> open cupboard\nNext actions: take orange, eat orange\n\nYou can have up to two objects in your inventory at the same time.\n\nYour goal for this game is: Put the banana in the freezer, the book on the side table and the plate on the table.\n\nOnce you have achieved your goal, write \"> done\" to end the game.\n\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.",
+    "trace": [
+      {
+        "type": "planning prompt",
+        "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \\\"Next actions:\\\".\\nFor example:\\n> open cupboard\\nNext actions: take orange, eat orange\\n\\nYou can have up to two objects in your inventory at the same time.\\n\\nYour goal for this game is: Put the banana in the freezer, the book on the side table and the plate on the table.\\n\\nOnce you have achieved your goal, write \\\"> done\\\" to end the game.\\n\\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line.\"\n  }\n]"
+      },
+      {
+        "type": "planning module",
+        "content": "ACT: > open cupboard  \nNext actions: take banana, take book"
+      },
+      {
+        "type": "response",
+        "content": "> open cupboard  \nNext actions: take banana, take book"
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "agent": "player_0",
+    "context": "You can't see a cupboard here.\n",
+    "trace": [
+      {
+        "type": "planning prompt",
+        "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a text adventure game. I will describe what you can perceive in the game. You write the single action you want to take in the game starting with >. Write your plan for your next actions on the line below your action, starting with \\\"Next actions:\\\".\\nFor example:\\n> open cupboard\\nNext actions: take orange, eat orange\\n\\nYou can have up to two objects in your inventory at the same time.\\n\\nYour goal for this game is: Put the banana in the freezer, the book on the side table and the plate on the table.\\n\\nOnce you have achieved your goal, write \\\"> done\\\" to end the game.\\n\\nYou are in a broom closet now. There are a broom and a mop. The broom is on the floor. The mop is on the floor. There is a passage to a hallway here.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"> open cupboard  \\nNext actions: take banana, take book\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You can't see a cupboard here.\\n\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line.\"\n  }\n]"
+      },
+      {
+        "type": "planning module",
+        "content": "ACT: look around  \nNext actions: check the hallway for a cupboard, look for objects that might be in the broom closet, determine if there's a way to access the freezer, book, or table from this location"
+      },
+      {
+        "type": "response",
+        "content": "look around  \nNext actions: check the hallway for a cupboard, look for objects that might be in the broom closet, determine if there's a way to access the freezer, book, or table from this location"
+      }
+    ]
+  }
+]

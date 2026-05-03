@@ -1,0 +1,306 @@
+{
+  "meta": {
+    "game_name": "codenames",
+    "experiment_name": "unambiguous",
+    "game_id": 1,
+    "results_folder": "NEW_base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "ClueGiver",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "Guesser",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.478824",
+        "action": {
+          "type": "board status",
+          "content": {
+            "hidden": {
+              "team": [
+                "lawsuit",
+                "pooch",
+                "pimple",
+                "tequila",
+                "brat",
+                "nephew",
+                "metaphor",
+                "doorman",
+                "courier"
+              ],
+              "innocent": [
+                "petroleum",
+                "motorcade",
+                "cholera",
+                "tact",
+                "teacher",
+                "penicillin",
+                "slipper"
+              ],
+              "opponent": [
+                "census",
+                "bra",
+                "affliction",
+                "asteroid",
+                "marijuana",
+                "remorse",
+                "cavalry",
+                "outburst"
+              ],
+              "assassin": [
+                "inventor"
+              ]
+            },
+            "revealed": {
+              "team": {
+                "team": [],
+                "innocent": [],
+                "opponent": [],
+                "assassin": []
+              },
+              "opponent": {
+                "team": [],
+                "innocent": [],
+                "opponent": [],
+                "assassin": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T18:48:27.659919",
+        "action": {
+          "type": "send message",
+          "content": "Provide one single-word clue that relates to some of your team's words from the list below. You can choose to how many and to which words your clue relates to.\nThe goal is to have your partner guess all of your team's words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an 'opponent' or a 'distractor' word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a 'kill' word, the game ends and your team loses immediately.\nThe more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.\n\nAlways give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:\n\nCLUE: <WORD>\nTARGETS: <TARGETS>\n\nYour team words are: lawsuit, pooch, pimple, tequila, brat, nephew, metaphor, doorman, courier.\nYour opponent's team words are: census, bra, affliction, asteroid, marijuana, remorse, cavalry, outburst.\nDistractor words are: petroleum, motorcade, cholera, tact, teacher, penicillin, slipper.\nThe kill words are: inventor.",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"Provide one single-word clue that relates to some of your team's words from the list below. You can choose to how many and to which words your clue relates to.\\nThe goal is to have your partner guess all of your team's words based on the clues you give them, before the other team has uncovered all of theirs. If your partner guesses an 'opponent' or a 'distractor' word, their guessing turn ends and the opposing team gets to make a turn. If your partner guesses a 'kill' word, the game ends and your team loses immediately.\\nThe more words your clue relates to, the quicker you can win the game, but the harder the associations may be to guess for your partner, so choose your clue word wisely. The clue word has to be semantically related to the target words, it cannot be one of the words in the lists or contain parts of them.\\n\\nAlways give your single-word clue and your comma-separated list of related target words in the following format and make your answers as short as possible, never include any other text than is required in this form:\\n\\nCLUE: <WORD>\\nTARGETS: <TARGETS>\\n\\nYour team words are: lawsuit, pooch, pimple, tequila, brat, nephew, metaphor, doorman, courier.\\nYour opponent's team words are: census, bra, affliction, asteroid, marijuana, remorse, cavalry, outburst.\\nDistractor words are: petroleum, motorcade, cholera, tact, teacher, penicillin, slipper.\\nThe kill words are: inventor.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "ACT: CLUE: animal\nTARGETS: pooch, brat, nephew"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "get message",
+          "content": "CLUE: animal\nTARGETS: pooch, brat, nephew",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "clue",
+          "content": "animal"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "targets",
+          "content": [
+            "pooch",
+            "brat",
+            "nephew"
+          ]
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "word targeted",
+          "content": {
+            "word": "pooch",
+            "assignment": "team"
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "word targeted",
+          "content": {
+            "word": "brat",
+            "assignment": "team"
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:27.660919",
+        "action": {
+          "type": "word targeted",
+          "content": {
+            "word": "nephew",
+            "assignment": "team"
+          }
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-20T18:48:28.157135",
+        "action": {
+          "type": "send message",
+          "content": "Provide a comma-separated list of up to 3 words from the following list that best relate or are most closely associated with the word 'animal'. Always start your list of guess(es) with 'GUESS: ' and do not include any other text in your answer.\n\nbrat, inventor, doorman, pooch, tequila, marijuana, slipper, teacher, affliction, cavalry, cholera, census, tact, lawsuit, asteroid, metaphor, penicillin, pimple, courier, remorse, bra, outburst, motorcade, petroleum, nephew",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"Provide a comma-separated list of up to 3 words from the following list that best relate or are most closely associated with the word 'animal'. Always start your list of guess(es) with 'GUESS: ' and do not include any other text in your answer.\\n\\nbrat, inventor, doorman, pooch, tequila, marijuana, slipper, teacher, affliction, cavalry, cholera, census, tact, lawsuit, asteroid, metaphor, penicillin, pimple, courier, remorse, bra, outburst, motorcade, petroleum, nephew\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning module",
+          "content": "GUESS: pooch, census, motorcade\n\nACT: Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions."
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:28.157135",
+        "action": {
+          "type": "get message",
+          "content": "Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T18:48:28.157135",
+        "action": {
+          "type": "validation error",
+          "content": {
+            "player": "Guesser",
+            "type": "prefix error",
+            "utterance": "Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.",
+            "message": "Your guesses did not start with the correct prefix (GUESS: ).",
+            "prefix": "GUESS: "
+          }
+        }
+      }
+    ]
+  ],
+  "board end status": {
+    "hidden": {
+      "team": [
+        "lawsuit",
+        "pooch",
+        "pimple",
+        "tequila",
+        "brat",
+        "nephew",
+        "metaphor",
+        "doorman",
+        "courier"
+      ],
+      "innocent": [
+        "petroleum",
+        "motorcade",
+        "cholera",
+        "tact",
+        "teacher",
+        "penicillin",
+        "slipper"
+      ],
+      "opponent": [
+        "census",
+        "bra",
+        "affliction",
+        "asteroid",
+        "marijuana",
+        "remorse",
+        "cavalry",
+        "outburst"
+      ],
+      "assassin": [
+        "inventor"
+      ]
+    },
+    "revealed": {
+      "team": {
+        "team": [],
+        "innocent": [],
+        "opponent": [],
+        "assassin": []
+      },
+      "opponent": {
+        "team": [],
+        "innocent": [],
+        "opponent": [],
+        "assassin": []
+      }
+    }
+  },
+  "Number of turns": 2,
+  "Aborted": true,
+  "Lose": false,
+  "Game ended through assassin": false,
+  "Request Count": 2,
+  "Parsed Request Count": 1,
+  "Violated Request Count": 1,
+  "Cluegiver engaged flags": {
+    "IGNORE RAMBLING": 0,
+    "IGNORE FALSE TARGETS OR GUESSES": 0,
+    "REPROMPT ON ERROR": 0,
+    "STRIP WORDS": 0,
+    "IGNORE NUMBER OF TARGETS": 0
+  },
+  "Guesser engaged flags": {
+    "IGNORE RAMBLING": 0,
+    "IGNORE FALSE TARGETS OR GUESSES": 0,
+    "REPROMPT ON ERROR": 0,
+    "STRIP WORDS": 0,
+    "IGNORE NUMBER OF TARGETS": 0
+  }
+}

@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <style>
+        /* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */ 
+
+* {margin: 0; box-sizing: border-box;}
+
+body {
+  background-color: rgb(157, 152, 150);
+}
+
+.top-info {
+	text-align: center;
+	font: 1.25rem/1.5 sans-serif;
+	display: flex;
+	flex-direction: column;
+	padding: 1.25em;
+	width: 80%;
+  max-width: 1200px;
+	margin: auto;
+	background: #3f3e3e;
+	color: #fff;
+}
+
+.chat {
+  --rad: 1.5rem;
+  --rad-sm: .3rem;
+  font: 1rem/1.5 sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+}
+
+.msg {
+  position: relative;
+  padding: .6rem 1.2rem;
+  margin-inline: 1rem;
+  margin-block: 2rem;
+}
+
+.game-round {
+  padding: 1.5rem 0 1.5rem 0;
+  background-color: #f0f8ff; /* light background for content */
+  position: relative; /* Important to position the badge */
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+/* Badge in top-right corner */
+.game-round::before {
+  content: "Round " attr(data-round);
+  position: absolute;
+  top: .35rem;
+  right: 1.5rem;
+  color: #c4c3c3;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* For fenced code/monospace blocks */
+pre {
+  background: #e0e0e0;
+  border-left: .2rem solid #f36d33;
+  border-radius: .2rem;
+  color: #666;
+  font-family: monospace;
+  line-height: 1.0;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0.5rem 0.2rem;
+}/* This CSS is based on a stack overflow answer by Roko C. Buljan in https://stackoverflow.com/a/71155446 */
+
+.msg.player-gm.p1 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  background: #f39109;
+  color: #fff;
+  margin-right: 40%;
+}
+
+.msg.player-gm.p2 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  background: #874aaf;
+  color: #fff;
+  margin-left: 40%;
+}
+.msg.player-gm::before {
+  right: 1rem;
+}
+
+.msg.gm-player {
+  background: #c4c3c3;
+  color: #0c0c0c;
+}
+
+.msg.gm-player.p1 {
+  border-radius: var(--rad) var(--rad-sm) var(--rad-sm) var(--rad);
+  margin-right: 20%;
+  margin-left: 10%;
+}
+
+.msg.gm-player.p2 {
+  border-radius: var(--rad-sm) var(--rad) var(--rad) var(--rad-sm);
+  margin-right: 10%;
+  margin-left: 20%;
+}
+
+.msg.player-player.p1 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-right: 40%;
+  font-size: 0.8rem;
+  border-left: 3px solid #28a745;
+}
+
+.msg.player-player.p2 {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #d4edda;
+  color: #155724;
+  margin-left: 40%;
+  font-size: 0.8rem;
+  border-right: 3px solid #28a745;
+}
+
+.msg.gm-gm {
+  border-radius: var(--rad-sm) var(--rad-sm) var(--rad-sm) var(--rad-sm);
+  background: #f1f1f1;
+  color: #373636;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 0.8rem;
+
+}
+
+/* speaker labels */
+
+.msg::before {
+  content: attr(speaker);
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 100%;
+  color: #888;
+  white-space: nowrap;
+
+}
+
+/* Message info displayed on the right for GM to Player 1 */
+.msg.gm-player.a::before {
+  right: 1rem;
+}
+
+/* All other cases: message info on the left */
+.msg.player-gm.a::before, .msg.gm-player.b::before, .msg.gm-gm::before {
+  left: 1rem;
+}
+    </style>
+</head>
+<body>
+
+<br/>
+
+<div class="top-info">
+    <p>Interaction Transcript for game 'dond', experiment 'coop_en', episode 6 with baseline_clp_chat.</p>
+</div>
+
+<br/>
+
+<div class="chat">
+<div class="game-round" data-round="0">
+    <div speaker="GM (Game Master) to Player 1 (DealOrNoDealPlayer)" class="msg gm-player p1" style="">
+        <p>You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.<br/><br/>Rules:<br/>(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.<br/>(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.<br/>(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: &quot;[Proposal: &lt;number&gt; &lt;object name&gt;, &lt;number&gt; &lt;object name&gt;, &lt;...&gt;]&quot;<br/>(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.<br/>(e) Your goal is to maximize the sum of your score and the score of the other player.<br/><br/>Let us start.<br/><br/>The set of available items is:<br/><br/>2 chalks, 2 bells, 2 statues<br/><br/>Your secret value function is:<br/><br/>chalk: 2, bell: 0, statue: 3<br/><br/>IMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.<br/></p>
+    </div>
+
+    <div speaker="Player 1 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>I value chalks at 2 each and statues at 3 each, but bells are worth 0 to me. I notice that the other player might value bells more, since they&#x27;re worth 0 to me. I&#x27;ll start by asking what they value, to see if we can find a mutually beneficial split. <br/><br/>What are your values for the items?</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 2 each and statues at 3 each, but bells are worth 0 to me. I notice that the other player might value bells more, since they&#x27;re worth 0 to me. I&#x27;ll start by asking what they value, to see if we can find a mutually beneficial split. <br/><br/>What are your values for the items?</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (DealOrNoDealPlayer)" class="msg gm-player p2" style="">
+        <p>You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player.<br/><br/>Rules:<br/>(a) You and the other player are given a set of items. Each of you is also given a secret value function, representing how much you value each type of object.<br/>(b) You exchange messages with the other player to agree on who gets which items. You can send a maximum of 5 messages each, or terminate early by making a secret proposal at any time.<br/>(c) You are each asked to submit a secret proposal indicating the items you want formatted in square brackets as follows: &quot;[Proposal: &lt;number&gt; &lt;object name&gt;, &lt;number&gt; &lt;object name&gt;, &lt;...&gt;]&quot;<br/>(d) If your proposals are complementary, i.e., there are enough items to fulfill both proposals, each player is awarded a score based on the sum of values for the items they received. Otherwise, both of you get zero points.<br/>(e) Your goal is to maximize the sum of your score and the score of the other player.<br/><br/>Let us start.<br/><br/>The set of available items is:<br/><br/>2 chalks, 2 bells, 2 statues<br/><br/>Your secret value function is:<br/><br/>chalk: 1, bell: 1, statue: 3<br/><br/>IMPORTANT: Your messages, unless it is the secret proposal, are directly transmitted to the other player, so do not include any response to the rules or text announcing your message. To make a secret proposal, use the indicated format. Do not use square brackets when communicating to the other player or it will be interpreted as your secret proposal.<br/><br/><br/>I value chalks at 2 each and statues at 3 each, but bells are worth 0 to me. I notice that the other player might value bells more, since they&#x27;re worth 0 to me. I&#x27;ll start by asking what they value, to see if we can find a mutually beneficial split. <br/><br/>What are your values for the items?</p>
+    </div>
+
+    <div speaker="Player 2 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>I value chalks at 1 each, bells at 1 each, and statues at 3 each.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1 each, bells at 1 each, and statues at 3 each.</p>
+    </div>
+</div><div class="game-round" data-round="1">
+    <div speaker="GM (Game Master) to Player 1 (DealOrNoDealPlayer)" class="msg gm-player p1" style="">
+        <p>I value chalks at 1 each, bells at 1 each, and statues at 3 each.</p>
+    </div>
+
+    <div speaker="Player 1 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (DealOrNoDealPlayer)" class="msg gm-player p2" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Player 2 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since we both value statues the most, and I value bells more than you do (you value them at 0), maybe we can split the bells in a way that benefits both. I propose I take both bells, and you take both chalks and one statue. I would get: 2 bells (2×1 = 2) and 1 statue (3) = 5. You would get: 2 chalks (2×1 = 2) and 1 statue (3) = 5. Total: 10. <br/><br/>Let me know if you&#x27;re okay with this, or if you&#x27;d like to adjust.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since we both value statues the most, and I value bells more than you do (you value them at 0), maybe we can split the bells in a way that benefits both. I propose I take both bells, and you take both chalks and one statue. I would get: 2 bells (2×1 = 2) and 1 statue (3) = 5. You would get: 2 chalks (2×1 = 2) and 1 statue (3) = 5. Total: 10. <br/><br/>Let me know if you&#x27;re okay with this, or if you&#x27;d like to adjust.</p>
+    </div>
+</div><div class="game-round" data-round="2">
+    <div speaker="GM (Game Master) to Player 1 (DealOrNoDealPlayer)" class="msg gm-player p1" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since we both value statues the most, and I value bells more than you do (you value them at 0), maybe we can split the bells in a way that benefits both. I propose I take both bells, and you take both chalks and one statue. I would get: 2 bells (2×1 = 2) and 1 statue (3) = 5. You would get: 2 chalks (2×1 = 2) and 1 statue (3) = 5. Total: 10. <br/><br/>Let me know if you&#x27;re okay with this, or if you&#x27;d like to adjust.</p>
+    </div>
+
+    <div speaker="Player 1 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (DealOrNoDealPlayer)" class="msg gm-player p2" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Player 2 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since I value bells more than you do, maybe we can split the bells so you get one and I get one. I also value statues the most, so I’d prefer to get both if possible. Let me propose: I take both statues and one bell, and you take the remaining bell, both chalks, and one statue. That way, we both get items we value. Let me know if you’re okay with that.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since I value bells more than you do, maybe we can split the bells so you get one and I get one. I also value statues the most, so I’d prefer to get both if possible. Let me propose: I take both statues and one bell, and you take the remaining bell, both chalks, and one statue. That way, we both get items we value. Let me know if you’re okay with that.</p>
+    </div>
+</div><div class="game-round" data-round="3">
+    <div speaker="GM (Game Master) to Player 1 (DealOrNoDealPlayer)" class="msg gm-player p1" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since I value bells more than you do, maybe we can split the bells so you get one and I get one. I also value statues the most, so I’d prefer to get both if possible. Let me propose: I take both statues and one bell, and you take the remaining bell, both chalks, and one statue. That way, we both get items we value. Let me know if you’re okay with that.</p>
+    </div>
+
+    <div speaker="Player 1 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: valid message" class="msg gm-gm" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="GM (Game Master) to Player 2 (DealOrNoDealPlayer)" class="msg gm-player p2" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Player 2 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p2" style="">
+        <p>I value chalks at 1, bells at 1, and statues at 3. Since we both value statues the most, and I value bells more than you do (you value them at 0), maybe we can split the bells in a way that benefits both of us. I propose that I take the 2 bells, and you take the 2 chalks and 2 statues. That way, I get 2 bells (value 2), and you get 2 chalks (value 2) and 2 statues (value 6), totaling 8 for you. I get 2, you get 8, sum is 10. But I think we can do better.<br/><br/>Wait, let me reconsider. You value chalks at 1, bells at 1, statues at 3. I value chalks at 2, bells at 0, statues at 3. So I value chalks more than you do, and you value bells more than I do. So maybe I should take the chalks, you take the bells, and we both take the statues? But there are only 2 statues, so we can&#x27;t both take both.<br/><br/>Let me try: I take the 2 chalks (value 4), you take the 2 bells (value 2), and we split the 2 statues — one each. Then I get 4 + 3 = 7, you get 2 + 3 = 5, sum is 12. That&#x27;s better.<br/><br/>But I can do even better. If I take both statues (value 6), you take both bells (value 2), and I take both chalks (value 4), then I get 10, you get 2, sum is 12. But you get only 2, which is low.<br/><br/>Wait — I value chalks at 2 each, so 2 chalks = 4. You value chalks at 1 each, so 2 chalks = 2. So I value chalks more. You value bells at 1 each, I value them at 0. So you value bells more. Statues are 3 each for both.<br/><br/>So the best is: I take the chalks (value 4), you take the bells (value 2), and we split the statues — one each. Then I get 4 + 3 = 7, you get 2 + 3 = 5, sum = 12.<br/><br/>Alternatively, I take both statues (6), you take both bells (2), and I take both chalks (4) — I get 10, you get 2, sum = 12.<br/><br/>Same sum. But if I take both statues and both chalks, you get only bells — 2. But you might not accept that.<br/><br/>But the goal is to maximize the sum, not to be fair. So sum of 12 is the maximum possible? Let&#x27;s check.<br/><br/>Total value if all items are distributed:<br/><br/>- Chalks: 2 × (1 + 2) = 6<br/>- Bells: 2 × (1 + 0) = 2<br/>- Statues: 2 × (3 + 3) = 12<br/>- Total: 20<br/><br/>But we can&#x27;t get all 20 because we can&#x27;t both have the same item.<br/><br/>Maximum sum is when we assign each item to the person who values it more.<br/><br/>- Chalks: I value at 2, you at 1 → I should get both (value 4)<br/>- Bells: I value at 0, you at 1 → you should get both (value 2)<br/>- Statues: both value at 3 → either can take them, but to maximize sum, we can split them — one each → 3 + 3 = 6<br/><br/>Total sum: 4 + 2 + 6 = 12<br/><br/>So maximum possible sum is 12.<br/><br/>Now, to achieve that, I should get both chalks and one statue, you get both bells and one statue.<br/><br/>So my proposal: [Proposal: 2 chalk, 1 statue]<br/><br/>Your proposal: [Proposal: 2 bell, 1 statue]<br/><br/>That would work.<br/><br/>But I need to make a secret proposal now.<br/><br/>[Proposal: 2 chalk, 1 statue]</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>proposal</p>
+    </div>
+
+    <div speaker="Game Master: valid proposal" class="msg gm-gm" style="">
+        <p>[2, 0, 1]</p>
+    </div>
+</div><div class="game-round" data-round="4">
+    <div speaker="GM (Game Master) to Player 1 (DealOrNoDealPlayer)" class="msg gm-player p1" style="">
+        <p>The other player has submitted a secret proposal. It is now your turn to submit a proposal of your own.<br/></p>
+    </div>
+
+    <div speaker="Player 1 (DealOrNoDealPlayer) to GM (Game Master)" class="msg player-gm p1" style="">
+        <p>I value chalks at 1, bells at 2, and statues at 1.</p>
+    </div>
+
+    <div speaker="Game Master: valid response" class="msg gm-gm" style="">
+        <p>continue</p>
+    </div>
+
+    <div speaker="Game Master: error" class="msg gm-gm" style="">
+        <p>player was instructed to make a proposal</p>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

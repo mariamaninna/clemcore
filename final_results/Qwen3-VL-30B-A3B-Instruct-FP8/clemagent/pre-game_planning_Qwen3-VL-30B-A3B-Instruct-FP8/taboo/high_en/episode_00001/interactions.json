@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "game_name": "taboo",
+    "experiment_name": "high_en",
+    "game_id": 0,
+    "results_folder": "NEW_base_planning_clp_chat",
+    "clem_version": "3.5.0",
+    "round_count": 1,
+    "completed": true
+  },
+  "player_models": "BasePlanningAgent-clp-chat",
+  "players": {
+    "GM": {
+      "game_role": "Game Master",
+      "model_name": "programmatic"
+    },
+    "Player 1": {
+      "game_role": "WordDescriber",
+      "model_name": "programmatic"
+    },
+    "Player 2": {
+      "game_role": "WordGuesser",
+      "model_name": "programmatic"
+    }
+  },
+  "turns": [
+    [
+      {
+        "from": "GM",
+        "to": "Player 1",
+        "timestamp": "2026-04-20T19:08:15.120990",
+        "action": {
+          "type": "send message",
+          "content": "You are playing a collaborative word guessing game in which you have to describe a target word for another player to guess.\n\nRules:\n(a) You have to reply in the form: CLUE: <some text>. Guesses from the other player will start with GUESS.\n(b) You cannot use the target word itself, parts or morphological variants of it in your description.\n(c) In addition, the same rules apply for related words which are provided below.\n\nEnd conditions:\n(i) If you use the target word or a related word in your description, then you lose.\n(ii) If the other player can guess the target word in 3 tries, you both win.\n\nLet us start.\n\nThis is the target word that you need to describe and that the other player needs to guess:\n\nexactly\n\nRelated words are:\n\n- precisely\n- accurately\n- specifically\n\nImportant: You are under time pressure, give short descriptions that are to the point!",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a collaborative word guessing game in which you have to describe a target word for another player to guess.\\n\\nRules:\\n(a) You have to reply in the form: CLUE: <some text>. Guesses from the other player will start with GUESS.\\n(b) You cannot use the target word itself, parts or morphological variants of it in your description.\\n(c) In addition, the same rules apply for related words which are provided below.\\n\\nEnd conditions:\\n(i) If you use the target word or a related word in your description, then you lose.\\n(ii) If the other player can guess the target word in 3 tries, you both win.\\n\\nLet us start.\\n\\nThis is the target word that you need to describe and that the other player needs to guess:\\n\\nexactly\\n\\nRelated words are:\\n\\n- precisely\\n- accurately\\n- specifically\\n\\nImportant: You are under time pressure, give short descriptions that are to the point!\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "Player 1",
+        "action": {
+          "type": "planning module",
+          "content": "ACT: CLUE: With complete accuracy, without any deviation."
+        }
+      },
+      {
+        "from": "Player 1",
+        "to": "GM",
+        "timestamp": "2026-04-20T19:08:15.120990",
+        "action": {
+          "type": "get message",
+          "content": "CLUE: With complete accuracy, without any deviation.",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T19:08:15.120990",
+        "action": {
+          "type": "valid response",
+          "content": "continue"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T19:08:15.120990",
+        "action": {
+          "type": "valid clue",
+          "content": "with complete accuracy without any deviation"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "Player 2",
+        "timestamp": "2026-04-20T19:08:16.129198",
+        "action": {
+          "type": "send message",
+          "content": "You are playing a collaborative word guessing game in which you have to guess a target word that another player describes to you.\n\nYou can make one guess at each trial. You win when you guess the target word. You lose when you cannot guess it in 3 tries.\n\nAfter each trial you will get a new hint from the other player which starts with CLUE.\n\nMake your guesses by just saying the word using the following form: GUESS: <a word>\n\nLet us start.\n\n\nCLUE: With complete accuracy, without any deviation.",
+          "label": "context"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning prompt",
+          "content": "[\n  {\n    \"role\": \"user\",\n    \"content\": \"You are playing a collaborative word guessing game in which you have to guess a target word that another player describes to you.\\n\\nYou can make one guess at each trial. You win when you guess the target word. You lose when you cannot guess it in 3 tries.\\n\\nAfter each trial you will get a new hint from the other player which starts with CLUE.\\n\\nMake your guesses by just saying the word using the following form: GUESS: <a word>\\n\\nLet us start.\\n\\n\\nCLUE: With complete accuracy, without any deviation.\"\n  },\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a skilled planner. Above you see the game history. What would be the best next action? Openly reason about the next step, then produce your next action exactly as the game expects it preceded by the separator 'ACT:' on its own line. If multiple actions are required, write ACT: first and then all actions.\"\n  }\n]"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "Player 2",
+        "action": {
+          "type": "planning module",
+          "content": "The clue \"With complete accuracy, without any deviation\" suggests a word that means precise, exact, or flawless. Possible words include \"exact,\" \"precise,\" \"accurate,\" \"perfect,\" or \"unerring.\" Since the goal is to guess the target word in as few tries as possible, I should pick a word that is both likely and central to the clue.\n\n\"Exact\" is a strong candidate because it directly matches the description of \"complete accuracy, without any deviation.\" It's a common word in such contexts and fits the clue well.\n\nGUESS: exact"
+        }
+      },
+      {
+        "from": "Player 2",
+        "to": "GM",
+        "timestamp": "2026-04-20T19:08:16.129198",
+        "action": {
+          "type": "get message",
+          "content": "The clue \"With complete accuracy, without any deviation\" suggests a word that means precise, exact, or flawless. Possible words include \"exact,\" \"precise,\" \"accurate,\" \"perfect,\" or \"unerring.\" Since the goal is to guess the target word in as few tries as possible, I should pick a word that is both likely and central to the clue.\n\n\"Exact\" is a strong candidate because it directly matches the description of \"complete accuracy, without any deviation.\" It's a common word in such contexts and fits the clue well.\n\nGUESS: exact",
+          "label": "response"
+        }
+      },
+      {
+        "from": "GM",
+        "to": "GM",
+        "timestamp": "2026-04-20T19:08:16.129198",
+        "action": {
+          "type": "invalid format",
+          "content": "abort game"
+        }
+      }
+    ]
+  ]
+}
