@@ -1,6 +1,6 @@
 # Building a Universal Game-Playing Agent Infrastructure to Optimize Performance
 
-This repository supports the poster presentation of my Individual Module at the University of Potsdam. It extends [clemcore](https://github.com/clp-research/clemcore) — a framework for evaluating large language models by having them play Dialogue Games — with a set of custom agent architectures and experiments that explore how different agent architectures affect model performance across games.
+This repository supports the poster presentation of my Individual Module at the University of Potsdam. It extends [clemcore](https://github.com/clp-research/clemcore) — a framework for evaluating large language models by having them play Dialogue Games — with a set of custom agent architectures and experiments that explore how different agent architectures affect performance across games.
 
 > **Note:** This is a fork of `clp-research/clemcore`. The core framework code lives in `clemcore/` and has (mostly) not been modified, with the exception of transcript styling (clemcore/resources/ — CSS files). All project-specific additions are in `notebooks/`, `archive/`, `final_results/`, and `reports_and_decks/`.
 
@@ -88,13 +88,13 @@ pip install -e .
 Then clone the clembench games from my fork (required to reproduce the exact game instances used in these experiments):
 
 ```bash
-git clone https://github.com/mariamaninna/clembench
+git clone https://github.com/mariamaninna/clembench.git
 ```
 
 You can also use the default game instances:
 
 ```bash
-git clone https://github.com/clp-research/clembench
+git clone https://github.com/clp-research/clembench.git
 ```
 
 Add your API keys to `key.json` (copy from the provided template).
