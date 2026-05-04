@@ -1,3 +1,7 @@
+Note: This branch (`reflect`) contains early exploratory experiments conducted between approximately Nov–Dec 2025. The
+approach was later reconsidered; see `main` for the current implementation.
+
+
 # clembench: A Framework for the Systematic Evaluation of Chat-Optimized Language Models as Conversational Agents
 
 The cLLM (chat-optimized Large Language Model, "clem") framework allows researchers to easily evaluate the ability of large language models (LLM) by engaging them in games – rule-constituted activities played using language.
